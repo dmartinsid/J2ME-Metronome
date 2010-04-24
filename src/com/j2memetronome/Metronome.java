@@ -103,8 +103,16 @@ public class Metronome implements MetronomeConstants
     }
 
     public void playToms() {
-        drummer.playDrum(Drummer.LOW_TOM);
+        drummer.playDrum(Drummer.HI_MID_TOM);
+        drummer.playDrum(Drummer.HIGH_TOM);
+    }
+    public void playTomsLow() {
+        drummer.playDrum(Drummer.LOW_FLOOR_TOM);
         drummer.playDrum(Drummer.HIGH_FLOOR_TOM);
+    }
+    public void playTomsMid() {
+        drummer.playDrum(Drummer.LOW_TOM);
+        drummer.playDrum(Drummer.LOW_MID_TOM);
     }
     public void playBassDrum() {
         drummer.playDrum(Drummer.ACOUSTIC_BASS_DRUM);

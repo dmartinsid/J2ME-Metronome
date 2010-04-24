@@ -21,7 +21,8 @@ public class Constants
     public static final int STATE_EXIT = 7;
     public static final int STATE_METRONOME_STARTED = 8;
     public static final int STATE_METRONOME_STOPPED = 9;
-    public static final int STATE_KILL = 10;
+    public static final int STATE_METRONOME_OPTIONS = 10;
+    public static final int STATE_KILL = 11;
 
     
 
