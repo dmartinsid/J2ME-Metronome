@@ -40,15 +40,9 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice
 
     // Images Metronome
     private Image imageBGMetronome,
-            imageBall,
-            imageOptionsBox,
-            imageOptionsMetronome,
-            imageOptionsBG,
-            imageOptionsTitle,
-            imageArrowLeftMetronome,
-            imageArrowRightMetronome;
+            imageBall;
 
-     private Thread metronomeCanvasThread;
+     
 
     private Metronome metronome;
 
@@ -148,13 +142,11 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice
         imageOptionsBar = Image.createImage("/optionsBar.png");
 
         imageBGMetronome = Image.createImage("/metronome_canvas_bg.png");
-        imageOptionsBG = Image.createImage("/metronome_canvas_options_bg.png");
+        
         imageBall = Image.createImage("/ball.png");
-        imageOptionsBox = Image.createImage("/optionsBox.png");
-        imageOptionsMetronome = Image.createImage("/optionsMetronome.png");
-        imageOptionsTitle = Image.createImage("/optionsTitleMC.png");
-        imageArrowLeftMetronome = Image.createImage("/arrow_left.png");
-        imageArrowRightMetronome = Image.createImage("/arrow_right.png");
+
+        
+
     }
 
     /**
