@@ -55,7 +55,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
     // Font
     private Font[] font = new Font[2];
     // Text
-    private String textHelp[], textAbout[];
+    private String textHelp[], textAbout[], textCommons[];
     // Options
     private static int optionsSelectedSoundType = 0;
     private static int optionsSelectedSoundComponents = 0;
@@ -147,8 +147,9 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
     public void loadText() throws IOException {
         try {
             TxtReader txtReader = new TxtReader();
-            textAbout = txtReader.readFile("/about.txt");
-            textHelp = txtReader.readFile("/help.txt");
+            textAbout = txtReader.readFile("/text/about.txt");
+            textHelp = txtReader.readFile("/text/help.txt");
+            textCommons = txtReader.readFile("/text/common.txt");
         } catch (IOException io) {
             io.printStackTrace();
         }
@@ -186,7 +187,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
      * @param g
      */
     public void drawAbout(Graphics g) {
-        font[1].write(g, Constants.MAIN_MENU_ABOUT_TITLE, 5, 0,
+        font[1].write(g, textCommons[Constants.STRING_ABOUT], 5, 0,
                 DEVICE_WIDTH, font[1].getHeight(), Component.ALIGN_TOP_LEFT);
 
         g.drawImage(imageOptionsGrid, 0, 25, Graphics.TOP | Graphics.LEFT);
@@ -203,7 +204,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
      * @param g
      */
     public void drawHelp(Graphics g) {
-        font[1].write(g, Constants.MAIN_MENU_HELP_TITLE, 5, 0,
+        font[1].write(g, textCommons[Constants.STRING_HELP], 5, 0,
                 DEVICE_WIDTH, font[1].getHeight(), Component.ALIGN_TOP_LEFT);
 
         if (textHelp.length <= DEVICE_MAX_NUMBER_OF_LINES) {
@@ -235,7 +236,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
      * @param g
      */
     public void drawOptions(Graphics g) {
-        font[1].write(g, Constants.MAIN_MENU_OPTIONS_TITLE, 5, 0,
+        font[1].write(g, textCommons[Constants.STRING_OPTIONS], 5, 0,
                 DEVICE_WIDTH, font[1].getHeight(), Component.ALIGN_TOP_LEFT);
 
         g.drawImage(imageArrowLeft, 40, 70, Graphics.TOP | Graphics.LEFT);
@@ -246,10 +247,10 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
 
 
 
-        font[0].write(g, Constants.SOUND_OPTIONS_COMPONENTS_TEXT, 10, 70,
+        font[0].write(g, this.textCommons[Constants.STRING_KITS], 10, 70,
                 DEVICE_WIDTH, font[1].getHeight(), Component.ALIGN_TOP_LEFT);
 
-        font[0].write(g, Constants.SOUND_OPTIONS_COMPONENTS[optionsSelectedSoundComponents], 10, 90,
+        font[0].write(g, textCommons[Constants.STRING_BASS_DRUM_AND_SNARE + optionsSelectedSoundComponents], 10, 90,
                 60, font[1].getHeight(), Component.ALIGN_TOP_LEFT);
 
 
@@ -261,10 +262,10 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
      * @param g
      */
     public void drawExit(Graphics g) {
-        font[1].write(g, Constants.MAIN_MENU_EXIT_TITLE, 5, 0,
+        font[1].write(g, textCommons[Constants.STRING_EXIT], 5, 0,
                 DEVICE_WIDTH, font[1].getHeight(), Component.ALIGN_TOP_LEFT);
 
-        font[0].write(g, Constants.EXIT_TEXT[0].toUpperCase(), 0, 80,
+        font[0].write(g, textCommons[Constants.STRING_EXIT_TEXT], 0, 80,
                 DEVICE_WIDTH, 0, Component.ALIGN_TOP_CENTER);
     }
 
@@ -467,9 +468,9 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
                     case Canvas.KEY_NUM6:
 
                     case Constants.OPTIONS_SOUND_KITS:
-                        if (optionsSelectedSoundComponents + 1 < Constants.SOUND_OPTIONS_COMPONENTS.length) {
+                        if (optionsSelectedSoundComponents + 1 < Constants.DIFFERENT_SOUNDS) {
                             optionsSelectedSoundComponents++;
-                        } else if (optionsSelectedSoundComponents + 1 == Constants.SOUND_OPTIONS_COMPONENTS.length) {
+                        } else if (optionsSelectedSoundComponents + 1 == Constants.DIFFERENT_SOUNDS) {
                             optionsSelectedSoundComponents = 0;
                         }
                         break;
@@ -481,7 +482,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
                         if (optionsSelectedSoundComponents > 0) {
                             optionsSelectedSoundComponents--;
                         } else if (optionsSelectedSoundComponents - 1 < 0) {
-                            optionsSelectedSoundComponents = Constants.SOUND_OPTIONS_COMPONENTS.length - 1;
+                            optionsSelectedSoundComponents = Constants.DIFFERENT_SOUNDS - 1;
                         }
                         break;
 

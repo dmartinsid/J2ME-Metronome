@@ -34,14 +34,6 @@ public class Constants
     public static final int MAIN_MENU_LENGHT = 4;
     public static final int ABOUT_AND_HELP_TEXT_INITIAL_Y = 30;
 
-    //-------------------------------------------------------------
-    // MAIN MENU TEXT
-    //-------------------------------------------------------------
-    public static final String MAIN_MENU_ABOUT_TITLE = "ABOUT";
-    public static final String MAIN_MENU_HELP_TITLE = "HELP";
-    public static final String MAIN_MENU_OPTIONS_TITLE = "OPTIONS";
-    public static final String MAIN_MENU_EXIT_TITLE = "EXIT";
-
 
     //--------------------------------------------------------------
     // METRONOME CANVAS POSITION CONSTANTS
@@ -61,13 +53,23 @@ public class Constants
 
     public static final int OPTIONS_SOUND_KITS = 0;
 
+    // String IDs
+    public static int STRING_ABOUT = 0;
+    public static int STRING_HELP = 1;
+    public static int STRING_OPTIONS = 2;
+    public static int STRING_EXIT = 3;
+    public static int STRING_BASS_DRUM_AND_SNARE = 4;
+    public static int STRING_BASS_DRUM_SNARE_HH = 5;
+    public static int STRING_TOMS = 6;
+    public static int STRING_CLICK_AND_BELL = 7;
+    public static int STRING_KITS = 8;
+    public static int STRING_EXIT_TEXT = 9;
+    
 
-    public static String SOUND_OPTIONS_COMPONENTS[] = {"Bass Drum and Snare", "Bass Drum, Snare and HH", "Toms"};
-    public static String SOUND_OPTIONS_COMPONENTS_TEXT = "KITS:";
 
-    // Text
-    // need refactoring for txt and rms
-    public static String EXIT_TEXT[] = {"Are you sure?"};
+    public static int DIFFERENT_SOUNDS = 4;
+
+    
 
 
     
