@@ -2,7 +2,7 @@ package com.j2memetronome.view;
 
 import com.j2memetronome.Actions;
 import com.j2memetronome.Constants;
-import com.j2memetronome.FontConstants;
+import com.j2memetronome.font.FontConstants;
 import com.j2memetronome.Metronome;
 import com.j2memetronome.device.MidsizeDevice;
 import com.j2memetronome.TxtReader;
@@ -18,7 +18,7 @@ import mwt.Component;
 
 /**
  *
- * @author Deivid Martins
+ * @author Deivid Cunha Martins
  */
 public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
 
