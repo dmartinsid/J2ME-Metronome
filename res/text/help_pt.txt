@@ -1,0 +1,1 @@
+CONTROLES:NUMERADORCima - AumentarBaixo - DiminuirDENOMINATOR2 - Aumentar8 - DiminuirBPMEsquerda - AumentarDireita - DiminuirSTART OU STOPFire e OKMudar KITPound
