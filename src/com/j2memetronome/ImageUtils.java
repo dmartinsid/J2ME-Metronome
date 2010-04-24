@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.dmartins.app.metronome;
+package com.j2memetronome;
 
 import javax.microedition.lcdui.Image;
 

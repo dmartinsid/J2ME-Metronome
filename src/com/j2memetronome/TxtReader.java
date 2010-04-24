@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.dmartins.app.metronome;
+package com.j2memetronome;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,11 +18,11 @@ public class TxtReader {
     private StringBuffer stringBuffer;
     private Vector temp;
 
-    TxtReader()
+    public TxtReader()
     {
         
     }
-    TxtReader(String file) throws IOException
+    public TxtReader(String file) throws IOException
     {
         readFile(file);
     }

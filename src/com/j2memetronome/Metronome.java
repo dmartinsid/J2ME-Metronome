@@ -1,4 +1,6 @@
-package br.com.dmartins.app.metronome;
+package com.j2memetronome;
+
+import com.j2memetronome.midi.Drummer;
 
 /**
  *
@@ -10,11 +12,15 @@ public class Metronome implements MetronomeConstants
     private int numerator;
     private int denominator;
 
-    Metronome()
+    private Drummer drummer;
+
+    public Metronome()
     {
         this.beatsPerMinute = DEFAULT_BPM;
         this.denominator = DEFAULT_DENOMINATOR;
         this.numerator = DEFAULT_NUMERATOR;
+
+        drummer = new Drummer();
     }
     /**
      * Constructor
@@ -22,11 +28,13 @@ public class Metronome implements MetronomeConstants
      * @param numerator
      * @param denominator
      */
-    Metronome(int beatsPerMinute, int numerator, int denominator)
+    public Metronome(int beatsPerMinute, int numerator, int denominator)
     {
         this.beatsPerMinute = beatsPerMinute;
         this.denominator = denominator;
         this.numerator = numerator;
+
+        drummer = new Drummer();
     }
 
     /**
@@ -92,5 +100,27 @@ public class Metronome implements MetronomeConstants
 
     public void setNumerator(int numerator) {
         this.numerator = numerator;
+    }
+
+    public void playToms() {
+        drummer.playDrum(Drummer.LOW_TOM);
+        drummer.playDrum(Drummer.HIGH_FLOOR_TOM);
+    }
+    public void playBassDrum() {
+        drummer.playDrum(Drummer.ACOUSTIC_BASS_DRUM);
+    }
+
+    public void playBassDrumAndCrash() {
+        drummer.playDrum(Drummer.ACOUSTIC_BASS_DRUM);
+        drummer.playDrum(Drummer.CRASH_CYMBAL_1);
+    }
+
+    public void playBassDrumAndHiHat() {
+        drummer.playDrum(Drummer.ACOUSTIC_BASS_DRUM);
+        drummer.playDrum(Drummer.CLOSED_HI_HAT);
+    }
+
+    public void playSnare() {
+        drummer.playDrum(Drummer.ACOUSTIC_SNARE);
     }
 }

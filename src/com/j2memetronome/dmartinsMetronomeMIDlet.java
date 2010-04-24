@@ -1,5 +1,6 @@
-package br.com.dmartins.app.metronome;
+package com.j2memetronome;
 
+import com.j2memetronome.view.MetronomeCanvas;
 import javax.microedition.lcdui.Display;
 import javax.microedition.midlet.*;
 
@@ -24,7 +25,7 @@ public class dmartinsMetronomeMIDlet extends MIDlet {
         {
             midlet = this;
             display = Display.getDisplay(this);
-            new SplashScreen(display,new MainMenu());
+            new SplashScreen(display,new MetronomeCanvas());
         }
     }
 

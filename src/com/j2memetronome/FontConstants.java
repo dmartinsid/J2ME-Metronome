@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package br.com.dmartins.app.metronome;
+package com.j2memetronome;
 
 /**
  *

@@ -1,8 +1,10 @@
-package br.com.dmartins.app.metronome;
+package com.j2memetronome;
 
 /**
+ *  Unfortunately MIDP 2.0 no have Enums...
+ *  My unique choice is create a class with constants..
  *
- * @author dmartins
+ * @author Deivid Cunha Martins
  */
 public class Constants
 {
@@ -19,7 +21,8 @@ public class Constants
     public static final int STATE_EXIT = 7;
     public static final int STATE_METRONOME_STARTED = 8;
     public static final int STATE_METRONOME_STOPPED = 9;
-    public static final int STATE_METRONOME_OPTIONS = 10;
+    public static final int STATE_KILL = 10;
+
     
 
     //--------------------------------------------------------------
