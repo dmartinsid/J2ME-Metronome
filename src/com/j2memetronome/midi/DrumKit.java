@@ -32,6 +32,8 @@ public interface DrumKit
      int CRASH_CYMBAL_2 = 22;
      int VIBRASLAP = 23;
      int RIDE_CYMBAL2 = 24;
+     int METRONOME_BELL = 25;
+     int METRONOME_CLICK = 26;
 
      // MIDI numbers of each component
      int[] DRUM_NUMBERS = {
@@ -60,6 +62,8 @@ public interface DrumKit
         57, // Crash Cymbal 2
         58, // Vibraslap
         59, // Ride Cymbal 2
+        34, // Metronome Bell
+        33  // Metronome Click
     };
 
 }

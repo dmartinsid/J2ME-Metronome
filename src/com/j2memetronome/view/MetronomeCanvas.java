@@ -546,11 +546,15 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
                         break;
                     case DEVICE_BUTTON_RSK:
                         MetronomeCanvas.setState(Constants.STATE_MAIN_MENU);
-
-                        System.out.println(MetronomeCanvas.getState());
                         Display.getDisplay(midlet).setCurrent(this);
                         MetronomeCanvas.setState(Constants.STATE_MAIN_MENU);
                         break;
+                    case Canvas.KEY_POUND:
+                           if(optionsSelectedSoundComponents < Constants.DIFFERENT_SOUNDS - 1)
+                                optionsSelectedSoundComponents++;
+                           else
+                               optionsSelectedSoundComponents = 0;
+                           break;
 
                 }
                 break;
@@ -677,19 +681,30 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
             fontMetronome[1].write(g, String.valueOf(count++), 0, 35, DEVICE_WIDTH, 0, Component.ALIGN_TOP_CENTER);
 
             if (MetronomeCanvas.getSoundComponents() == 0) {
-                metronome.playBassDrum();
+                metronome.playSnare();
             } else if (MetronomeCanvas.getSoundComponents() == 1) {
                 metronome.playBassDrumAndCrash();
-            } else {
+            } else if(getSoundComponents() == 2) {
                 metronome.playTomsLow();
             }
+            else
+                metronome.playMetronomeBell();
 
         } else if (count == metronome.getNumerator() || count > metronome.getNumerator()) {
             fontMetronome[0].write(g, String.valueOf(count++), 0, 35, DEVICE_WIDTH, 0, Component.ALIGN_TOP_CENTER);
             if (MetronomeCanvas.getSoundComponents() == 2) {
                 metronome.playTomsMid();
-            } else {
+            }
+            else if(getSoundComponents() == 3)
+            {
+                metronome.playMetronomeClick();
+            }
+            else if (MetronomeCanvas.getSoundComponents() == 0) {
+                metronome.playBassDrum();
+            } else if (MetronomeCanvas.getSoundComponents() == 1) {
                 metronome.playSnare();
+            } else if(getSoundComponents() == 2){
+                metronome.playToms();
             }
 
             count = 1;
@@ -700,8 +715,12 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
                 metronome.playBassDrum();
             } else if (MetronomeCanvas.getSoundComponents() == 1) {
                 metronome.playBassDrumAndHiHat();
-            } else {
+            } else if(getSoundComponents() == 2){
                 metronome.playToms();
+            }
+            else
+            {
+                metronome.playMetronomeClick();
             }
         }
     }

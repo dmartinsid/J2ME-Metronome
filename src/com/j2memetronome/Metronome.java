@@ -131,4 +131,14 @@ public class Metronome implements MetronomeConstants
     public void playSnare() {
         drummer.playDrum(Drummer.ACOUSTIC_SNARE);
     }
+
+    public void playMetronomeClick()
+    {
+        drummer.playDrum(Drummer.METRONOME_CLICK);
+    }
+
+    public void playMetronomeBell()
+    {
+        drummer.playDrum(Drummer.METRONOME_BELL);
+    }
 }
