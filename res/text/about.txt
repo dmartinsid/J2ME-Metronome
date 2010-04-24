@@ -1,6 +1,10 @@
-MADE BY:
+J2ME METRONOME
+
+DEVELOPED BY:
 Deivid Cunha Martins
+
 CONTACT:
 dcmdeivid@gmail.com
+
 NEW RELEASES AT:
 j2memetronome.cjb.net
