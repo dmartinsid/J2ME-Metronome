@@ -251,8 +251,8 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
             }
         } else {
             g.drawImage(imageOptionsGrid, 0, 25, Graphics.TOP | Graphics.LEFT);
-            g.drawImage(imageArrowUp, DEVICE_WIDTH - 15, 25, Graphics.TOP | Graphics.LEFT);
-            g.drawImage(imageArrowDown, DEVICE_WIDTH - 15, DEVICE_HEIGHT - 25, Graphics.TOP | Graphics.LEFT);
+            g.drawImage(imageArrowUp, DEVICE_WIDTH - 15, 35, Graphics.TOP | Graphics.LEFT);
+            g.drawImage(imageArrowDown, DEVICE_WIDTH - 15, DEVICE_HEIGHT - 35, Graphics.TOP | Graphics.LEFT);
 
             for (int i = firstLineScroll; i < firstLineScroll + DEVICE_MAX_NUMBER_OF_LINES; i++) {
 
@@ -278,7 +278,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
 
         g.drawImage(imageArrowLeft, 5, 70, Graphics.TOP | Graphics.LEFT);
         g.drawImage(imageArrowRight, DEVICE_WIDTH - 5 - imageArrowRight.getWidth(), 70, Graphics.TOP | Graphics.LEFT);
-        g.drawImage(imageOptionsBar, 0, 70, Graphics.TOP | Graphics.LEFT);
+        g.drawImage(imageOptionsBar, 0, 60, Graphics.TOP | Graphics.LEFT);
 
         font[0].write(g, this.textCommons[Constants.STRING_KITS], 0, 70,
                 DEVICE_WIDTH, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
