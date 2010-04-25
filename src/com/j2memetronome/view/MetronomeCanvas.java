@@ -24,9 +24,13 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
 
     private static int state;           // Application state
     private int menuIdx;                // To hold the current highlighted menu option
+    private int menuLanguageId;
     private Thread menuThread;          // Menu Thread
     private int firstLineScroll = 0;
     private Timer timer;
+    private int language;
+    private String languageStr;
+
     // Images Menu
     private Image imageMenu,
             imageBGMainMenu,
@@ -39,9 +43,11 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
             imageArrowRight,
             imageOptionsGrid,
             imageOptionsBar;
+
     // Images Metronome
     private Image imageBGMetronome,
             imageBall;
+
     // Image Splash
     private Image imageSplash;
     private Metronome metronome;
@@ -49,6 +55,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
     int fadeRGB[] = new int[DEVICE_WIDTH * DEVICE_HEIGHT];
     int fadeCount = 255;
     private int count = 1;
+
     // Animation variables
     private int menuAnimationX = Constants.MENU_ANIMATION_X_INITIAL,
             menuAnimationY = Constants.MENU_ANIMATION_Y_INITIAL;
@@ -67,23 +74,26 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
         try {
             loadFonts();
             loadImages();
-            loadText();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
 
         Display.getDisplay(midlet).setCurrent(this);
         setFullScreenMode(true);
 
         // default is bpm equals 120 and measure 4/4
         metronome = new Metronome();
-        state = Constants.STATE_SPLASH;
+        state = Constants.STATE_CHOOSE_LANG;
         timer = new Timer();
         menuIdx = 0;
         // Create Thread and Start
         menuThread = new Thread(this);
         menuThread.start();
         repaint();
+
+        
+        
 
     }
 
@@ -115,7 +125,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
      */
     public void loadImages() throws IOException {
         imageBGMainMenu = Image.createImage("/bg.png");
-        imageMenu = Image.createImage("/menuitems.png");
+        
         imageBGTitle = Image.createImage("/menu_title.png");
         imageCancel = Image.createImage("/cancel.png");
         imageOK = Image.createImage("/ok.png");
@@ -130,14 +140,16 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
         imageOptionsGrid = Image.createImage("/optionsGridMainMenu.png");
         imageOptionsBar = Image.createImage("/optionsBar.png");
 
-        imageBGMetronome = Image.createImage("/metronome_canvas_bg.png");
+        
 
         imageBall = Image.createImage("/ball.png");
 
         imageSplash = Image.createImage("/Splash.png");
-
-
-
+    }
+    public void loadImagesLang() throws IOException
+    {
+        imageMenu = Image.createImage("/images_multilang/" + languageStr + "/menuitems.png");
+        imageBGMetronome = Image.createImage("/images_multilang/" + languageStr + "/metronome_canvas_bg.png");
     }
 
     /**
@@ -147,9 +159,9 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
     public void loadText() throws IOException {
         try {
             TxtReader txtReader = new TxtReader();
-            textAbout = txtReader.readFile("/text/about.txt");
-            textHelp = txtReader.readFile("/text/help.txt");
-            textCommons = txtReader.readFile("/text/common.txt");
+            textAbout = txtReader.readFile("/text/" + languageStr + "/about.txt");
+            textHelp = txtReader.readFile("/text/" + languageStr + "/help.txt");
+            textCommons = txtReader.readFile("/text/" + languageStr + "/common.txt");
         } catch (IOException io) {
             io.printStackTrace();
         }
@@ -167,6 +179,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
         switch (state) {
             case Constants.STATE_MAIN_MENU:
             case Constants.STATE_EXIT:
+                g.setClip(0, 0, 128, 160);
                 g.drawImage(imageOK, 0, DEVICE_HEIGHT - imageOK.getHeight(), Graphics.TOP | Graphics.LEFT);
                 g.drawImage(imageCancel, DEVICE_WIDTH - imageCancel.getWidth(), DEVICE_HEIGHT - imageCancel.getHeight(), Graphics.TOP | Graphics.LEFT);
                 break;
@@ -187,16 +200,36 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
      * @param g
      */
     public void drawAbout(Graphics g) {
+        g.drawImage(imageBGMainMenu, (DEVICE_WIDTH - imageBGMainMenu.getWidth()) / 2, (DEVICE_HEIGHT - imageBGMainMenu.getHeight()) / 2, 20);
+      
         font[1].write(g, textCommons[Constants.STRING_ABOUT], 5, 0,
                 DEVICE_WIDTH, font[1].getHeight(), Component.ALIGN_TOP_LEFT);
 
         g.drawImage(imageOptionsGrid, 0, 25, Graphics.TOP | Graphics.LEFT);
-        for (int i = 0; i < textAbout.length; i++) {
-            font[0].write(g, textAbout[i], 0,
-                    Constants.ABOUT_AND_HELP_TEXT_INITIAL_Y
-                    + ((int) (font[0].getHeight() * i * 1.5)),
-                    DEVICE_WIDTH, 0, Component.ALIGN_TOP_CENTER);
+
+        if (textHelp.length <= DEVICE_MAX_NUMBER_OF_LINES) {
+            for (int i = 0; i < textAbout.length; i++) {
+                font[0].write(g, textAbout[i], 0,
+                        Constants.ABOUT_AND_HELP_TEXT_INITIAL_Y
+                        + ((int) (font[0].getHeight() * i * 1.5)),
+                        DEVICE_WIDTH, 0, Component.ALIGN_TOP_CENTER);
+            }
         }
+        else
+        {
+            g.drawImage(imageOptionsGrid, 0, 25, Graphics.TOP | Graphics.LEFT);
+            g.drawImage(imageArrowUp, DEVICE_WIDTH - 15, 25, Graphics.TOP | Graphics.LEFT);
+            g.drawImage(imageArrowDown, DEVICE_WIDTH - 15, DEVICE_HEIGHT - 25, Graphics.TOP | Graphics.LEFT);
+
+            for (int i = firstLineScroll; i < firstLineScroll + DEVICE_MAX_NUMBER_OF_LINES; i++) {
+
+                font[0].write(g, textAbout[i], 0,
+                        Constants.ABOUT_AND_HELP_TEXT_INITIAL_Y
+                        + ((int) (font[0].getHeight() * (i - firstLineScroll) * 1.5)),
+                        DEVICE_WIDTH, 0, Component.ALIGN_TOP_CENTER);
+            }
+        }
+
     }
 
     /**
@@ -204,6 +237,8 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
      * @param g
      */
     public void drawHelp(Graphics g) {
+        g.drawImage(imageBGMainMenu, (DEVICE_WIDTH - imageBGMainMenu.getWidth()) / 2, (DEVICE_HEIGHT - imageBGMainMenu.getHeight()) / 2, 20);
+      
         font[1].write(g, textCommons[Constants.STRING_HELP], 5, 0,
                 DEVICE_WIDTH, font[1].getHeight(), Component.ALIGN_TOP_LEFT);
 
@@ -236,19 +271,17 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
      * @param g
      */
     public void drawOptions(Graphics g) {
+        g.drawImage(imageBGMainMenu, (DEVICE_WIDTH - imageBGMainMenu.getWidth()) / 2, (DEVICE_HEIGHT - imageBGMainMenu.getHeight()) / 2, 20);
+      
         font[1].write(g, textCommons[Constants.STRING_OPTIONS], 5, 0,
                 DEVICE_WIDTH, font[1].getHeight(), Component.ALIGN_TOP_LEFT);
 
-        g.drawImage(imageArrowLeft, 40, 70, Graphics.TOP | Graphics.LEFT);
+        g.drawImage(imageArrowLeft, 5, 70, Graphics.TOP | Graphics.LEFT);
         g.drawImage(imageArrowRight, DEVICE_WIDTH - 5 - imageArrowRight.getWidth(), 70, Graphics.TOP | Graphics.LEFT);
         g.drawImage(imageOptionsBar, 0, 70, Graphics.TOP | Graphics.LEFT);
 
-
-
-
-
-        font[0].write(g, this.textCommons[Constants.STRING_KITS], 10, 70,
-                DEVICE_WIDTH, font[1].getHeight(), Component.ALIGN_TOP_LEFT);
+        font[0].write(g, this.textCommons[Constants.STRING_KITS], 0, 70,
+                DEVICE_WIDTH, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
 
         font[0].write(g, textCommons[Constants.STRING_BASS_DRUM_AND_SNARE + optionsSelectedSoundComponents], 10, 90,
                 60, font[1].getHeight(), Component.ALIGN_TOP_LEFT);
@@ -262,6 +295,8 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
      * @param g
      */
     public void drawExit(Graphics g) {
+        g.drawImage(imageBGMainMenu, (DEVICE_WIDTH - imageBGMainMenu.getWidth()) / 2, (DEVICE_HEIGHT - imageBGMainMenu.getHeight()) / 2, 20);
+      
         font[1].write(g, textCommons[Constants.STRING_EXIT], 5, 0,
                 DEVICE_WIDTH, font[1].getHeight(), Component.ALIGN_TOP_LEFT);
 
@@ -274,6 +309,8 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
      * @param g
      */
     public void drawMenu(Graphics g) {
+        g.drawImage(imageBGMainMenu, (DEVICE_WIDTH - imageBGMainMenu.getWidth()) / 2, (DEVICE_HEIGHT - imageBGMainMenu.getHeight()) / 2, 20);
+      
         int cy = 0;
 
         menuAnimation(g);
@@ -283,6 +320,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
             cy = 45 + (i * 22);
             g.setClip(23, cy, 82, 20);
 
+            
             if (menuIdx == i) {
                 g.drawImage(imageMenu, 23, cy - 20, Graphics.TOP | Graphics.LEFT);
             } else {
@@ -292,9 +330,9 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
             //offset of the label is 6 pixels from the top of the button
             cy += 6;
             //set the clipping rectangle to where the label will be drawn
-            g.setClip(23, cy, 82, 8);
+            g.setClip(23, cy, 82, 10);
             //draw the label so that it is inside the clipping rectangle
-            g.drawImage(imageMenu, 23, cy - (40 + (i * 8)), Graphics.TOP | Graphics.LEFT);
+            g.drawImage(imageMenu, 23, cy - (40 + (i * 10)), Graphics.TOP | Graphics.LEFT);
         }
     }
 
@@ -302,6 +340,50 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
         if (imageSplash != null) {
             g.drawImage(imageSplash, 0, 0, Graphics.TOP | Graphics.LEFT);
         }
+    }
+
+    void drawChooseLanguage(Graphics g)
+    {
+        g.drawImage(this.imageBGMainMenu, 0, 0, Graphics.TOP | Graphics.LEFT);
+            g.setColor(0x111111);
+            g.fillRect(10, 75, 108, 20);
+            g.setColor(0xFFFFFF);
+            g.drawRect(10, 75, 108, 20);
+
+            g.setColor(0x111111);
+            g.fillRect(10, 95, 108, 20);
+            g.setColor(0xFFFFFF);
+            g.drawRect(10, 95, 108, 20);
+
+
+            
+        if(menuLanguageId == Constants.ENGLISH)
+        {
+            g.setColor(0x555555);
+            g.fillRect(10, 75, 108, 10);
+            g.setColor(0x777777);
+            g.fillRect(10, 85, 108, 10);
+            g.setColor(0xFFFFFF);
+            g.drawRect(10, 75, 108, 20);
+        }
+        else if(menuLanguageId == Constants.PORTUGUESE)
+        {
+            g.setColor(0x555555);
+            g.fillRect(10, 95, 108, 10);
+            g.setColor(0x777777);
+            g.fillRect(10, 105, 108, 10);
+            g.setColor(0xFFFFFF);
+            g.drawRect(10, 95, 108, 20);
+
+        }
+        
+        font[1].write(g,"CHOOSE", 0, 5, DEVICE_WIDTH, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
+        font[1].write(g,"YOUR", 0, 25, DEVICE_WIDTH, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
+        font[1].write(g,"LANGUAGE", 0, 45, DEVICE_WIDTH, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
+        font[0].write(g,"ENGLISH", 0, 80, DEVICE_WIDTH, font[0].getHeight(), Component.ALIGN_TOP_CENTER);
+        font[0].write(g,"PORTUGUÊS", 0, 100, DEVICE_WIDTH, font[0].getHeight(), Component.ALIGN_TOP_CENTER);
+
+        
     }
 
     public void drawMetronome(Graphics g) {
@@ -372,6 +454,55 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
 
     public void processEvents(int keyCode) {
         switch (state) {
+            case Constants.STATE_CHOOSE_LANG:
+                switch (keyCode) {
+                    case Canvas.KEY_NUM5:
+                    case DEVICE_BUTTON_LSK:
+                    case DEVICE_BUTTON_FIRE: {
+                        switch (menuLanguageId) {
+                            case Constants.ENGLISH:
+                                language = Constants.ENGLISH;
+                                languageStr = Constants.ENGLISH_RES;
+                                try {
+                                    this.loadImagesLang();
+                                    this.loadText();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                state = Constants.STATE_SPLASH;
+                                break;
+
+                            case Constants.PORTUGUESE:
+                                language = Constants.PORTUGUESE;
+                                languageStr = Constants.PORTUGUESE_RES;
+                                try {
+                                    this.loadImagesLang();
+                                    this.loadText();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                state = Constants.STATE_SPLASH;
+                                break;
+                        }
+                        break;
+                    }
+                    case DEVICE_BUTTON_UP:
+                        if (menuLanguageId == 0) {
+                            menuIdx = 1;
+                        } else if (menuLanguageId - 1 >= 0) {
+                            menuLanguageId--;
+                        }
+                        break;
+                    case DEVICE_BUTTON_DOWN:
+                        if (menuLanguageId + 1 < 2) {
+                            menuLanguageId++;
+                        } else {
+                            menuLanguageId = 0;
+                        }
+
+                        break;
+                }
+                break;
             case Constants.STATE_MAIN_MENU:
                 switch (keyCode) {
                     case Canvas.KEY_NUM5:
@@ -419,11 +550,13 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
                 }
                 break;
             case Constants.STATE_HELP:
+                case Constants.STATE_ABOUT:
                 switch (keyCode) {
                     case DEVICE_BUTTON_RSK:
                     case DEVICE_BUTTON_CLEAR:
                         state = Constants.STATE_MAIN_MENU;
                         resetAnimation();
+                        firstLineScroll = 0;
                         break;
                     case DEVICE_BUTTON_UP:
                         if (firstLineScroll > 0) {
@@ -432,21 +565,16 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
                         break;
                     case DEVICE_BUTTON_DOWN:
 
-                        if (firstLineScroll < textHelp.length - DEVICE_MAX_NUMBER_OF_LINES) {
+                        if (firstLineScroll < textHelp.length - DEVICE_MAX_NUMBER_OF_LINES && state == Constants.STATE_HELP) {
                             this.firstLineScroll++;
                         }
+                        else if(firstLineScroll < textAbout.length - DEVICE_MAX_NUMBER_OF_LINES && state == Constants.STATE_ABOUT) {
+                            this.firstLineScroll++;
+                        }
+
                         break;
 
 
-                }
-                break;
-            case Constants.STATE_ABOUT:
-                switch (keyCode) {
-                    case DEVICE_BUTTON_RSK:
-                    case DEVICE_BUTTON_CLEAR:
-                        state = Constants.STATE_MAIN_MENU;
-                        resetAnimation();
-                        break;
                 }
                 break;
             case Constants.STATE_OPTIONS:
@@ -602,11 +730,12 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
         g.setColor(0x00000000);
         g.fillRect(0, 0, DEVICE_WIDTH, DEVICE_HEIGHT);
 
-        // Draw Background Image
-        g.drawImage(imageBGMainMenu, (DEVICE_WIDTH - imageBGMainMenu.getWidth()) / 2, (DEVICE_HEIGHT - imageBGMainMenu.getHeight()) / 2, 20);
-        drawSoftKeys(g);
+        
 
         switch (state) {
+            case Constants.STATE_CHOOSE_LANG:
+                this.drawChooseLanguage(g);
+                break;
             case Constants.STATE_SPLASH:
                 drawSplash(g);
                 break;
@@ -632,6 +761,8 @@ public class MetronomeCanvas extends Canvas implements Runnable, MidsizeDevice {
                 drawMetronome(g);
                 break;
         }
+        // Draw Background Image
+        drawSoftKeys(g);
     }
     //----------------------------------------------------------------------
     // GETTERS AND SETTERS
