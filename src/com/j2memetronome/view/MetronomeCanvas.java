@@ -75,10 +75,10 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
         height = getHeight(); 
         width = getWidth();
 
-        if(width == 176)
-        {
-            Constants.DEVICE_MAX_NUMBER_OF_LINES = Constants.DEVICE_MAX_NUMBER_OF_LINES + 3;
-        }
+        //#ifdef LUXURY
+        Constants.DEVICE_MAX_NUMBER_OF_LINES = Constants.DEVICE_MAX_NUMBER_OF_LINES + 3;
+        //#endif
+        
         fadeRGB = new int[width * height];
         
         this.midlet = midlet;
@@ -89,6 +89,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
         
 
         Display.getDisplay(midlet).setCurrent(this);
@@ -117,15 +118,26 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
      * @throws java.io.IOException
      */
     public void loadFonts() throws IOException {
-        final Image images1 = Image.createImage("/128/arial_12.png");
-        final Image images2 = Image.createImage("/128/out.png");
+        //#ifdef MIDSIZED
+//#         final Image images1 = Image.createImage("/128/arial_12.png");
+//#         final Image images2 = Image.createImage("/128/out.png");
+//#         font[0] = new Font(images1, FontConstants.FONT_ARIAL_CHARSET, FontConstants.FONT_ARIAL_WIDTHS, 0);
+//#         font[1] = new Font(images2, FontConstants.FONT_OUT_CHARSET, FontConstants.FONT_OUT_WIDTHS, 0);
+//#
+//#         final Image images3 = Image.createImage("/128/numbers_green.png");
+//#         final Image images4 = Image.createImage("/128/numbers_red.png");
+//#         final Image images5 = Image.createImage("/128/tw_font.png");
+        //#elifdef LUXURY
+        final Image images1 = Image.createImage("/176/arial_12.png");
+        final Image images2 = Image.createImage("/176/out.png");
         font[0] = new Font(images1, FontConstants.FONT_ARIAL_CHARSET, FontConstants.FONT_ARIAL_WIDTHS, 0);
         font[1] = new Font(images2, FontConstants.FONT_OUT_CHARSET, FontConstants.FONT_OUT_WIDTHS, 0);
 
-        final Image images3 = Image.createImage("/128/numbers_green.png");
-        final Image images4 = Image.createImage("/128/numbers_red.png");
-        final Image images5 = Image.createImage("/128/tw_font.png");
+        final Image images3 = Image.createImage("/176/numbers_green.png");
+        final Image images4 = Image.createImage("/176/numbers_red.png");
+        final Image images5 = Image.createImage("/176/tw_font.png");
 
+        //#endif
         fontMetronome[0] = new Font(images3, FontConstants.FONT_GREEN_NUMBERS_CHARSET, FontConstants.FONT_GREEN_NUMBERS_WIDTHS, 0);
         fontMetronome[1] = new Font(images4, FontConstants.FONT_RED_NUMBERS_CHARSET, FontConstants.FONT_RED_NUMBERS_WIDTHS, 0);
         fontMetronome[2] = new Font(images5, FontConstants.FONT_TW_CHARSET, FontConstants.FONT_TW_WIDTHS, 0);
@@ -136,63 +148,63 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
      * @throws java.io.IOException
      */
     public void loadImages() throws IOException {
-        if (width == 128) {
-            imageBGMainMenu = Image.createImage("/128/bg.png");
+        //#ifdef MIDSIZED
+//#         imageBGMainMenu = Image.createImage("/128/bg.png");
+//#
+//#         imageBGTitle = Image.createImage("/128/menu_title.png");
+//#         imageCancel = Image.createImage("/128/cancel.png");
+//#         imageOK = Image.createImage("/128/ok.png");
+//#
+//#
+//#         imageArrowUp = Image.createImage("/128/arrow_up.png");
+//#         imageArrowDown = Image.createImage("/128/arrow_down.png");
+//#         imageArrowLeft = Image.createImage("/128/white_arrow_left.png");
+//#         imageArrowRight = Image.createImage("/128/white_arrow_right.png");
+//#
+//#
+//#         imageOptionsGrid = Image.createImage("/128/optionsGridMainMenu.png");
+//#         imageOptionsBar = Image.createImage("/128/optionsBar.png");
+//#
+//#
+//#
+//#         imageBall = Image.createImage("/128/ball.png");
+//#
+//#         imageSplash = Image.createImage("/128/Splash.png");
+//#
+        //#elifdef LUXURY
+        imageBGMainMenu = Image.createImage("/176/bg.png");
 
-            imageBGTitle = Image.createImage("/128/menu_title.png");
-            imageCancel = Image.createImage("/128/cancel.png");
-            imageOK = Image.createImage("/128/ok.png");
-
-
-            imageArrowUp = Image.createImage("/128/arrow_up.png");
-            imageArrowDown = Image.createImage("/128/arrow_down.png");
-            imageArrowLeft = Image.createImage("/128/white_arrow_left.png");
-            imageArrowRight = Image.createImage("/128/white_arrow_right.png");
-
-
-            imageOptionsGrid = Image.createImage("/128/optionsGridMainMenu.png");
-            imageOptionsBar = Image.createImage("/128/optionsBar.png");
-
-
-
-            imageBall = Image.createImage("/128/ball.png");
-
-            imageSplash = Image.createImage("/128/Splash.png");
-        }
-        else if (width == 176) {
-            imageBGMainMenu = Image.createImage("/176/bg.png");
-
-            imageBGTitle = Image.createImage("/176/menu_title.png");
-            imageCancel = Image.createImage("/176/cancel.png");
-            imageOK = Image.createImage("/176/ok.png");
-
-
-            imageArrowUp = Image.createImage("/176/arrow_up.png");
-            imageArrowDown = Image.createImage("/176/arrow_down.png");
-            imageArrowLeft = Image.createImage("/176/white_arrow_left.png");
-            imageArrowRight = Image.createImage("/176/white_arrow_right.png");
+        imageBGTitle = Image.createImage("/176/menu_title.png");
+        imageCancel = Image.createImage("/176/cancel.png");
+        imageOK = Image.createImage("/176/ok.png");
 
 
-            imageOptionsGrid = Image.createImage("/176/optionsGridMainMenu.png");
-            imageOptionsBar = Image.createImage("/176/optionsBar.png");
+        imageArrowUp = Image.createImage("/176/arrow_up.png");
+        imageArrowDown = Image.createImage("/176/arrow_down.png");
+        imageArrowLeft = Image.createImage("/176/white_arrow_left.png");
+        imageArrowRight = Image.createImage("/176/white_arrow_right.png");
+
+
+        imageOptionsGrid = Image.createImage("/176/optionsGridMainMenu.png");
+        imageOptionsBar = Image.createImage("/176/optionsBar.png");
 
 
 
-            imageBall = Image.createImage("/176/ball.png");
+        imageBall = Image.createImage("/176/ball.png");
 
-            imageSplash = Image.createImage("/176/Splash.png");
-        }
+        imageSplash = Image.createImage("/176/Splash.png");
+        //#endif
     }
     public void loadImagesLang() throws IOException
     {
-        if (width == 128) {
-            imageMenu = Image.createImage("/128/images_multilang/" + languageStr + "/menuitems.png");
-            imageBGMetronome = Image.createImage("/128/images_multilang/" + languageStr + "/metronome_canvas_bg.png");
-        }
-        else if (width == 176) {
-            imageMenu = Image.createImage("/176/images_multilang/" + languageStr + "/menuitems.png");
-            imageBGMetronome = Image.createImage("/176/images_multilang/" + languageStr + "/metronome_canvas_bg.png");
-        }
+        //#ifdef MIDSIZED
+//#         imageMenu = Image.createImage("/128/images_multilang/" + languageStr + "/menuitems.png");
+//#         imageBGMetronome = Image.createImage("/128/images_multilang/" + languageStr + "/metronome_canvas_bg.png");
+        //#elifdef LUXURY
+
+        imageMenu = Image.createImage("/176/images_multilang/" + languageStr + "/menuitems.png");
+        imageBGMetronome = Image.createImage("/176/images_multilang/" + languageStr + "/metronome_canvas_bg.png");
+        //#endif
     }
 
     /**
