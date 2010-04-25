@@ -79,4 +79,6 @@ public class Constants
     public static final String PORTUGUESE_RES = "pt";
     
 
+    // Others device constants
+    public static int DEVICE_MAX_NUMBER_OF_LINES = 6;
    }
