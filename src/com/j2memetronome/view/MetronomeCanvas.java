@@ -329,8 +329,8 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
         font[0].write(g, this.textCommons[Constants.STRING_KITS], 0, 70,
                 width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
 
-        font[0].write(g, textCommons[Constants.STRING_BASS_DRUM_AND_SNARE + optionsSelectedSoundComponents], 10, 90,
-                60, font[1].getHeight(), Component.ALIGN_TOP_LEFT);
+        font[0].write(g, textCommons[Constants.STRING_BASS_DRUM_AND_SNARE + optionsSelectedSoundComponents], 0, 90,
+                width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
 
 
 
@@ -364,6 +364,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
         for (int i = 0; i < Constants.MAIN_MENU_LENGHT; i++) {
 
             cy = 45 + (i * 22);
+
             g.setClip(23, cy, 82, 20);
 
             
@@ -411,6 +412,9 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
             g.fillRect(10, 85, width - 20, 10);
             g.setColor(0xFFFFFF);
             g.drawRect(10, 75, width - 20, 20);
+            font[1].write(g, "CHOOSE", 0, 5, width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
+            font[1].write(g, "YOUR", 0, 25, width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
+            font[1].write(g, "LANGUAGE", 0, 45, width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
         }
         else if(menuLanguageId == Constants.PORTUGUESE)
         {
@@ -420,12 +424,12 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
             g.fillRect(10, 105, width - 20, 10);
             g.setColor(0xFFFFFF);
             g.drawRect(10, 95, width - 20, 20);
-
+            font[1].write(g, "ESCOLHA", 0, 5, width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
+            font[1].write(g, "SEU", 0, 25, width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
+            font[1].write(g, "IDIOMA", 0, 45, width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
         }
         
-        font[1].write(g,"CHOOSE", 0, 5, width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
-        font[1].write(g,"YOUR", 0, 25, width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
-        font[1].write(g,"LANGUAGE", 0, 45, width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
+        
         font[0].write(g,"ENGLISH", 0, 80, width, font[0].getHeight(), Component.ALIGN_TOP_CENTER);
         font[0].write(g,"PORTUGUÊS", 0, 100, width, font[0].getHeight(), Component.ALIGN_TOP_CENTER);
 
