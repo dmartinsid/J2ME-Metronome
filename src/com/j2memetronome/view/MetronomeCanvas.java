@@ -726,7 +726,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
                 this.serviceRepaints();
 
                 try {
-                    Thread.sleep(16);
+                    Thread.sleep(14);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
