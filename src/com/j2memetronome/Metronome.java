@@ -21,14 +21,9 @@ public class Metronome implements MetronomeConstants
         this.denominator = DEFAULT_DENOMINATOR;
         this.numerator = DEFAULT_NUMERATOR;
 
-        try
-        {
+
             drummer = new Drummer();
-        }
-        catch(Exception e)
-        {
-            drummer = new FakeDrummer();
-        }
+      
     }
     /**
      * Constructor
@@ -42,14 +37,8 @@ public class Metronome implements MetronomeConstants
         this.denominator = denominator;
         this.numerator = numerator;
 
-        try
-        {
-            drummer = new Drummer();
-        }
-        catch(Exception e)
-        {
-            drummer = new FakeDrummer();
-        }
+        drummer = new Drummer();
+
     }
 
     /**

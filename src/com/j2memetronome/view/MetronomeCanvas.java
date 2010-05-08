@@ -830,7 +830,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
         MetronomeCanvas.setState(Constants.STATE_METRONOME_STOPPED);
     }
 
-    public void taskMetronome(Graphics g) {
+    public synchronized void  taskMetronome(Graphics g) {
         if (count == 1) {
             fontMetronome[1].write(g, String.valueOf(count++), 0, 35, width, 0, Component.ALIGN_TOP_CENTER);
 
