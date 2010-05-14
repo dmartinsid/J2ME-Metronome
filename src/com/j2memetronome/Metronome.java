@@ -1,7 +1,7 @@
 package com.j2memetronome;
 
 import com.j2memetronome.midi.Drummer;
-import com.j2memetronome.midi.FakeDrummer;
+
 
 /**
  *
@@ -23,7 +23,7 @@ public class Metronome implements MetronomeConstants
 
 
             drummer = new Drummer();
-      
+        
     }
     /**
      * Constructor
@@ -37,7 +37,7 @@ public class Metronome implements MetronomeConstants
         this.denominator = denominator;
         this.numerator = numerator;
 
-        drummer = new Drummer();
+            drummer = new Drummer();
 
     }
 

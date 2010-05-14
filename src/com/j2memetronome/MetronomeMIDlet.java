@@ -9,13 +9,17 @@ import javax.microedition.midlet.*;
  * @author Deivid Cunha Martins
  */
 public class MetronomeMIDlet extends MIDlet {
-    
 
-    public void startApp() {
-        new MetronomeCanvas(this);
+    private MetronomeCanvas canvas;
+    public void startApp()
+    {
+        if(canvas == null)
+            canvas = new MetronomeCanvas(this);
     }
 
-    public void pauseApp() {
+    public void pauseApp()
+    {
+        
     }
 
     public void kill()
