@@ -356,25 +356,25 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
             g.drawImage(imageMenu, 23, cy - (40 + (i * 10)), Graphics.TOP | Graphics.LEFT);
             //#else
 //#             cy = 67 + (i * 33);
-//#           
+//#
 //#             g.setClip(34, cy, 113, 27);
-//# 
-//# 
+//#
+//#
 //#            if (menuIdx == i) {
 //#                 g.drawImage(imageMenu, 34, cy - 27 , Graphics.TOP | Graphics.LEFT);
 //#             } else {
 //#                 g.drawImage(imageMenu, 34, cy, Graphics.TOP | Graphics.LEFT);
 //#             }
-//# 
+//#
 //#             //offset of the label is 6 pixels from the top of the button
 //#             cy += 7;
-//#             
+//#
 //#             //set the clipping rectangle to where the label will be drawn
 //#             g.setClip(34, cy , 113, 13);
 //#             // draw the label so that it is inside the clipping rectangle
 //#             g.drawImage(imageMenu, 34, cy - (55 + (i * 14)), Graphics.TOP | Graphics.LEFT);
-//#            
-//#             
+//#
+//#
             //#endif
         }
 
@@ -869,11 +869,16 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
     }
 
     public synchronized void  taskMetronome(Graphics g) {
+        // Backlight forever
+        // functionality requested by Hassaan Ejaz
+        Display.getDisplay(midlet).flashBacklight(1000);
         if (count == 1) {
             fontMetronome[1].write(g, String.valueOf(count++), 0, height/5, width, 0, Component.ALIGN_TOP_CENTER);
 
+            
+
             if (MetronomeCanvas.getSoundComponents() == 0) {
-                metronome.playSnare();
+                metronome.playSnare();               
             } else if (MetronomeCanvas.getSoundComponents() == 1) {
                 metronome.playBassDrumAndCrash();
             } else if(getSoundComponents() == 2) {
