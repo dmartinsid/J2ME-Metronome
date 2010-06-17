@@ -320,7 +320,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
         font[1].write(g, textCommons[Constants.STRING_EXIT], 5, 0,
                 width, font[1].getHeight(), Component.ALIGN_TOP_LEFT);
 
-        font[0].write(g, textCommons[Constants.STRING_EXIT_TEXT], 0, 80,
+        font[0].write(g, textCommons[Constants.STRING_EXIT_TEXT], 0, getHeight()/2,
                 width, 0, Component.ALIGN_TOP_CENTER);
     }
 
@@ -356,25 +356,25 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
             g.drawImage(imageMenu, 23, cy - (40 + (i * 10)), Graphics.TOP | Graphics.LEFT);
             //#else
 //#             cy = 67 + (i * 33);
-//#
+//# 
 //#             g.setClip(34, cy, 113, 27);
-//#
-//#
+//# 
+//# 
 //#            if (menuIdx == i) {
 //#                 g.drawImage(imageMenu, 34, cy - 27 , Graphics.TOP | Graphics.LEFT);
 //#             } else {
 //#                 g.drawImage(imageMenu, 34, cy, Graphics.TOP | Graphics.LEFT);
 //#             }
-//#
+//# 
 //#             //offset of the label is 6 pixels from the top of the button
 //#             cy += 7;
-//#
+//# 
 //#             //set the clipping rectangle to where the label will be drawn
 //#             g.setClip(34, cy , 113, 13);
 //#             // draw the label so that it is inside the clipping rectangle
 //#             g.drawImage(imageMenu, 34, cy - (55 + (i * 14)), Graphics.TOP | Graphics.LEFT);
-//#
-//#
+//# 
+//# 
             //#endif
         }
 
@@ -549,7 +549,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
                     }
                     case DEVICE_BUTTON_UP:
                         if (menuLanguageId == 0) {
-                            menuIdx = 1;
+                            menuLanguageId = 1;
                         } else if (menuLanguageId - 1 >= 0) {
                             menuLanguageId--;
                         }
