@@ -77,6 +77,8 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
 
         //#ifdef LUXURY
 //#         Constants.DEVICE_MAX_NUMBER_OF_LINES = Constants.DEVICE_MAX_NUMBER_OF_LINES + 3;
+        //#elifdef QVGA
+//#         Constants.DEVICE_MAX_NUMBER_OF_LINES = Constants.DEVICE_MAX_NUMBER_OF_LINES + 8;
         //#endif
         
         fadeRGB = new int[width * height];
@@ -223,8 +225,11 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
         font[1].write(g, textCommons[Constants.STRING_ABOUT], 5, 0,
                 width, font[1].getHeight(), Component.ALIGN_TOP_LEFT);
 
+        //#ifdef QVGA
+//#         g.drawImage(imageOptionsGrid, 0, width/9, Graphics.TOP | Graphics.LEFT);
+        //#else
         g.drawImage(imageOptionsGrid, 0, width/6, Graphics.TOP | Graphics.LEFT);
-
+        //#endif
         if (textHelp.length <= Constants.DEVICE_MAX_NUMBER_OF_LINES) {
             for (int i = 0; i < textAbout.length; i++) {
                 font[0].write(g, textAbout[i], 0,
@@ -239,7 +244,13 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
             g.drawImage(imageArrowUp, width - 15, height/6, Graphics.TOP | Graphics.LEFT);
             g.drawImage(imageArrowDown, width - 15, height - height/6, Graphics.TOP | Graphics.LEFT);
 
-            for (int i = firstLineScroll; i < firstLineScroll + Constants.DEVICE_MAX_NUMBER_OF_LINES; i++) {
+            
+            //#ifdef QVGA
+//#             for (int i = firstLineScroll; i < firstLineScroll + Constants.DEVICE_MAX_NUMBER_OF_LINES - 5; i++)
+            //#else
+            for (int i = firstLineScroll; i < firstLineScroll + Constants.DEVICE_MAX_NUMBER_OF_LINES;i++)
+            //#endif
+             {
 
                 font[0].write(g, textAbout[i], 0,
                         Constants.ABOUT_AND_HELP_TEXT_INITIAL_Y
@@ -260,7 +271,11 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
         font[1].write(g, textCommons[Constants.STRING_HELP], 5, 0,
                 width, font[1].getHeight(), Component.ALIGN_TOP_LEFT);
 
+        //#ifdef QVGA
+//#         g.drawImage(imageOptionsGrid, 0, width/9, Graphics.TOP | Graphics.LEFT);
+        //#else
          g.drawImage(imageOptionsGrid, 0, width/6, Graphics.TOP | Graphics.LEFT);
+         //#endif
          
         if (textHelp.length <= Constants.DEVICE_MAX_NUMBER_OF_LINES) {
             for (int i = 0; i < textHelp.length; i++) {
@@ -336,7 +351,49 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
         menuAnimation(g);
         
         for (int i = 0; i < Constants.MAIN_MENU_LENGHT; i++) {
-            //#ifndef LUXURY
+            //#ifdef LUXURY
+//#                         cy = 67 + (i * 33);
+//#
+//#             g.setClip(34, cy, 113, 27);
+//#
+//#
+//#            if (menuIdx == i) {
+//#                 g.drawImage(imageMenu, 34, cy - 27 , Graphics.TOP | Graphics.LEFT);
+//#             } else {
+//#                 g.drawImage(imageMenu, 34, cy, Graphics.TOP | Graphics.LEFT);
+//#             }
+//#
+//#             //offset of the label is 6 pixels from the top of the button
+//#             cy += 7;
+//#
+//#             //set the clipping rectangle to where the label will be drawn
+//#             g.setClip(34, cy , 113, 13);
+//#             // draw the label so that it is inside the clipping rectangle
+//#             g.drawImage(imageMenu, 34, cy - (55 + (i * 14)), Graphics.TOP | Graphics.LEFT);
+//#
+//#
+            //#elifdef QVGA
+//#             cy = 100 + (i * 49);
+//# 
+//#             g.setClip(50, cy, 155, 37);
+//# 
+//# 
+//#            if (menuIdx == i) {
+//#                 g.drawImage(imageMenu, 50, cy - 37 , Graphics.TOP | Graphics.LEFT);
+//#             } else {
+//#                 g.drawImage(imageMenu, 50, cy, Graphics.TOP | Graphics.LEFT);
+//#             }
+//# 
+//#             //offset of the label is 6 pixels from the top of the button
+//#             cy += 7;
+//# 
+//#             //set the clipping rectangle to where the label will be drawn
+//#             g.setClip(50, cy , 155, 17);
+//#             // draw the label so that it is inside the clipping rectangle
+//#             g.drawImage(imageMenu, 50, cy - (75 + (i * 19)), Graphics.TOP | Graphics.LEFT);
+//# 
+//# 
+            //#else
             cy = 45 + (i * 22);
 
             g.setClip(23, cy, 82, 20);
@@ -354,27 +411,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
             g.setClip(23, cy, 82, 10);
             //draw the label so that it is inside the clipping rectangle
             g.drawImage(imageMenu, 23, cy - (40 + (i * 10)), Graphics.TOP | Graphics.LEFT);
-            //#else
-//#             cy = 67 + (i * 33);
-//# 
-//#             g.setClip(34, cy, 113, 27);
-//# 
-//# 
-//#            if (menuIdx == i) {
-//#                 g.drawImage(imageMenu, 34, cy - 27 , Graphics.TOP | Graphics.LEFT);
-//#             } else {
-//#                 g.drawImage(imageMenu, 34, cy, Graphics.TOP | Graphics.LEFT);
-//#             }
-//# 
-//#             //offset of the label is 6 pixels from the top of the button
-//#             cy += 7;
-//# 
-//#             //set the clipping rectangle to where the label will be drawn
-//#             g.setClip(34, cy , 113, 13);
-//#             // draw the label so that it is inside the clipping rectangle
-//#             g.drawImage(imageMenu, 34, cy - (55 + (i * 14)), Graphics.TOP | Graphics.LEFT);
-//# 
-//# 
+
             //#endif
         }
 
@@ -451,7 +488,10 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
         fontMetronome[2].write(g, String.valueOf(metronome.getBeatsPerMinute()), 10, height/2 + height/4 - 10, width, 0, Component.ALIGN_TOP_CENTER);
 
         //#ifdef LUXURY
-//#         g.drawImage(imageBall, Constants.BALL_BPM_INITIAL_X + (int) (metronome.getBeatsPerMinute() * 0.43), width + 1, Graphics.TOP | Graphics.LEFT);
+//#           g.drawImage(imageBall, Constants.BALL_BPM_INITIAL_X + (int) (metronome.getBeatsPerMinute() * 0.43), width + 1, Graphics.TOP | Graphics.LEFT);
+        //#elifdef QVGA
+//#            g.drawImage(imageBall, Constants.BALL_BPM_INITIAL_X + (int) (metronome.getBeatsPerMinute() * 0.61), width + 20, Graphics.TOP | Graphics.LEFT);
+//# 
         //#else
          g.drawImage(imageBall, Constants.BALL_BPM_INITIAL_X + (int) (metronome.getBeatsPerMinute() * 0.3), width + 1, Graphics.TOP | Graphics.LEFT);
         //#endif
