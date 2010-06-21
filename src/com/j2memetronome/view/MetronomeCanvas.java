@@ -78,7 +78,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
         //#ifdef LUXURY
 //#         Constants.DEVICE_MAX_NUMBER_OF_LINES = Constants.DEVICE_MAX_NUMBER_OF_LINES + 3;
         //#elifdef QVGA
-//#         Constants.DEVICE_MAX_NUMBER_OF_LINES = Constants.DEVICE_MAX_NUMBER_OF_LINES + 8;
+//#         Constants.DEVICE_MAX_NUMBER_OF_LINES = Constants.DEVICE_MAX_NUMBER_OF_LINES + 2;
         //#endif
         
         fadeRGB = new int[width * height];
