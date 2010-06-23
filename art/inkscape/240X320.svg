@@ -215,7 +215,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -284,13 +284,13 @@
        xml:space="preserve"
        style="font-size:20px;font-style:normal;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00399995;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans"
        x="-626.065"
-       y="962.38934"
+       y="960.45184"
        id="text3673-8"
        transform="scale(0.96875898,1.0322485)"><tspan
          sodipodi:role="line"
          id="tspan3675-2"
          x="-626.065"
-         y="962.38934"
+         y="960.45184"
          style="font-size:20px;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00399995;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold">BPM</tspan></text>
     <text
        xml:space="preserve"
