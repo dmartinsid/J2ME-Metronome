@@ -245,12 +245,9 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
             g.drawImage(imageArrowDown, width - 15, height - height/6, Graphics.TOP | Graphics.LEFT);
 
             
-            //#ifdef QVGA
-//#             for (int i = firstLineScroll; i < firstLineScroll + Constants.DEVICE_MAX_NUMBER_OF_LINES - 5; i++)
-            //#else
-            for (int i = firstLineScroll; i < firstLineScroll + Constants.DEVICE_MAX_NUMBER_OF_LINES;i++)
-            //#endif
-             {
+
+            for (int i = firstLineScroll; i < firstLineScroll + Constants.DEVICE_MAX_NUMBER_OF_LINES; i++)
+            {
 
                 font[0].write(g, textAbout[i], 0,
                         Constants.ABOUT_AND_HELP_TEXT_INITIAL_Y
@@ -425,19 +422,59 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
 
     void drawChooseLanguage(Graphics g)
     {
+        //#ifdef QVGA
+//#         g.drawImage(this.imageBGMainMenu, 0, 0, Graphics.TOP | Graphics.LEFT);
+//#         g.setColor(0x111111);
+//#         g.fillRect(10, 75, width - 20, 30);
+//#         g.setColor(0xFFFFFF);
+//#         g.drawRect(10, 75, width - 20, 30);
+//# 
+//#         g.setColor(0x111111);
+//#         g.fillRect(10, 105, width - 20, 30);
+//#         g.setColor(0xFFFFFF);
+//#         g.drawRect(10, 105, width - 20, 30);
+//# 
+//#         if(menuLanguageId == Constants.ENGLISH)
+//#         {
+//#             g.setColor(0x555555);
+//#             g.fillRect(10, 75, width - 20, 15);
+//#             g.setColor(0x777777);
+//#             g.fillRect(10, 90, width - 20, 15);
+//#             g.setColor(0xFFFFFF);
+//#             g.drawRect(10, 75, width - 20, 30);
+//#             font[1].write(g, "CHOOSE", 0, 5, width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
+//#             font[1].write(g, "YOUR", 0, 25, width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
+//#             font[1].write(g, "LANGUAGE", 0, 45, width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
+//#         }
+//#         else if(menuLanguageId == Constants.PORTUGUESE)
+//#         {
+//#             g.setColor(0x555555);
+//#             g.fillRect(10, 105, width - 20, 15);
+//#             g.setColor(0x777777);
+//#             g.fillRect(10, 120, width - 20, 15);
+//#             g.setColor(0xFFFFFF);
+//#             g.drawRect(10, 105, width - 20, 30);
+//#             font[1].write(g, "ESCOLHA", 0, 5, width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
+//#             font[1].write(g, "SEU", 0, 25, width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
+//#             font[1].write(g, "IDIOMA", 0, 45, width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
+//#         }
+//# 
+//# 
+//#         font[0].write(g,"ENGLISH", 0, 75, width, font[0].getHeight(), Component.ALIGN_TOP_CENTER);
+//#         font[0].write(g,"PORTUGUÊS", 0, 105, width, font[0].getHeight(), Component.ALIGN_TOP_CENTER);
+//# 
+        //#else
         g.drawImage(this.imageBGMainMenu, 0, 0, Graphics.TOP | Graphics.LEFT);
-            g.setColor(0x111111);
-            g.fillRect(10, 75, width - 20, 20);
-            g.setColor(0xFFFFFF);
-            g.drawRect(10, 75, width - 20, 20);
+        g.setColor(0x111111);
+        g.fillRect(10, 75, width - 20, 20);
+        g.setColor(0xFFFFFF);
+        g.drawRect(10, 75, width - 20, 20);
 
-            g.setColor(0x111111);
-            g.fillRect(10, 95, width - 20, 20);
-            g.setColor(0xFFFFFF);
-            g.drawRect(10, 95, width - 20, 20);
+        g.setColor(0x111111);
+        g.fillRect(10, 95, width - 20, 20);
+        g.setColor(0xFFFFFF);
+        g.drawRect(10, 95, width - 20, 20);
 
-
-            
         if(menuLanguageId == Constants.ENGLISH)
         {
             g.setColor(0x555555);
@@ -462,10 +499,15 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
             font[1].write(g, "SEU", 0, 25, width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
             font[1].write(g, "IDIOMA", 0, 45, width, font[1].getHeight(), Component.ALIGN_TOP_CENTER);
         }
-        
-        
+
+
         font[0].write(g,"ENGLISH", 0, 80, width, font[0].getHeight(), Component.ALIGN_TOP_CENTER);
         font[0].write(g,"PORTUGUÊS", 0, 100, width, font[0].getHeight(), Component.ALIGN_TOP_CENTER);
+        //#endif
+
+
+            
+        
 
         
     }
