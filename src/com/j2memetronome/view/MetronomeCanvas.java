@@ -515,6 +515,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
     public void drawMetronome(Graphics g) {
         g.setColor(0x00000000);
         g.fillRect(0, 0, width, height);
+        
         // background
         g.drawImage(imageBGMetronome, 0, 0, Graphics.TOP | Graphics.LEFT);
 
@@ -954,53 +955,62 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
         // Backlight forever
         // functionality requested by Hassaan Ejaz
         Display.getDisplay(midlet).flashBacklight(1000);
-        if (count == 1) {
-            fontMetronome[1].write(g, String.valueOf(count++), 0, height/5, width, 0, Component.ALIGN_TOP_CENTER);
 
+
+        if (count == 1)
+        {
+            //#ifdef QVGA
+//#             fontMetronome[1].write(g, String.valueOf(count++), 0, height/4, width, 0, Component.ALIGN_TOP_CENTER);
+            //#else
+            fontMetronome[1].write(g, String.valueOf(count++), 0, height/5, width, 0, Component.ALIGN_TOP_CENTER);
+            //#endif
             
 
-            if (MetronomeCanvas.getSoundComponents() == 0) {
+            if (MetronomeCanvas.getSoundComponents() == 0) 
                 metronome.playSnare();               
-            } else if (MetronomeCanvas.getSoundComponents() == 1) {
+            else if (MetronomeCanvas.getSoundComponents() == 1)
                 metronome.playBassDrumAndCrash();
-            } else if(getSoundComponents() == 2) {
+            else if(getSoundComponents() == 2) 
                 metronome.playTomsLow();
-            }
             else
                 metronome.playMetronomeBell();
 
         } else if (count == metronome.getNumerator() || count > metronome.getNumerator()) {
+
+            //#ifdef QVGA
+//#             fontMetronome[0].write(g, String.valueOf(count++), 0, height/4, width, 0, Component.ALIGN_TOP_CENTER);
+            //#else
             fontMetronome[0].write(g, String.valueOf(count++), 0, height/5, width, 0, Component.ALIGN_TOP_CENTER);
-            if (MetronomeCanvas.getSoundComponents() == 2) {
+            //#endif
+
+            if (MetronomeCanvas.getSoundComponents() == 2)
                 metronome.playTomsMid();
-            }
             else if(getSoundComponents() == 3)
-            {
                 metronome.playMetronomeClick();
-            }
-            else if (MetronomeCanvas.getSoundComponents() == 0) {
+            else if (MetronomeCanvas.getSoundComponents() == 0) 
                 metronome.playBassDrum();
-            } else if (MetronomeCanvas.getSoundComponents() == 1) {
+            else if (MetronomeCanvas.getSoundComponents() == 1)
                 metronome.playSnare();
-            } else if(getSoundComponents() == 2){
+            else if(getSoundComponents() == 2)
                 metronome.playToms();
-            }
 
             count = 1;
         } else {
-            fontMetronome[0].write(g, String.valueOf(count++), 0, height/5, width, 0, Component.ALIGN_TOP_CENTER);
 
-            if (MetronomeCanvas.getSoundComponents() == 0) {
+            //#ifdef QVGA
+//#             fontMetronome[0].write(g, String.valueOf(count++), 0, height/4, width, 0, Component.ALIGN_TOP_CENTER);
+            //#else
+            fontMetronome[0].write(g, String.valueOf(count++), 0, height/5, width, 0, Component.ALIGN_TOP_CENTER);
+            //#endif
+            
+            if (MetronomeCanvas.getSoundComponents() == 0)
                 metronome.playBassDrum();
-            } else if (MetronomeCanvas.getSoundComponents() == 1) {
+            else if (MetronomeCanvas.getSoundComponents() == 1) 
                 metronome.playBassDrumAndHiHat();
-            } else if(getSoundComponents() == 2){
+            else if(getSoundComponents() == 2)
                 metronome.playToms();
-            }
             else
-            {
                 metronome.playMetronomeClick();
-            }
         }
     }
 
