@@ -797,7 +797,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
                         metronome.setNumerator(metronome.getNumerator() + 1);
                         break;
                     case DEVICE_BUTTON_DOWN:
-                        metronome.setNumerator(metronome.getNumerator() == 1 ? 1 : metronome.getNumerator() - 1);
+                        metronome.setNumerator(metronome.getNumerator() == 2 ? 2 : metronome.getNumerator() - 1);
                         break;
                     case DEVICE_BUTTON_FIRE:
                     case Canvas.KEY_NUM5:
@@ -954,8 +954,8 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
     public synchronized void  taskMetronome(Graphics g) {
         // Backlight forever
         // functionality requested by Hassaan Ejaz
-        Display.getDisplay(midlet).flashBacklight(1000);
-
+        Display.getDisplay(midlet).flashBacklight(5000);
+       
 
         if (count == 1)
         {
