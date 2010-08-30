@@ -5,9 +5,9 @@ import com.j2memetronome.Constants;
 import com.j2memetronome.font.FontConstants;
 import com.j2memetronome.Metronome;
 import com.j2memetronome.device.GenericDevice;
-import com.j2memetronome.TxtReader;
 import com.j2memetronome.MetronomeMIDlet;
 
+import com.j2memetronome.text.TxtReader;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;

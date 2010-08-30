@@ -72,11 +72,13 @@ public class Constants
     
 
 
+    // with enum this code will be more easy and better...
     public static final int ENGLISH = 0;
     public static final int PORTUGUESE = 1;
 
     public static final String ENGLISH_RES = "en";
     public static final String PORTUGUESE_RES = "pt";
+    //...
     
 
     // Others device constants

@@ -13,8 +13,9 @@ public class MetronomeMIDlet extends MIDlet {
     private MetronomeCanvas canvas;
     public void startApp()
     {
-        if(canvas == null)
+        if (canvas == null) {
             canvas = new MetronomeCanvas(this);
+        }
     }
 
     public void pauseApp()
