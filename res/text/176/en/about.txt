@@ -1,10 +1,10 @@
 J2ME METRONOME
 
-DEVELOPED BY:
-Deivid Cunha Martins
-
 CONTACT:
 dcmdeivid@gmail.com
 
-NEW RELEASES AT:
-j2memetronome.cjb.net
+BLOG:
+j2memetronome.wordpress.com
+
+FOLLOW US:
+j2memetronome in twitter
