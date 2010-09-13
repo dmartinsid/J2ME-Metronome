@@ -16,7 +16,7 @@
    version="1.1"
    inkscape:version="0.47 r22583"
    sodipodi:docname="240X320_pt.svg"
-   inkscape:export-filename="C:\metronome\j2memetronome\res\240\images_multilang\pt\metronome_canvas_bg.png"
+   inkscape:export-filename="C:\metronome\j2memetronome\res\240\images_multilang\en\metronome_canvas_bg.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -140,7 +140,7 @@
        x2="181.52856"
        y2="185.35713"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.3721478,0,0,1.5848313,-1.5626513,-125.25855)" />
+       gradientTransform="matrix(1.3721478,0,0,1.5848313,-1.5626513,-145.25855)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3754"
@@ -150,7 +150,7 @@
        x2="10.85914"
        y2="185.14973"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.3641979,0,0,1.4536032,0.04140553,-100.51269)" />
+       gradientTransform="matrix(1.3641979,0,0,1.4536032,0.04140553,-120.51269)" />
     <inkscape:perspective
        id="perspective3774"
        inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
@@ -179,7 +179,7 @@
          id="stop3758-0" />
     </linearGradient>
     <linearGradient
-       gradientTransform="matrix(1.405234,0,0,1.4536032,-240.38603,-100.61322)"
+       gradientTransform="matrix(1.405234,0,0,1.4536032,-240.38603,-120.61322)"
        y2="185.14973"
        x2="10.85914"
        y1="185.14973"
@@ -188,6 +188,13 @@
        id="linearGradient3783"
        xlink:href="#linearGradient3754-2"
        inkscape:collect="always" />
+    <inkscape:perspective
+       id="perspective2875"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -197,13 +204,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4142136"
-     inkscape:cx="132.93092"
-     inkscape:cy="81.128178"
+     inkscape:cx="269.94028"
+     inkscape:cy="198.27352"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1280"
-     inkscape:window-height="952"
+     inkscape:window-height="977"
      inkscape:window-x="-4"
      inkscape:window-y="-4"
      inkscape:window-maximized="1" />
@@ -232,65 +239,29 @@
        height="319.20551"
        x="-667.29865"
        y="740.94012" />
-    <rect
-       style="fill:#000000;fill-opacity:1;stroke:none"
-       id="rect3634"
-       width="240.68347"
-       height="29.17642"
-       x="-668.05609"
-       y="1031.7645" />
-    <text
-       xml:space="preserve"
-       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:#6e6e6e;stroke-width:0.84491479;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:'Arial Rounded MT Bold,'"
-       x="-682.45825"
-       y="1020.0504"
-       id="text3644"
-       transform="scale(0.96875902,1.0322485)"><tspan
-         sodipodi:role="line"
-         id="tspan3646"
-         x="-682.45825"
-         y="1020.0504"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;fill-opacity:1;stroke:#6e6e6e;stroke-width:0.84491479;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:'Arial Rounded MT Bold,'">Opções</tspan><tspan
-         sodipodi:role="line"
-         x="-682.45825"
-         y="1045.0504"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;fill-opacity:1;stroke:#6e6e6e;stroke-width:0.84491479;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:'Arial Rounded MT Bold,'"
-         id="tspan3883" /></text>
-    <text
-       xml:space="preserve"
-       style="font-size:20px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#6e6e6e;stroke-width:0.84491479;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans"
-       x="-561.24652"
-       y="1019.9449"
-       id="text3644-6"
-       transform="scale(0.96875898,1.0322485)"><tspan
-         sodipodi:role="line"
-         id="tspan3646-8"
-         x="-561.24652"
-         y="1019.9449"
-         style="font-size:20px;fill:#ffffff;fill-opacity:1;stroke:#6e6e6e;stroke-width:0.84491479;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold">M. Principal</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:20px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.1;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans"
-       x="-681.26044"
+       x="-683.32495"
        y="921.60767"
        id="text3673"
        transform="scale(0.96875898,1.0322485)"><tspan
          sodipodi:role="line"
          id="tspan3675"
-         x="-681.26044"
+         x="-683.32495"
          y="921.60767"
          style="font-size:20px;fill:#ffffff;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.1;stroke-opacity:1;stroke-dasharray:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold">Compasso</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:20px;font-style:normal;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00399995;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans"
        x="-626.065"
-       y="960.45184"
+       y="946.06653"
        id="text3673-8"
-       transform="scale(0.96875899,1.0322485)"><tspan
+       transform="scale(0.96875898,1.0322485)"><tspan
          sodipodi:role="line"
          id="tspan3675-2"
          x="-626.065"
-         y="960.45184"
+         y="946.06653"
          style="font-size:20px;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.00399995;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold">BPM</tspan></text>
     <text
        xml:space="preserve"
@@ -316,6 +287,17 @@
          x="-645.32904"
          y="825.07379"
          style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.48680675;stroke-opacity:1;font-family:Fat Freddie Contour;-inkscape-font-specification:Fat Freddie Contour">Metronome</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="-659.02942"
+       y="1018.729"
+       id="text2892"><tspan
+         sodipodi:role="line"
+         id="tspan2894"
+         x="-659.02942"
+         y="1018.729"
+         style="font-size:14px;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold">j2memetronome.wordpress.com</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -329,21 +311,21 @@
        width="210.23265"
        height="10.188202"
        x="14.609091"
-       y="163.40717" />
+       y="143.40717" />
     <rect
        style="fill:url(#linearGradient3764);fill-opacity:1;stroke:none"
        id="rect3752"
        width="5.3399367"
        height="21.474781"
        x="9.5154858"
-       y="157.88419" />
+       y="137.88419" />
     <rect
        style="fill:url(#linearGradient3783);fill-opacity:1;stroke:none;display:inline"
        id="rect3752-4"
        width="5.5005651"
        height="21.474781"
        x="-230.62697"
-       y="157.78365"
+       y="137.78365"
        transform="scale(-1,1)" />
   </g>
 </svg>
