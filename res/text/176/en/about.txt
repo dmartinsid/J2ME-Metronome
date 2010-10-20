@@ -1,10 +1,9 @@
 J2ME METRONOME
 
-CONTACT:
-dcmdeivid@gmail.com
+FOLLOW US ON TWITTER
+j2memetronome
 
-BLOG:
-j2memetronome.wordpress.com
+CONTACT
+j2memetronome at gmail
 
-FOLLOW US:
-j2memetronome in twitter
+version 2.0
