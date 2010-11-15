@@ -20,7 +20,7 @@ public interface MetronomeView {
     void drawOptions(Graphics g, Image bgMenu, Image optionsBar, Image arrowLeft, Image arrowRight, String titleOptions, String textOptions[], int selectedSoundComponent);
     void drawExit(Graphics g, Image bgMenu, String titleExit, String textExit);
     void drawSplash(Graphics g, Image splash);
-    void drawChooseLanguage(Graphics g);
+    void drawChooseLanguage(Graphics g, Image bgMenu, int languageId);
     void drawMetronome(Graphics g);
 
 }
