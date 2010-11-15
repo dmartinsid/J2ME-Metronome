@@ -16,10 +16,10 @@ public interface MetronomeView {
 
     void drawSoftKeys(Graphics g, int state, Image ok, Image cancel);
     void drawAbout(Graphics g, Image bgMenu, Image optionsGrid, Image arrowUp, Image arrowDown, String titleAbout, String textAbout[], int firstLineScroll);
-    void drawHelp(Graphics g);
-    void drawOptions(Graphics g);
-    void drawExit(Graphics g);
-    void drawSplash(Graphics g);
+    void drawHelp(Graphics g, Image bgMenu, Image optionsGrid, Image arrowUp, Image arrowDown, String titleHelp, String textHelp[], int firstLineScroll) ;
+    void drawOptions(Graphics g, Image bgMenu, Image optionsBar, Image arrowLeft, Image arrowRight, String titleOptions, String textOptions[], int selectedSoundComponent);
+    void drawExit(Graphics g, Image bgMenu, String titleExit, String textExit);
+    void drawSplash(Graphics g, Image splash);
     void drawChooseLanguage(Graphics g);
     void drawMetronome(Graphics g);
 
