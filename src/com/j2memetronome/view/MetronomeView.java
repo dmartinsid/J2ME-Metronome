@@ -21,6 +21,8 @@ public interface MetronomeView {
     void drawExit(Graphics g, Image bgMenu, String titleExit, String textExit);
     void drawSplash(Graphics g, Image splash);
     void drawChooseLanguage(Graphics g, Image bgMenu, int languageId);
-    void drawMetronome(Graphics g);
+    void drawMetronome(Graphics g, Image bgMetronome, Image ball,
+            int numerator, int denominator, int bpm, int count, boolean isFirst, boolean isStarted);
+    void drawMenu(Graphics g, Image bgMainMenu, Image bgTitle, Image menu, int index, int animX, int animY);
 
 }

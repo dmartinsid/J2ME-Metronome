@@ -23,6 +23,9 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
 
     private Font arial;
     private Font contour;
+    private Font metronomeRed;
+    private Font metronomeGreen;
+    private Font metronome;
 
     public void drawSoftKeys(Graphics g, int state, Image ok, Image cancel)
     {
@@ -187,8 +190,62 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
 
     }
 
-    public void drawMetronome(Graphics g) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void drawMetronome(Graphics g, Image bgMetronome, Image ball, 
+            int numerator, int denominator, int bpm, int count, boolean isFirst, boolean isStarted) {
+        g.setColor(0x00000000);
+        g.fillRect(0, 0, WIDTH, HEIGHT);
+
+        // background
+        g.drawImage(bgMetronome, 0, 0, Graphics.TOP | Graphics.LEFT);
+
+
+        if (isStarted) {
+            if(isFirst)
+                metronomeRed.write(g, String.valueOf(count), 0, HEIGHT/4, WIDTH, 0, Component.ALIGN_TOP_CENTER);
+            else
+                metronomeGreen.write(g, String.valueOf(count), 0, HEIGHT/4, WIDTH, 0, Component.ALIGN_TOP_CENTER);
+        }
+
+
+        // Measure
+        metronome.write(g, numerator + "/" + denominator,
+                10, HEIGHT/2 + HEIGHT/10, WIDTH, 0, Component.ALIGN_TOP_CENTER);
+        // BPM
+        metronome.write(g, String.valueOf(bpm), 10, HEIGHT/2 + HEIGHT/4 - 10, WIDTH, 0, Component.ALIGN_TOP_CENTER);
+
+       g.drawImage(ball, Constants.BALL_BPM_INITIAL_X + (int) (bpm * 0.61), WIDTH + 20, Graphics.TOP | Graphics.LEFT);
+
+     
+    }
+
+
+    public void drawMenu(Graphics g, Image bgMainMenu, Image bgTitle, Image menu, int index, int animX, int animY)
+    {
+        int cy = 0;
+        g.drawImage(bgMainMenu, (WIDTH - bgMainMenu.getWidth()) / 2, (HEIGHT - bgMainMenu.getHeight()) / 2, 20);
+
+        
+        g.drawImage(bgTitle, animX, animY, Graphics.TOP | Graphics.LEFT);
+
+        for (int i = 0; i < Constants.MAIN_MENU_LENGHT; i++)
+        {
+            cy = 100 + (i * 49);
+            g.setClip(50, cy, 155, 37);
+
+           if (index == i)
+                g.drawImage(menu, 50, cy - 37 , Graphics.TOP | Graphics.LEFT);
+            else
+                g.drawImage(menu, 50, cy, Graphics.TOP | Graphics.LEFT);
+
+            //offset of the label is 6 pixels from the top of the button
+            cy += 7;
+
+            //set the clipping rectangle to where the label will be drawn
+            g.setClip(50, cy , 155, 17);
+            // draw the label so that it is inside the clipping rectangle
+            g.drawImage(menu, 50, cy - (75 + (i * 19)), Graphics.TOP | Graphics.LEFT);
+
+        }
     }
 
     public void setArial(Font arial) {
@@ -198,6 +255,31 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
     public void setContour(Font contour) {
         this.contour = contour;
     }
+
+    public Font getMetronome() {
+        return metronome;
+    }
+
+    public void setMetronome(Font metronome) {
+        this.metronome = metronome;
+    }
+
+    public Font getMetronomeGreen() {
+        return metronomeGreen;
+    }
+
+    public void setMetronomeGreen(Font metronomeGreen) {
+        this.metronomeGreen = metronomeGreen;
+    }
+
+    public Font getMetronomeRed() {
+        return metronomeRed;
+    }
+
+    public void setMetronomeRed(Font metronomeRed) {
+        this.metronomeRed = metronomeRed;
+    }
+
 
     
 
