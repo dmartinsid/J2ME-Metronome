@@ -7,12 +7,15 @@ package com.j2memetronome.view;
 
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
+import mwt.Font;
 
 /**
  *
  * @author Deivid Martins
  */
 public interface MetronomeView {
+
+    
 
     void drawSoftKeys(Graphics g, int state, Image ok, Image cancel);
     void drawAbout(Graphics g, Image bgMenu, Image optionsGrid, Image arrowUp, Image arrowDown, String titleAbout, String textAbout[], int firstLineScroll);
@@ -24,5 +27,14 @@ public interface MetronomeView {
     void drawMetronome(Graphics g, Image bgMetronome, Image ball,
             int numerator, int denominator, int bpm, int count, boolean isFirst, boolean isStarted);
     void drawMenu(Graphics g, Image bgMainMenu, Image bgTitle, Image menu, int index, int animX, int animY);
+
+    void setArial(Font font);
+    void setContour(Font contour);
+    void setMetronome(Font metronome);
+    void setMetronomeRed(Font metronome);
+    void setMetronomeGreen(Font metronome);
+
+    int getWidth();
+    int getHeight();
 
 }

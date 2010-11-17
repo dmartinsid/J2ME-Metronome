@@ -280,6 +280,14 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
         this.metronomeRed = metronomeRed;
     }
 
+    public int getWidth()
+    {
+        return WIDTH;
+    }
+    public int getHeight()
+    {
+        return HEIGHT;
+    }
 
     
 
