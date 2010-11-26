@@ -20,7 +20,7 @@ import mwt.Component;
  *
  * @author Deivid Cunha Martins
  */
-public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
+public class MetronomeCanvas extends Canvas implements Runnable{
 
     private static int state;           // Application state
     private int menuIdx;                // To hold the current highlighted menu option
@@ -590,8 +590,8 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
             case Constants.STATE_CHOOSE_LANG:
                 switch (keyCode) {
                     case Canvas.KEY_NUM5:
-                    case DEVICE_BUTTON_LSK:
-                    case DEVICE_BUTTON_FIRE: {
+                    case GenericDevice.LSK:
+                    case FIRE: {
                         switch (menuLanguageId) {
                             case Constants.ENGLISH:
                                 
@@ -630,14 +630,14 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
                         }
                         break;
                     }
-                    case DEVICE_BUTTON_UP:
+                    case UP:
                         if (menuLanguageId == 0) {
                             menuLanguageId = 1;
                         } else if (menuLanguageId - 1 >= 0) {
                             menuLanguageId--;
                         }
                         break;
-                    case DEVICE_BUTTON_DOWN:
+                    case DOWN:
                         if (menuLanguageId + 1 < 2) {
                             menuLanguageId++;
                         } else {
@@ -650,8 +650,8 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
             case Constants.STATE_MAIN_MENU:
                 switch (keyCode) {
                     case Canvas.KEY_NUM5:
-                    case DEVICE_BUTTON_LSK:
-                    case DEVICE_BUTTON_FIRE: {
+                    case GenericDevice.LSK:
+                    case FIRE: {
                         switch (menuIdx) {
                             case 0:
                                 state = Constants.STATE_START;
@@ -672,18 +672,18 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
                         }
                         break;
                     }
-                    case DEVICE_BUTTON_RSK:
-                    case DEVICE_BUTTON_CLEAR:
+                    case GenericDevice.RSK:
+                    case GenericDevice.CLEAR:
                         state = Constants.STATE_EXIT;
                         break;
-                    case DEVICE_BUTTON_UP:
+                    case UP:
                         if (menuIdx == 0) {
                             menuIdx = 3;
                         } else if (menuIdx - 1 >= 0) {
                             menuIdx--;
                         }
                         break;
-                    case DEVICE_BUTTON_DOWN:
+                    case DOWN:
                         if (menuIdx + 1 < Constants.MAIN_MENU_LENGHT) {
                             menuIdx++;
                         } else {
@@ -696,18 +696,18 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
             case Constants.STATE_HELP:
                 case Constants.STATE_ABOUT:
                 switch (keyCode) {
-                    case DEVICE_BUTTON_RSK:
-                    case DEVICE_BUTTON_CLEAR:
+                    case GenericDevice.RSK:
+                    case GenericDevice.CLEAR:
                         state = Constants.STATE_MAIN_MENU;
                         resetAnimation();
                         firstLineScroll = 0;
                         break;
-                    case DEVICE_BUTTON_UP:
+                    case UP:
                         if (firstLineScroll > 0) {
                             firstLineScroll--;
                         }
                         break;
-                    case DEVICE_BUTTON_DOWN:
+                    case DOWN:
 
                         if (firstLineScroll < textHelp.length - Constants.DEVICE_MAX_NUMBER_OF_LINES && state == Constants.STATE_HELP) {
                             this.firstLineScroll++;
@@ -724,8 +724,8 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
             case Constants.STATE_OPTIONS:
             case Constants.STATE_METRONOME_OPTIONS:
                 switch (keyCode) {
-                    case DEVICE_BUTTON_LSK:
-                    case DEVICE_BUTTON_CLEAR:
+                    case GenericDevice.LSK:
+                    case GenericDevice.CLEAR:
 
                         if (state == Constants.STATE_OPTIONS) {
                             state = Constants.STATE_MAIN_MENU;
@@ -734,9 +734,9 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
                             state = Constants.STATE_METRONOME_STOPPED;
                         }
                         break;
-                    case DEVICE_BUTTON_UP:
+                    case UP:
 
-                    case DEVICE_BUTTON_RIGHT:
+                    case RIGHT:
                     case Canvas.KEY_NUM6:
 
                     case Constants.OPTIONS_SOUND_KITS:
@@ -748,7 +748,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
                         break;
 
 
-                    case DEVICE_BUTTON_LEFT:
+                    case LEFT:
                     case Canvas.KEY_NUM4:
 
                         if (optionsSelectedSoundComponents > 0) {
@@ -764,14 +764,14 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
                 break;
             case Constants.STATE_EXIT:
                 switch (keyCode) {
-                    case DEVICE_BUTTON_RSK:
-                    case DEVICE_BUTTON_CLEAR:
+                    case GenericDevice.RSK:
+                    case GenericDevice.CLEAR:
                         state = Constants.STATE_MAIN_MENU;
                         resetAnimation();
                         break;
                     case Canvas.KEY_NUM5:
-                    case DEVICE_BUTTON_FIRE:
-                    case DEVICE_BUTTON_LSK:
+                    case FIRE:
+                    case GenericDevice.LSK:
                         midlet.kill();
                         break;
 
@@ -781,25 +781,25 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
             case Constants.STATE_METRONOME_STARTED:
             case Constants.STATE_METRONOME_STOPPED:
                 switch (keyCode) {
-                    case DEVICE_BUTTON_RIGHT:
+                    case RIGHT:
                         stop();
                         if (metronome.getBeatsPerMinute() < Metronome.BPM_MAX) {
                             metronome.setBeatsPerMinute(metronome.getBeatsPerMinute() + 1);
                         }
                         break;
-                    case DEVICE_BUTTON_LEFT:
+                    case LEFT:
                         stop();
                         if (metronome.getBeatsPerMinute() > Metronome.BPM_MIN) {
                             metronome.setBeatsPerMinute(metronome.getBeatsPerMinute() - 1);
                         }
                         break;
-                    case DEVICE_BUTTON_UP:
+                    case UP:
                         metronome.setNumerator(metronome.getNumerator() + 1);
                         break;
-                    case DEVICE_BUTTON_DOWN:
+                    case DOWN:
                         metronome.setNumerator(metronome.getNumerator() == 2 ? 2 : metronome.getNumerator() - 1);
                         break;
-                    case DEVICE_BUTTON_FIRE:
+                    case FIRE:
                     case Canvas.KEY_NUM5:
                         if (MetronomeCanvas.getState() == Constants.STATE_METRONOME_STARTED) {
                             stop();
@@ -813,10 +813,10 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
                     case Canvas.KEY_NUM8:
                         metronome.setDenominator(metronome.getDenominator(), Actions.DECREMENT);
                         break;
-                    case DEVICE_BUTTON_LSK:
+                    case GenericDevice.LSK:
                         MetronomeCanvas.setState(Constants.STATE_METRONOME_OPTIONS);
                         break;
-                    case DEVICE_BUTTON_RSK:
+                    case GenericDevice.RSK:
                         MetronomeCanvas.setState(Constants.STATE_MAIN_MENU);
                         Display.getDisplay(midlet).setCurrent(this);
                         MetronomeCanvas.setState(Constants.STATE_MAIN_MENU);
@@ -992,7 +992,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
             else if (MetronomeCanvas.getSoundComponents() == 1)
                 metronome.playSnare();
             else if(getSoundComponents() == 2)
-                metronome.playToms();
+                metronome.playTomsHigh();
 
             count = 1;
         } else {
@@ -1008,7 +1008,7 @@ public class MetronomeCanvas extends Canvas implements Runnable, GenericDevice {
             else if (MetronomeCanvas.getSoundComponents() == 1) 
                 metronome.playBassDrumAndHiHat();
             else if(getSoundComponents() == 2)
-                metronome.playToms();
+                metronome.playTomsHigh();
             else
                 metronome.playMetronomeClick();
         }

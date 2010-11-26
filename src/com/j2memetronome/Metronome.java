@@ -12,6 +12,8 @@ public class Metronome implements MetronomeConstants
     private int beatsPerMinute;
     private int numerator;
     private int denominator;
+    private int actualBeat;
+    private int kitID;
 
     private Drummer drummer;
 
@@ -20,7 +22,7 @@ public class Metronome implements MetronomeConstants
         this.beatsPerMinute = DEFAULT_BPM;
         this.denominator = DEFAULT_DENOMINATOR;
         this.numerator = DEFAULT_NUMERATOR;
-
+        actualBeat = 1;
         drummer = new Drummer();
     }
     /**
@@ -36,8 +38,30 @@ public class Metronome implements MetronomeConstants
         this.numerator = numerator;
 
         drummer = new Drummer();
+        actualBeat = 1;
     }
 
+    public void process(boolean isStarted)
+    {
+        if(!isStarted)
+        {
+            actualBeat = 1;
+        }
+        else if(actualBeat == numerator)
+        {
+            playOthers();
+            actualBeat = 1;
+        }
+        else
+        {
+            if(actualBeat == 1)
+                playFirst();
+            else
+                playOthers();
+            
+            actualBeat++;
+        }
+    }
     /**
      * 
      * @return time in milliseconds
@@ -58,6 +82,10 @@ public class Metronome implements MetronomeConstants
         this.beatsPerMinute = beatsPerMinute;
     }
 
+    public int getActualBeat()
+    {
+        return actualBeat;
+    }
     public int getDenominator() {
         return denominator;
     }
@@ -103,7 +131,7 @@ public class Metronome implements MetronomeConstants
         this.numerator = numerator;
     }
 
-    public void playToms() {
+    public void playTomsHigh() {
         drummer.playDrum(Drummer.HI_MID_TOM);
         drummer.playDrum(Drummer.HIGH_TOM);
     }
@@ -141,5 +169,33 @@ public class Metronome implements MetronomeConstants
     public void playMetronomeBell()
     {
         drummer.playDrum(Drummer.METRONOME_BELL);
+    }
+
+    public void setKit(int kitID)
+    {
+        this.kitID = kitID;
+    }
+
+    public void playFirst()
+    {
+        if (kitID == 0)
+            playSnare();
+        else if (kitID == 1)
+            playBassDrumAndCrash();
+        else if (kitID == 2)
+            playTomsLow();
+        else
+            playMetronomeBell();
+    }
+    public void playOthers()
+    {
+        if (kitID == 0)
+            playBassDrum();
+        else if (kitID == 1)
+            playBassDrumAndHiHat();
+        else if(kitID == 2)
+            playTomsMid();
+        else
+            playMetronomeClick();
     }
 }

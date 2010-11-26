@@ -36,5 +36,6 @@ public interface MetronomeView {
 
     int getWidth();
     int getHeight();
+   
 
 }

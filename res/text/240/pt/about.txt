@@ -1,9 +1,8 @@
 J2ME METRONOME
+versão 2.0
 
-SIGA-NOS NO TWITTER
-j2memetronome
+SIGA-NOS
+twitter.com/j2memetronome
 
 CONTATO
 j2memetronome at gmail
-
-versão 2.0

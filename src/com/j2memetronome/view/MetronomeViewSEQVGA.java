@@ -27,6 +27,8 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
     private Font metronomeGreen;
     private Font metronome;
 
+    
+
     public void drawSoftKeys(Graphics g, int state, Image ok, Image cancel)
     {
         switch (state)
@@ -55,7 +57,7 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
         g.drawImage(bgMenu, (WIDTH - bgMenu.getWidth()) / 2, (HEIGHT - bgMenu.getHeight()) / 2, 20);
 
         // Title
-        arial.write(g, titleAbout, 5, 0,WIDTH, arial.getHeight(), Component.ALIGN_TOP_LEFT);
+        contour.write(g, titleAbout, 5, 0,WIDTH, contour.getHeight(), Component.ALIGN_TOP_LEFT);
 
         // Grid
         g.drawImage(optionsGrid, 0, WIDTH/9, Graphics.TOP | Graphics.LEFT);
@@ -63,18 +65,18 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
         // show about text
         if (textAbout.length <= MAX_NUMBER_OF_LINES) 
             for (int i = 0; i < textAbout.length; i++) 
-                contour.write(g, textAbout[i], 0, Constants.ABOUT_AND_HELP_TEXT_INITIAL_Y
-                        + ((int) (contour.getHeight() * i * 1.5)), WIDTH, 0, Component.ALIGN_TOP_CENTER);
+                arial.write(g, textAbout[i], 0, Constants.ABOUT_AND_HELP_TEXT_INITIAL_Y
+                        + ((int) (arial.getHeight() * i * 1.5)), WIDTH, 0, Component.ALIGN_TOP_CENTER);
         else
         {
 
             g.drawImage(arrowUp, WIDTH - 15, HEIGHT/6, Graphics.TOP | Graphics.LEFT);
             g.drawImage(arrowDown, WIDTH - 15, HEIGHT - HEIGHT/6, Graphics.TOP | Graphics.LEFT);
 
-            for (int i = firstLineScroll; i < firstLineScroll + Constants.DEVICE_MAX_NUMBER_OF_LINES; i++)
+            for (int i = firstLineScroll; i < firstLineScroll + Constants.DEVICE_MAX_NUMBER_OF_LINES && i < textAbout.length; i++)
             {
-                contour.write(g, textAbout[i], 0, Constants.ABOUT_AND_HELP_TEXT_INITIAL_Y
-                        + ((int) (contour.getHeight() * (i - firstLineScroll) * 1.5)),
+                arial.write(g, textAbout[i], 0, Constants.ABOUT_AND_HELP_TEXT_INITIAL_Y
+                        + ((int) (arial.getHeight() * (i - firstLineScroll) * 1.5)),
                         WIDTH, 0, Component.ALIGN_TOP_CENTER);
             }
         }
@@ -83,17 +85,17 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
     public void drawHelp(Graphics g, Image bgMenu, Image optionsGrid, Image arrowUp, Image arrowDown, String titleHelp, String textHelp[], int firstLineScroll) {
          g.drawImage(bgMenu, (WIDTH - bgMenu.getWidth()) / 2, (HEIGHT - bgMenu.getHeight()) / 2, 20);
 
-        arial.write(g, titleHelp, 5, 0,
-                WIDTH, arial.getHeight(), Component.ALIGN_TOP_LEFT);
+        contour.write(g, titleHelp, 5, 0,
+                WIDTH, contour.getHeight(), Component.ALIGN_TOP_LEFT);
 
         g.drawImage(optionsGrid, 0, WIDTH/9, Graphics.TOP | Graphics.LEFT);
 
 
-        if (textHelp.length <= Constants.DEVICE_MAX_NUMBER_OF_LINES) {
+        if (textHelp.length <= MAX_NUMBER_OF_LINES) {
             for (int i = 0; i < textHelp.length; i++) {
-                contour.write(g, textHelp[i], 0,
+                arial.write(g, textHelp[i], 0,
                         Constants.ABOUT_AND_HELP_TEXT_INITIAL_Y
-                        + ((int) (contour.getHeight() * i * 1.5)),
+                        + ((int) (arial.getHeight() * i * 1.5)),
                         WIDTH, 0, Component.ALIGN_TOP_CENTER);
             }
         } else {
@@ -101,11 +103,11 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
             g.drawImage(arrowUp, WIDTH - 15, HEIGHT/6, Graphics.TOP | Graphics.LEFT);
             g.drawImage(arrowDown, WIDTH - 15, HEIGHT - HEIGHT/6, Graphics.TOP | Graphics.LEFT);
 
-            for (int i = firstLineScroll; i < firstLineScroll + Constants.DEVICE_MAX_NUMBER_OF_LINES; i++) {
+            for (int i = firstLineScroll; i < firstLineScroll + MAX_NUMBER_OF_LINES && i < textHelp.length; i++) {
 
-                contour.write(g, textHelp[i], 0,
+                arial.write(g, textHelp[i], 0,
                         Constants.ABOUT_AND_HELP_TEXT_INITIAL_Y
-                        + ((int) (contour.getHeight() * (i - firstLineScroll) * 1.5)),
+                        + ((int) (arial.getHeight() * (i - firstLineScroll) * 1.5)),
                         WIDTH, 0, Component.ALIGN_TOP_CENTER);
             }
 
@@ -118,26 +120,26 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
 
         g.drawImage(bgMenu, (WIDTH - bgMenu.getWidth()) / 2, (HEIGHT - bgMenu.getHeight()) / 2, 20);
 
-        arial.write(g, titleOptions, 5, 0, WIDTH, arial.getHeight(), Component.ALIGN_TOP_LEFT);
+        contour.write(g, titleOptions, 5, 0, WIDTH, contour.getHeight(), Component.ALIGN_TOP_LEFT);
 
         g.drawImage(arrowLeft, 5, HEIGHT/2 -10, Graphics.TOP | Graphics.LEFT);
         g.drawImage(arrowRight, WIDTH - 5 - arrowRight.getWidth(), HEIGHT/2 -10, Graphics.TOP | Graphics.LEFT);
         g.drawImage(optionsBar, 0, HEIGHT/2 -20, Graphics.TOP | Graphics.LEFT);
 
-        contour.write(g, textOptions[Constants.STRING_KITS], 0, HEIGHT/2 -10,
-                WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
+        arial.write(g, textOptions[Constants.STRING_KITS], 0, HEIGHT/2 -10,
+                WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
 
-        contour.write(g, textOptions[Constants.STRING_BASS_DRUM_AND_SNARE + selectedSoundComponent], 0, HEIGHT/2 + 10,
-                WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
+        arial.write(g, textOptions[Constants.STRING_BASS_DRUM_AND_SNARE + selectedSoundComponent], 0, HEIGHT/2 + 10,
+                WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
     }
 
     public void drawExit(Graphics g, Image bgMenu, String titleExit, String textExit) {
         g.drawImage(bgMenu, (WIDTH - bgMenu.getWidth()) / 2, (HEIGHT - bgMenu.getHeight()) / 2, 20);
 
-        arial.write(g, titleExit, 5, 0,
+        contour.write(g, titleExit, 5, 0,
                 WIDTH, arial.getHeight(), Component.ALIGN_TOP_LEFT);
 
-        contour.write(g, textExit, 0, HEIGHT/2,
+        arial.write(g, textExit, 0, HEIGHT/2,
                 WIDTH, 0, Component.ALIGN_TOP_CENTER);
     }
 
@@ -167,9 +169,9 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
             g.fillRect(10, 90, WIDTH - 20, 15);
             g.setColor(0xFFFFFF);
             g.drawRect(10, 75, WIDTH - 20, 30);
-            arial.write(g, "CHOOSE", 0, 5, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-            arial.write(g, "YOUR", 0, 25, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-            arial.write(g, "LANGUAGE", 0, 45, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
+            contour.write(g, "CHOOSE", 0, 5, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
+            contour.write(g, "YOUR", 0, 25, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
+            contour.write(g, "LANGUAGE", 0, 45, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
         }
         else if(languageId == Constants.PORTUGUESE)
         {
@@ -179,19 +181,20 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
             g.fillRect(10, 120, WIDTH - 20, 15);
             g.setColor(0xFFFFFF);
             g.drawRect(10, 105, WIDTH - 20, 30);
-            arial.write(g, "ESCOLHA", 0, 5, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-            arial.write(g, "SEU", 0, 25, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-            arial.write(g, "IDIOMA", 0, 45, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
+            contour.write(g, "ESCOLHA", 0, 5, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
+            contour.write(g, "SEU", 0, 25, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
+            contour.write(g, "IDIOMA", 0, 45, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
         }
 
 
-        contour.write(g,"ENGLISH", 0, 75, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-        contour.write(g,"PORTUGUÊS", 0, 105, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
+        arial.write(g,"ENGLISH", 0, 75, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
+        arial.write(g,"PORTUGUÊS", 0, 105, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
 
     }
 
     public void drawMetronome(Graphics g, Image bgMetronome, Image ball, 
             int numerator, int denominator, int bpm, int count, boolean isFirst, boolean isStarted) {
+
         g.setColor(0x00000000);
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -199,21 +202,22 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
         g.drawImage(bgMetronome, 0, 0, Graphics.TOP | Graphics.LEFT);
 
 
-        if (isStarted) {
+        if (isStarted)
             if(isFirst)
                 metronomeRed.write(g, String.valueOf(count), 0, HEIGHT/4, WIDTH, 0, Component.ALIGN_TOP_CENTER);
             else
                 metronomeGreen.write(g, String.valueOf(count), 0, HEIGHT/4, WIDTH, 0, Component.ALIGN_TOP_CENTER);
-        }
+      
 
 
         // Measure
         metronome.write(g, numerator + "/" + denominator,
-                10, HEIGHT/2 + HEIGHT/10, WIDTH, 0, Component.ALIGN_TOP_CENTER);
+                120, 178, WIDTH, 0, Component.ALIGN_TOP_LEFT);
         // BPM
-        metronome.write(g, String.valueOf(bpm), 10, HEIGHT/2 + HEIGHT/4 - 10, WIDTH, 0, Component.ALIGN_TOP_CENTER);
+        metronome.write(g, String.valueOf(bpm), 
+                120, 210, WIDTH, 0, Component.ALIGN_TOP_LEFT);
 
-       g.drawImage(ball, Constants.BALL_BPM_INITIAL_X + (int) (bpm * 0.61), WIDTH + 20, Graphics.TOP | Graphics.LEFT);
+       g.drawImage(ball, Constants.BALL_BPM_INITIAL_X + (int) (bpm * 0.61), 241, Graphics.TOP | Graphics.LEFT);
 
      
     }
@@ -289,6 +293,11 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
         return HEIGHT;
     }
 
+    
+    public final int getLSK()
+    {
+        return -6;
+    }
     
 
 }

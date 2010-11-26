@@ -22,6 +22,18 @@
   <defs
      id="defs4">
     <linearGradient
+       inkscape:collect="always"
+       id="linearGradient2860">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop2862" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop2864" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3754">
       <stop
          style="stop-color:#272929;stop-opacity:1;"
@@ -195,6 +207,30 @@
        inkscape:vp_y="0 : 1000 : 0"
        inkscape:vp_x="0 : 0.5 : 1"
        sodipodi:type="inkscape:persp3d" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2860"
+       id="linearGradient2866"
+       x1="120.03137"
+       y1="307.44885"
+       x2="120.03137"
+       y2="337.47256"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.0002603,0,0,0.98630137,-668,744.96846)" />
+    <inkscape:perspective
+       id="perspective3648"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3673"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -203,9 +239,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="269.94028"
-     inkscape:cy="198.27352"
+     inkscape:zoom="2.8284272"
+     inkscape:cx="68.357889"
+     inkscape:cy="137.70094"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -222,7 +258,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -298,6 +334,37 @@
          x="-659.02942"
          y="1018.729"
          style="font-size:14px;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold">j2memetronome.wordpress.com</tspan></text>
+    <rect
+       style="fill:url(#linearGradient2866);fill-opacity:1;stroke:none"
+       id="rect2858"
+       width="240.12524"
+       height="25.455843"
+       x="-668"
+       y="1035.4778" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.10000000000000001;stroke-opacity:1;stroke-dasharray:none;display:inline;font-family:Bitstream Vera Sans"
+       x="-683.30658"
+       y="1021.7469"
+       id="text3673-1"
+       transform="scale(0.96875898,1.0322485)"><tspan
+         sodipodi:role="line"
+         id="tspan3675-7"
+         x="-683.30658"
+         y="1021.7469"
+         style="font-size:20px;fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.10000000000000001;stroke-opacity:1;stroke-dasharray:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold">Options</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.10000000000000001;stroke-opacity:1;stroke-dasharray:none;display:inline;font-family:Bitstream Vera Sans"
+       x="-552.50562"
+       y="1021.8289"
+       id="text3673-1-4"
+       transform="scale(0.96875898,1.0322485)"><tspan
+         sodipodi:role="line"
+         id="tspan3675-7-0"
+         x="-552.50562"
+         y="1021.8289"
+         style="font-size:20px;fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.10000000000000001;stroke-opacity:1;stroke-dasharray:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold">Main Menu</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
