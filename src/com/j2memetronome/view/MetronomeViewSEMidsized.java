@@ -7,8 +7,7 @@ package com.j2memetronome.view;
 
 import com.j2memetronome.Constants;
 import com.j2memetronome.appstate.ApplicationState;
-import com.j2memetronome.device.SEQVGA;
-
+import com.j2memetronome.device.SEMidsized;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import mwt.Component;
@@ -16,9 +15,9 @@ import mwt.Font;
 
 /**
  *
- * @author Deivid Martins
+ * @author dmartins
  */
-public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
+public class MetronomeViewSEMidsized implements MetronomeView, SEMidsized {
 
 
     private Font arial;
@@ -27,7 +26,7 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
     private Font metronomeGreen;
     private Font metronome;
 
-    
+
 
     public void drawSoftKeys(Graphics g, int state, Image ok, Image cancel)
     {
@@ -60,11 +59,11 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
         contour.write(g, titleAbout, 5, 0,WIDTH, contour.getHeight(), Component.ALIGN_TOP_LEFT);
 
         // Grid
-        g.drawImage(optionsGrid, 0, WIDTH/9, Graphics.TOP | Graphics.LEFT);
+        g.drawImage(optionsGrid, 0, WIDTH/6, Graphics.TOP | Graphics.LEFT);
 
         // show about text
-        if (textAbout.length <= MAX_NUMBER_OF_LINES) 
-            for (int i = 0; i < textAbout.length; i++) 
+        if (textAbout.length <= MAX_NUMBER_OF_LINES)
+            for (int i = 0; i < textAbout.length; i++)
                 arial.write(g, textAbout[i], 0, Constants.ABOUT_AND_HELP_TEXT_INITIAL_Y
                         + ((int) (arial.getHeight() * i * 1.5)), WIDTH, 0, Component.ALIGN_TOP_CENTER);
         else
@@ -88,7 +87,7 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
         contour.write(g, titleHelp, 5, 0,
                 WIDTH, contour.getHeight(), Component.ALIGN_TOP_LEFT);
 
-        g.drawImage(optionsGrid, 0, WIDTH/9, Graphics.TOP | Graphics.LEFT);
+        g.drawImage(optionsGrid, 0, WIDTH/6, Graphics.TOP | Graphics.LEFT);
 
 
         if (textHelp.length <= MAX_NUMBER_OF_LINES) {
@@ -152,47 +151,44 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
     {
         g.drawImage(bgMenu, 0, 0, Graphics.TOP | Graphics.LEFT);
         g.setColor(0x111111);
-        g.fillRect(10, 75, WIDTH - 20, 30);
+        g.fillRect(10, 75, WIDTH - 20, 20);
         g.setColor(0xFFFFFF);
-        g.drawRect(10, 75, WIDTH - 20, 30);
+        g.drawRect(10, 75, WIDTH - 20, 20);
 
         g.setColor(0x111111);
-        g.fillRect(10, 105, WIDTH - 20, 30);
+        g.fillRect(10, 95, WIDTH - 20, 20);
         g.setColor(0xFFFFFF);
-        g.drawRect(10, 105, WIDTH - 20, 30);
+        g.drawRect(10, 95, WIDTH - 20, 20);
 
-        if(languageId == Constants.ENGLISH)
-        {
+        if (languageId == Constants.ENGLISH) {
             g.setColor(0x555555);
-            g.fillRect(10, 75, WIDTH - 20, 15);
+            g.fillRect(10, 75, WIDTH - 20, 10);
             g.setColor(0x777777);
-            g.fillRect(10, 90, WIDTH - 20, 15);
+            g.fillRect(10, 85, WIDTH - 20, 10);
             g.setColor(0xFFFFFF);
-            g.drawRect(10, 75, WIDTH - 20, 30);
-            contour.write(g, "CHOOSE", 0, 5, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-            contour.write(g, "YOUR", 0, 25, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-            contour.write(g, "LANGUAGE", 0, 45, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-        }
-        else if(languageId == Constants.PORTUGUESE)
-        {
+            g.drawRect(10, 75, WIDTH - 20, 20);
+            contour.write(g, "CHOOSE", 0, 5, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
+            contour.write(g, "YOUR", 0, 25, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
+            contour.write(g, "LANGUAGE", 0, 45, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
+        } else if (languageId == Constants.PORTUGUESE) {
             g.setColor(0x555555);
-            g.fillRect(10, 105, WIDTH - 20, 15);
+            g.fillRect(10, 95, WIDTH - 20, 10);
             g.setColor(0x777777);
-            g.fillRect(10, 120, WIDTH - 20, 15);
+            g.fillRect(10, 105, WIDTH - 20, 10);
             g.setColor(0xFFFFFF);
-            g.drawRect(10, 105, WIDTH - 20, 30);
-            contour.write(g, "ESCOLHA", 0, 5, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-            contour.write(g, "SEU", 0, 25, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-            contour.write(g, "IDIOMA", 0, 45, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
+            g.drawRect(10, 95, WIDTH - 20, 20);
+            contour.write(g, "ESCOLHA", 0, 5, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
+            contour.write(g, "SEU", 0, 25, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
+            contour.write(g, "IDIOMA", 0, 45, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
         }
 
 
-        arial.write(g,"ENGLISH", 0, 75, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-        arial.write(g,"PORTUGUÊS", 0, 105, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
+        arial.write(g, "ENGLISH", 0, 80, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
+        arial.write(g, "PORTUGUÊS", 0, 100, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
 
     }
 
-    public void drawMetronome(Graphics g, Image bgMetronome, Image ball, 
+    public void drawMetronome(Graphics g, Image bgMetronome, Image ball,
             int numerator, int denominator, int bpm, int count, boolean isFirst, boolean isStarted) {
 
         g.setColor(0x00000000);
@@ -207,19 +203,19 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
                 metronomeRed.write(g, String.valueOf(count), 0, HEIGHT/4, WIDTH, 0, Component.ALIGN_TOP_CENTER);
             else
                 metronomeGreen.write(g, String.valueOf(count), 0, HEIGHT/4, WIDTH, 0, Component.ALIGN_TOP_CENTER);
-      
+
 
 
         // Measure
         metronome.write(g, numerator + "/" + denominator,
-                120, 178, WIDTH, 0, Component.ALIGN_TOP_LEFT);
+                80, 93, WIDTH, 0, Component.ALIGN_TOP_LEFT);
         // BPM
-        metronome.write(g, String.valueOf(bpm), 
-                120, 210, WIDTH, 0, Component.ALIGN_TOP_LEFT);
+        metronome.write(g, String.valueOf(bpm),
+                80, 110, WIDTH, 0, Component.ALIGN_TOP_LEFT);
 
-       g.drawImage(ball, Constants.BALL_BPM_INITIAL_X + (int) (bpm * 0.61), 241, Graphics.TOP | Graphics.LEFT);
+       g.drawImage(ball, Constants.BALL_BPM_INITIAL_X + (int) (bpm * 0.3), 130, Graphics.TOP | Graphics.LEFT);
 
-     
+
     }
 
 
@@ -228,26 +224,29 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
         int cy = 0;
         g.drawImage(bgMainMenu, (WIDTH - bgMainMenu.getWidth()) / 2, (HEIGHT - bgMainMenu.getHeight()) / 2, 20);
 
-        
+
         g.drawImage(bgTitle, animX, animY, Graphics.TOP | Graphics.LEFT);
 
         for (int i = 0; i < Constants.MAIN_MENU_LENGHT; i++)
         {
-            cy = 100 + (i * 49);
-            g.setClip(50, cy, 155, 37);
+           cy = 45 + (i * 22);
 
-           if (index == i)
-                g.drawImage(menu, 50, cy - 37 , Graphics.TOP | Graphics.LEFT);
-            else
-                g.drawImage(menu, 50, cy, Graphics.TOP | Graphics.LEFT);
+             g.setClip(23, cy, 82, 20);
 
-            //offset of the label is 6 pixels from the top of the button
-            cy += 7;
 
-            //set the clipping rectangle to where the label will be drawn
-            g.setClip(50, cy , 155, 17);
-            // draw the label so that it is inside the clipping rectangle
-            g.drawImage(menu, 50, cy - (75 + (i * 19)), Graphics.TOP | Graphics.LEFT);
+             if (index == i) {
+                 g.drawImage(menu, 23, cy - 20, Graphics.TOP | Graphics.LEFT);
+             } else {
+                 g.drawImage(menu, 23, cy, Graphics.TOP | Graphics.LEFT);
+             }
+
+             //offset of the label is 6 pixels from the top of the button
+             cy += 6;
+             //set the clipping rectangle to where the label will be drawn
+             g.setClip(23, cy, 82, 10);
+             //draw the label so that it is inside the clipping rectangle
+             g.drawImage(menu, 23, cy - (40 + (i * 10)), Graphics.TOP | Graphics.LEFT);
+
 
         }
     }
@@ -293,7 +292,9 @@ public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
         return HEIGHT;
     }
 
-    
-    
+ 
+
+
+
 
 }

@@ -13,6 +13,7 @@ import com.j2memetronome.appstate.ApplicationState;
 import com.j2memetronome.device.GenericDevice;
 import com.j2memetronome.resource.ResourceLoader;
 import com.j2memetronome.view.MetronomeView;
+import com.j2memetronome.view.MetronomeViewSEMidsized;
 import com.j2memetronome.view.MetronomeViewSEQVGA;
 import java.io.IOException;
 import java.util.Timer;
@@ -58,6 +59,8 @@ public class ContainerImpl extends Canvas implements Runnable{
         resourceLoader = new ResourceLoader();
         //#ifdef QVGA
 //#         view = new MetronomeViewSEQVGA();
+        //#else
+        view = new MetronomeViewSEMidsized();
         //#endif
         setFullScreenMode(true);
 
@@ -226,6 +229,7 @@ public class ContainerImpl extends Canvas implements Runnable{
     }
 
     public void processMainMenu(int keyCode) {
+        
         switch (keyCode) {
             case KEY_NUM5:
             case GenericDevice.LSK:
