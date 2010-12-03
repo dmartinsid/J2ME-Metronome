@@ -12,9 +12,10 @@ import com.j2memetronome.MetronomeMIDlet;
 import com.j2memetronome.appstate.ApplicationState;
 import com.j2memetronome.device.GenericDevice;
 import com.j2memetronome.resource.ResourceLoader;
-import com.j2memetronome.view.MetronomeView;
-import com.j2memetronome.view.MetronomeViewSEMidsized;
-import com.j2memetronome.view.MetronomeViewSEQVGA;
+import com.j2memetronome.view.View;
+import com.j2memetronome.view.ViewSELuxury;
+import com.j2memetronome.view.ViewSEMidsized;
+import com.j2memetronome.view.ViewSEQVGA;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -49,7 +50,7 @@ public class ContainerImpl extends Canvas implements Runnable{
 
     private MetronomeMIDlet midlet;
 
-    private MetronomeView view;
+    private View view;
 
     private Timer timer;
 
@@ -58,9 +59,11 @@ public class ContainerImpl extends Canvas implements Runnable{
         this.midlet = midlet;
         resourceLoader = new ResourceLoader();
         //#ifdef QVGA
-//#         view = new MetronomeViewSEQVGA();
+//#     view = new MetronomeViewSEQVGA();
+        //#elif LUXURY
+//#         view = new ViewSELuxury();
         //#else
-        view = new MetronomeViewSEMidsized();
+        view = new ViewSEMidsized();
         //#endif
         setFullScreenMode(true);
 

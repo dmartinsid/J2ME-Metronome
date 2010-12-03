@@ -13,7 +13,7 @@ import mwt.Font;
  *
  * @author Deivid Martins
  */
-public interface MetronomeView {
+public interface View {
 
     
 

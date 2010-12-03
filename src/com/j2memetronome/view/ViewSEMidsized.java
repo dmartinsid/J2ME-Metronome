@@ -17,7 +17,7 @@ import mwt.Font;
  *
  * @author dmartins
  */
-public class MetronomeViewSEMidsized implements MetronomeView, SEMidsized {
+public class ViewSEMidsized implements View, SEMidsized {
 
 
     private Font arial;

@@ -18,7 +18,7 @@ import mwt.Font;
  *
  * @author Deivid Martins
  */
-public class MetronomeViewSEQVGA implements MetronomeView, SEQVGA {
+public class ViewSEQVGA implements View, SEQVGA {
 
 
     private Font arial;
