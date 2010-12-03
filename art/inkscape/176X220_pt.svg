@@ -22,6 +22,18 @@
   <defs
      id="defs4">
     <linearGradient
+       inkscape:collect="always"
+       id="linearGradient2894">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop2896" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop2898" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3754">
       <stop
          style="stop-color:#272929;stop-opacity:1;"
@@ -187,6 +199,22 @@
        id="linearGradient3783"
        xlink:href="#linearGradient3754-2"
        inkscape:collect="always" />
+    <inkscape:perspective
+       id="perspective2893"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2894"
+       id="linearGradient2900"
+       x1="-579.85712"
+       y1="1051.3981"
+       x2="-579.85712"
+       y2="1068.7908"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -201,10 +229,10 @@
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1680"
-     inkscape:window-height="988"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-width="1280"
+     inkscape:window-height="977"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -214,7 +242,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -232,7 +260,7 @@
        x="-667.51624"
        y="841.29077" />
     <rect
-       style="fill:#000000;fill-opacity:1;stroke:none"
+       style="fill:url(#linearGradient2900);fill-opacity:1;stroke:none"
        id="rect3634"
        width="176.42856"
        height="20.071791"
@@ -284,26 +312,26 @@
          style="font-size:14px;stroke:#ffffff;stroke-width:0.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold">BPM</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1;font-family:Broadway;-inkscape-font-specification:Broadway"
-       x="-623.35712"
-       y="865.21936"
+       style="font-size:28px;font-style:normal;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1;display:inline;font-family:Fat Freddie Contour;-inkscape-font-specification:Fat Freddie Contour"
+       x="-623.35681"
+       y="865.21906"
        id="text3702"><tspan
          sodipodi:role="line"
          id="tspan3704"
-         x="-623.35712"
-         y="865.21936"
-         style="font-size:32px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1;font-family:Cooper Black;-inkscape-font-specification:Cooper Black">J2ME</tspan></text>
+         x="-623.35681"
+         y="865.21906"
+         style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1;font-family:Fat Freddie Contour;-inkscape-font-specification:Fat Freddie Contour">J2ME</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:28px;font-style:normal;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1;font-family:Broadway;-inkscape-font-specification:Broadway"
-       x="-659.61719"
-       y="890.02515"
+       style="font-size:20px;font-style:normal;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1;display:inline;font-family:Fat Freddie Contour;-inkscape-font-specification:Fat Freddie Contour"
+       x="-659.61688"
+       y="890.02484"
        id="text3702-7"><tspan
          sodipodi:role="line"
          id="tspan3704-7"
-         x="-659.61719"
-         y="890.02515"
-         style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1;font-family:Cooper Black;-inkscape-font-specification:Cooper Black">Metronome</tspan></text>
+         x="-659.61688"
+         y="890.02484"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1;font-family:Fat Freddie Contour;-inkscape-font-specification:Fat Freddie Contour">Metronome</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
