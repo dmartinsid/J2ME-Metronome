@@ -235,7 +235,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -251,7 +251,10 @@
        width="175.37338"
        height="221.07143"
        x="-667.51624"
-       y="841.29077" />
+       y="841.29077"
+       inkscape:export-filename="C:\metronome\j2memetronome\res\176\images_multilang\en\metronome_canvas_bg.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:url(#linearGradient2883);fill-opacity:1;stroke:none"
        id="rect3634"
