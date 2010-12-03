@@ -9,9 +9,9 @@ package com.j2memetronome.device;
  *
  * @author dmartins
  */
-public interface SELuxury extends GenericDevice{
+public interface NKLuxury extends GenericDevice{
     int WIDTH = 176;
-    int HEIGHT = 220;
+    int HEIGHT = 208;
     int MAX_NUMBER_OF_LINES = 9;
 
 }

@@ -201,9 +201,9 @@ public class ViewSELuxury implements View, SELuxury {
 
         if (isStarted)
             if(isFirst)
-                metronomeRed.write(g, String.valueOf(count), 0, HEIGHT/4, WIDTH, 0, Component.ALIGN_TOP_CENTER);
+                metronomeRed.write(g, String.valueOf(count), 0, HEIGHT/5, WIDTH, 0, Component.ALIGN_TOP_CENTER);
             else
-                metronomeGreen.write(g, String.valueOf(count), 0, HEIGHT/4, WIDTH, 0, Component.ALIGN_TOP_CENTER);
+                metronomeGreen.write(g, String.valueOf(count), 0, HEIGHT/5, WIDTH, 0, Component.ALIGN_TOP_CENTER);
 
 
 

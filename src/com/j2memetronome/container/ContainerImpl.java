@@ -59,7 +59,7 @@ public class ContainerImpl extends Canvas implements Runnable{
         this.midlet = midlet;
         resourceLoader = new ResourceLoader();
         //#ifdef QVGA
-//#     view = new MetronomeViewSEQVGA();
+//#         view = new ViewSEQVGA();
         //#elif LUXURY
 //#         view = new ViewSELuxury();
         //#else

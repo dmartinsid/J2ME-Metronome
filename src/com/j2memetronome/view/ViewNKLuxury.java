@@ -7,7 +7,8 @@ package com.j2memetronome.view;
 
 import com.j2memetronome.Constants;
 import com.j2memetronome.appstate.ApplicationState;
-import com.j2memetronome.device.SEMidsized;
+import com.j2memetronome.device.NKLuxury;
+
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import mwt.Component;
@@ -17,7 +18,7 @@ import mwt.Font;
  *
  * @author dmartins
  */
-public class ViewSEMidsized implements View, SEMidsized {
+public class ViewNKLuxury implements View, NKLuxury {
 
 
     private Font arial;
@@ -59,7 +60,7 @@ public class ViewSEMidsized implements View, SEMidsized {
         contour.write(g, titleAbout, 5, 0,WIDTH, contour.getHeight(), Component.ALIGN_TOP_LEFT);
 
         // Grid
-        g.drawImage(optionsGrid, 0, WIDTH/6, Graphics.TOP | Graphics.LEFT);
+        g.drawImage(optionsGrid, 0, WIDTH/9, Graphics.TOP | Graphics.LEFT);
 
         // show about text
         if (textAbout.length <= MAX_NUMBER_OF_LINES)
@@ -147,7 +148,7 @@ public class ViewSEMidsized implements View, SEMidsized {
         g.drawImage(splash, 0, 0, Graphics.TOP | Graphics.LEFT);
     }
 
-    public void drawChooseLanguage(Graphics g, Image bgMenu, int languageId)
+   public void drawChooseLanguage(Graphics g, Image bgMenu, int languageId)
     {
         g.drawImage(bgMenu, 0, 0, Graphics.TOP | Graphics.LEFT);
         g.setColor(0x111111);
@@ -188,6 +189,7 @@ public class ViewSEMidsized implements View, SEMidsized {
 
     }
 
+
     public void drawMetronome(Graphics g, Image bgMetronome, Image ball,
             int numerator, int denominator, int bpm, int count, boolean isFirst, boolean isStarted) {
 
@@ -208,45 +210,43 @@ public class ViewSEMidsized implements View, SEMidsized {
 
         // Measure
         metronome.write(g, numerator + "/" + denominator,
-                80, 93, WIDTH, 0, Component.ALIGN_TOP_LEFT);
+                110, 131, WIDTH, 0, Component.ALIGN_TOP_LEFT);
         // BPM
         metronome.write(g, String.valueOf(bpm),
-                80, 110, WIDTH, 0, Component.ALIGN_TOP_LEFT);
+                110, 154, WIDTH, 0, Component.ALIGN_TOP_LEFT);
 
-       g.drawImage(ball, Constants.BALL_BPM_INITIAL_X + (int) (bpm * 0.3), 130, Graphics.TOP | Graphics.LEFT);
+       g.drawImage(ball, Constants.BALL_BPM_INITIAL_X + (int) (bpm * 0.43), 177, Graphics.TOP | Graphics.LEFT);
 
 
     }
 
 
-    public void drawMenu(Graphics g, Image bgMainMenu, Image bgTitle, Image menu, int index, int animX, int animY)
-    {
+    public void drawMenu(Graphics g, Image bgMainMenu, Image bgTitle, Image menu, int index, int animX, int animY) {
         int cy = 0;
         g.drawImage(bgMainMenu, (WIDTH - bgMainMenu.getWidth()) / 2, (HEIGHT - bgMainMenu.getHeight()) / 2, 20);
 
 
         g.drawImage(bgTitle, animX, animY, Graphics.TOP | Graphics.LEFT);
 
-        for (int i = 0; i < Constants.MAIN_MENU_LENGHT; i++)
-        {
-           cy = 45 + (i * 22);
+        for (int i = 0; i < Constants.MAIN_MENU_LENGHT; i++) {
+            cy = 67 + (i * 33);
 
-             g.setClip(23, cy, 82, 20);
+            g.setClip(34, cy, 113, 27);
 
 
-             if (index == i) {
-                 g.drawImage(menu, 23, cy - 20, Graphics.TOP | Graphics.LEFT);
-             } else {
-                 g.drawImage(menu, 23, cy, Graphics.TOP | Graphics.LEFT);
-             }
+            if (index == i) {
+                g.drawImage(menu, 34, cy - 27, Graphics.TOP | Graphics.LEFT);
+            } else {
+                g.drawImage(menu, 34, cy, Graphics.TOP | Graphics.LEFT);
+            }
 
-             //offset of the label is 6 pixels from the top of the button
-             cy += 6;
-             //set the clipping rectangle to where the label will be drawn
-             g.setClip(23, cy, 82, 10);
-             //draw the label so that it is inside the clipping rectangle
-             g.drawImage(menu, 23, cy - (40 + (i * 10)), Graphics.TOP | Graphics.LEFT);
+            //offset of the label is 6 pixels from the top of the button
+            cy += 7;
 
+            //set the clipping rectangle to where the label will be drawn
+            g.setClip(34, cy, 113, 13);
+            // draw the label so that it is inside the clipping rectangle
+            g.drawImage(menu, 34, cy - (55 + (i * 14)), Graphics.TOP | Graphics.LEFT);
 
         }
     }
@@ -291,8 +291,6 @@ public class ViewSEMidsized implements View, SEMidsized {
     {
         return HEIGHT;
     }
-
- 
 
 
 
