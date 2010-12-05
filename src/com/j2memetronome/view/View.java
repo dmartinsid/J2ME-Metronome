@@ -36,6 +36,11 @@ public interface View {
 
     int getWidth();
     int getHeight();
+    int maxLines();
    
+    int supportedSounds();
 
+    int MAIN_MENU_LENGHT = 4;
+    int ABOUT_AND_HELP_TEXT_INITIAL_Y = 30;
+    int BALL_BPM_INITIAL_X = 8;
 }

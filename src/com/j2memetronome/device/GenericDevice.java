@@ -23,5 +23,4 @@ public interface GenericDevice
     int RSK = -7;
     int CLEAR = -8;
 
-    
 }

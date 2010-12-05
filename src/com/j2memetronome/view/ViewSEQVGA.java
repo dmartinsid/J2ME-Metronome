@@ -5,9 +5,10 @@
 
 package com.j2memetronome.view;
 
-import com.j2memetronome.Constants;
 import com.j2memetronome.appstate.ApplicationState;
 import com.j2memetronome.device.SEQVGA;
+import com.j2memetronome.i18n.Language;
+import com.j2memetronome.resource.ResourceLoader;
 
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -65,7 +66,7 @@ public class ViewSEQVGA implements View, SEQVGA {
         // show about text
         if (textAbout.length <= MAX_NUMBER_OF_LINES) 
             for (int i = 0; i < textAbout.length; i++) 
-                arial.write(g, textAbout[i], 0, Constants.ABOUT_AND_HELP_TEXT_INITIAL_Y
+                arial.write(g, textAbout[i], 0, ABOUT_AND_HELP_TEXT_INITIAL_Y
                         + ((int) (arial.getHeight() * i * 1.5)), WIDTH, 0, Component.ALIGN_TOP_CENTER);
         else
         {
@@ -73,9 +74,9 @@ public class ViewSEQVGA implements View, SEQVGA {
             g.drawImage(arrowUp, WIDTH - 15, HEIGHT/6, Graphics.TOP | Graphics.LEFT);
             g.drawImage(arrowDown, WIDTH - 15, HEIGHT - HEIGHT/6, Graphics.TOP | Graphics.LEFT);
 
-            for (int i = firstLineScroll; i < firstLineScroll + Constants.DEVICE_MAX_NUMBER_OF_LINES && i < textAbout.length; i++)
+            for (int i = firstLineScroll; i < firstLineScroll + MAX_NUMBER_OF_LINES && i < textAbout.length; i++)
             {
-                arial.write(g, textAbout[i], 0, Constants.ABOUT_AND_HELP_TEXT_INITIAL_Y
+                arial.write(g, textAbout[i], 0, ABOUT_AND_HELP_TEXT_INITIAL_Y
                         + ((int) (arial.getHeight() * (i - firstLineScroll) * 1.5)),
                         WIDTH, 0, Component.ALIGN_TOP_CENTER);
             }
@@ -94,7 +95,7 @@ public class ViewSEQVGA implements View, SEQVGA {
         if (textHelp.length <= MAX_NUMBER_OF_LINES) {
             for (int i = 0; i < textHelp.length; i++) {
                 arial.write(g, textHelp[i], 0,
-                        Constants.ABOUT_AND_HELP_TEXT_INITIAL_Y
+                        ABOUT_AND_HELP_TEXT_INITIAL_Y
                         + ((int) (arial.getHeight() * i * 1.5)),
                         WIDTH, 0, Component.ALIGN_TOP_CENTER);
             }
@@ -106,7 +107,7 @@ public class ViewSEQVGA implements View, SEQVGA {
             for (int i = firstLineScroll; i < firstLineScroll + MAX_NUMBER_OF_LINES && i < textHelp.length; i++) {
 
                 arial.write(g, textHelp[i], 0,
-                        Constants.ABOUT_AND_HELP_TEXT_INITIAL_Y
+                        ABOUT_AND_HELP_TEXT_INITIAL_Y
                         + ((int) (arial.getHeight() * (i - firstLineScroll) * 1.5)),
                         WIDTH, 0, Component.ALIGN_TOP_CENTER);
             }
@@ -126,10 +127,10 @@ public class ViewSEQVGA implements View, SEQVGA {
         g.drawImage(arrowRight, WIDTH - 5 - arrowRight.getWidth(), HEIGHT/2 -10, Graphics.TOP | Graphics.LEFT);
         g.drawImage(optionsBar, 0, HEIGHT/2 -20, Graphics.TOP | Graphics.LEFT);
 
-        arial.write(g, textOptions[Constants.STRING_KITS], 0, HEIGHT/2 -10,
+        arial.write(g, textOptions[ResourceLoader.STRING_KITS], 0, HEIGHT/2 -10,
                 WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
 
-        arial.write(g, textOptions[Constants.STRING_BASS_DRUM_AND_SNARE + selectedSoundComponent], 0, HEIGHT/2 + 10,
+        arial.write(g, textOptions[ResourceLoader.STRING_BASS_DRUM_AND_SNARE + selectedSoundComponent], 0, HEIGHT/2 + 10,
                 WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
     }
 
@@ -161,7 +162,7 @@ public class ViewSEQVGA implements View, SEQVGA {
         g.setColor(0xFFFFFF);
         g.drawRect(10, 105, WIDTH - 20, 30);
 
-        if(languageId == Constants.ENGLISH)
+        if(languageId == Language.ENGLISH)
         {
             g.setColor(0x555555);
             g.fillRect(10, 75, WIDTH - 20, 15);
@@ -173,7 +174,7 @@ public class ViewSEQVGA implements View, SEQVGA {
             contour.write(g, "YOUR", 0, 25, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
             contour.write(g, "LANGUAGE", 0, 45, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
         }
-        else if(languageId == Constants.PORTUGUESE)
+        else if(languageId == Language.PORTUGUESE)
         {
             g.setColor(0x555555);
             g.fillRect(10, 105, WIDTH - 20, 15);
@@ -217,7 +218,7 @@ public class ViewSEQVGA implements View, SEQVGA {
         metronome.write(g, String.valueOf(bpm), 
                 120, 210, WIDTH, 0, Component.ALIGN_TOP_LEFT);
 
-       g.drawImage(ball, Constants.BALL_BPM_INITIAL_X + (int) (bpm * 0.61), 241, Graphics.TOP | Graphics.LEFT);
+       g.drawImage(ball, BALL_BPM_INITIAL_X + (int) (bpm * 0.61), 241, Graphics.TOP | Graphics.LEFT);
 
      
     }
@@ -231,7 +232,7 @@ public class ViewSEQVGA implements View, SEQVGA {
         
         g.drawImage(bgTitle, animX, animY, Graphics.TOP | Graphics.LEFT);
 
-        for (int i = 0; i < Constants.MAIN_MENU_LENGHT; i++)
+        for (int i = 0; i < MAIN_MENU_LENGHT; i++)
         {
             cy = 100 + (i * 49);
             g.setClip(50, cy, 155, 37);
@@ -293,7 +294,15 @@ public class ViewSEQVGA implements View, SEQVGA {
         return HEIGHT;
     }
 
-    
+    public int maxLines()
+    {
+        return MAX_NUMBER_OF_LINES;
+    }
+
+    public int supportedSounds()
+    {
+        return SUPPORTED_SOUNDS;
+    }
     
 
 }

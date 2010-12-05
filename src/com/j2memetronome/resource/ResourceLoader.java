@@ -4,8 +4,9 @@
  */
 package com.j2memetronome.resource;
 
-import com.j2memetronome.Constants;
+
 import com.j2memetronome.font.FontConstants;
+import com.j2memetronome.i18n.Language;
 import com.j2memetronome.text.TxtReader;
 import java.io.IOException;
 import javax.microedition.lcdui.Image;
@@ -17,6 +18,21 @@ import mwt.Font;
  */
 public class ResourceLoader {
 
+    // String IDs
+    public static int STRING_ABOUT = 0;
+    public static int STRING_HELP = 1;
+    public static int STRING_OPTIONS = 2;
+    public static int STRING_EXIT = 3;
+    public static int STRING_BASS_DRUM_AND_SNARE = 4;
+    public static int STRING_BASS_DRUM_SNARE_HH = 5;
+    public static int STRING_TOMS = 6;
+    public static int STRING_CLICK_AND_BELL = 7;
+    public static int STRING_KITS = 8;
+    public static int STRING_EXIT_TEXT = 9;
+
+    public static final String ENGLISH_RES = "en";
+    public static final String PORTUGUESE_RES = "pt";
+    
     // Images Menu
     private Image menu,  bgMainMenu,  bgTitle,  oK,  cancel,  arrowUp,  arrowDown,  arrowLeft,  arrowRight,  optionsGrid,  optionsBar;
 
@@ -82,14 +98,14 @@ public class ResourceLoader {
 
             TxtReader txtReader = new TxtReader();
 
-            if (langId == Constants.PORTUGUESE) {
-                textAbout = txtReader.readFile("/" + Constants.PORTUGUESE_RES + "/about.txt");
-                textHelp = txtReader.readFile("/" + Constants.PORTUGUESE_RES + "/help.txt");
-                textCommons = txtReader.readFile("/" + Constants.PORTUGUESE_RES + "/common.txt");
+            if (langId == Language.PORTUGUESE) {
+                textAbout = txtReader.readFile("/" + PORTUGUESE_RES + "/about.txt");
+                textHelp = txtReader.readFile("/" + PORTUGUESE_RES + "/help.txt");
+                textCommons = txtReader.readFile("/" + PORTUGUESE_RES + "/common.txt");
             } else {
-                textAbout = txtReader.readFile("/" + Constants.ENGLISH_RES + "/about.txt");
-                textHelp = txtReader.readFile("/" + Constants.ENGLISH_RES + "/help.txt");
-                textCommons = txtReader.readFile("/" + Constants.ENGLISH_RES + "/common.txt");
+                textAbout = txtReader.readFile("/" + ENGLISH_RES + "/about.txt");
+                textHelp = txtReader.readFile("/" + ENGLISH_RES + "/help.txt");
+                textCommons = txtReader.readFile("/" + ENGLISH_RES + "/common.txt");
             }
         } catch (IOException io) {
             io.printStackTrace();
@@ -99,12 +115,12 @@ public class ResourceLoader {
 
     public void loadImagesLang(int langId) throws IOException {
 
-        if (langId == Constants.PORTUGUESE) {
-            menu = Image.createImage("/images_multilang/" + Constants.PORTUGUESE_RES + "/menuitems.png");
-            bgMetronome = Image.createImage("/images_multilang/" + Constants.PORTUGUESE_RES + "/metronome_canvas_bg.png");
+        if (langId == Language.PORTUGUESE) {
+            menu = Image.createImage("/images_multilang/" + PORTUGUESE_RES + "/menuitems.png");
+            bgMetronome = Image.createImage("/images_multilang/" + PORTUGUESE_RES + "/metronome_canvas_bg.png");
         } else {
-            menu = Image.createImage("/images_multilang/" + Constants.ENGLISH_RES + "/menuitems.png");
-            bgMetronome = Image.createImage("/images_multilang/" + Constants.ENGLISH_RES + "/metronome_canvas_bg.png");
+            menu = Image.createImage("/images_multilang/" + ENGLISH_RES + "/menuitems.png");
+            bgMetronome = Image.createImage("/images_multilang/" + ENGLISH_RES + "/metronome_canvas_bg.png");
         }
 
     }

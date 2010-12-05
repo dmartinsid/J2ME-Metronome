@@ -13,6 +13,7 @@ public interface SEQVGA extends GenericDevice{
     int WIDTH = 240;
     int HEIGHT = 320;
     int MAX_NUMBER_OF_LINES = 8;
+    int SUPPORTED_SOUNDS = 4;
 
 
 }

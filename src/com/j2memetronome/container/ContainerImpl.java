@@ -6,7 +6,6 @@
 package com.j2memetronome.container;
 
 import com.j2memetronome.Actions;
-import com.j2memetronome.Constants;
 import com.j2memetronome.Metronome;
 import com.j2memetronome.MetronomeMIDlet;
 import com.j2memetronome.appstate.ApplicationState;
@@ -123,20 +122,20 @@ public class ContainerImpl extends Canvas implements Runnable{
             case ApplicationState.OPTIONS:
             case ApplicationState.METRONOME_OPTIONS:
                 view.drawOptions(g, resourceLoader.getBgMainMenu(), resourceLoader.getOptionsBar(),
-                        resourceLoader.getArrowLeft(), resourceLoader.getArrowRight(), resourceLoader.getTextCommons()[Constants.STRING_OPTIONS],
+                        resourceLoader.getArrowLeft(), resourceLoader.getArrowRight(), resourceLoader.getTextCommons()[ResourceLoader.STRING_OPTIONS],
                         resourceLoader.getTextCommons(), optionsSelectedSoundComponents);
                 break;
             case ApplicationState.HELP:
                 view.drawHelp(g, resourceLoader.getBgMainMenu(), resourceLoader.getOptionsGrid(), resourceLoader.getArrowUp(),
-                        resourceLoader.getArrowDown(), resourceLoader.getTextCommons()[Constants.STRING_HELP], resourceLoader.getTextHelp(), firstLineScroll );
+                        resourceLoader.getArrowDown(), resourceLoader.getTextCommons()[ResourceLoader.STRING_HELP], resourceLoader.getTextHelp(), firstLineScroll );
                 break;
             case ApplicationState.ABOUT:
                 view.drawAbout(g, resourceLoader.getBgMainMenu(), resourceLoader.getOptionsGrid(), resourceLoader.getArrowUp(),
-                        resourceLoader.getArrowDown(), resourceLoader.getTextCommons()[Constants.STRING_ABOUT], resourceLoader.getTextAbout(), firstLineScroll);
+                        resourceLoader.getArrowDown(), resourceLoader.getTextCommons()[ResourceLoader.STRING_ABOUT], resourceLoader.getTextAbout(), firstLineScroll);
                 break;
             case ApplicationState.EXIT:
                 view.drawExit(g, resourceLoader.getBgMainMenu(), 
-                        resourceLoader.getTextCommons()[Constants.STRING_EXIT], resourceLoader.getTextCommons()[Constants.STRING_EXIT_TEXT]);
+                        resourceLoader.getTextCommons()[ResourceLoader.STRING_EXIT], resourceLoader.getTextCommons()[ResourceLoader.STRING_EXIT_TEXT]);
                 break;
             case ApplicationState.METRONOME_STARTED:
             case ApplicationState.METRONOME_STOPPED:
@@ -272,7 +271,7 @@ public class ContainerImpl extends Canvas implements Runnable{
                 }
                 break;
             case GenericDevice.DOWN:
-                if (menuIndex + 1 < Constants.MAIN_MENU_LENGHT) {
+                if (menuIndex + 1 < view.MAIN_MENU_LENGHT) {
                     menuIndex++;
                 } else {
                     menuIndex = 0;
@@ -310,9 +309,9 @@ public class ContainerImpl extends Canvas implements Runnable{
                         break;
                     case GenericDevice.DOWN:
 
-                        if (firstLineScroll < resourceLoader.getTextHelp().length - Constants.DEVICE_MAX_NUMBER_OF_LINES && applicationState == ApplicationState.HELP) {
+                        if (firstLineScroll < resourceLoader.getTextHelp().length - view.maxLines() && applicationState == ApplicationState.HELP) {
                             firstLineScroll++;
-                        } else if (firstLineScroll < resourceLoader.getTextAbout().length - Constants.DEVICE_MAX_NUMBER_OF_LINES && applicationState == ApplicationState.ABOUT) {
+                        } else if (firstLineScroll < resourceLoader.getTextAbout().length - view.maxLines() && applicationState == ApplicationState.ABOUT) {
                             firstLineScroll++;
                         }
 
@@ -339,11 +338,11 @@ public class ContainerImpl extends Canvas implements Runnable{
                     case GenericDevice.RIGHT:
                     case Canvas.KEY_NUM6:
 
-                    case Constants.OPTIONS_SOUND_KITS:
-                        if (optionsSelectedSoundComponents + 1 < Constants.DIFFERENT_SOUNDS) {
+               
+                        if (optionsSelectedSoundComponents + 1 < view.supportedSounds()) {
                             optionsSelectedSoundComponents++;
 
-                        } else if (optionsSelectedSoundComponents + 1 == Constants.DIFFERENT_SOUNDS) {
+                        } else if (optionsSelectedSoundComponents + 1 == view.supportedSounds()) {
                             optionsSelectedSoundComponents = 0;
                         }
                         metronome.setKit(optionsSelectedSoundComponents);
@@ -356,7 +355,7 @@ public class ContainerImpl extends Canvas implements Runnable{
                         if (optionsSelectedSoundComponents > 0) {
                             optionsSelectedSoundComponents--;
                         } else if (optionsSelectedSoundComponents - 1 < 0) {
-                            optionsSelectedSoundComponents = Constants.DIFFERENT_SOUNDS - 1;
+                            optionsSelectedSoundComponents = view.supportedSounds() - 1;
                         }
                         break;
 
@@ -426,7 +425,7 @@ public class ContainerImpl extends Canvas implements Runnable{
                         applicationState = ApplicationState.MAIN_MENU;
                         break;
                     case Canvas.KEY_POUND:
-                        if (optionsSelectedSoundComponents < Constants.DIFFERENT_SOUNDS - 1) {
+                        if (optionsSelectedSoundComponents < view.supportedSounds() - 1) {
                             optionsSelectedSoundComponents++;
                         } else {
                             optionsSelectedSoundComponents = 0;

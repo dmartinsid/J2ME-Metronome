@@ -1,7 +1,7 @@
 package com.j2memetronome;
 
 import com.j2memetronome.container.ContainerImpl;
-import com.j2memetronome.view.MetronomeCanvas;
+
 import javax.microedition.midlet.*;
 
 /**
@@ -11,14 +11,13 @@ import javax.microedition.midlet.*;
  */
 public class MetronomeMIDlet extends MIDlet {
 
-    private MetronomeCanvas canvas;
+
     private ContainerImpl containerImpl;
     public void startApp()
     {
-        if (canvas == null) {
-           // canvas = new MetronomeCanvas(this);
+        if (containerImpl == null) 
             containerImpl = new ContainerImpl(this);
-        }
+        
     }
 
     public void pauseApp()
