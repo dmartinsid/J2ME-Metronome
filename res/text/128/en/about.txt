@@ -1,10 +1,10 @@
 J2ME METRONOME
 
 FOLLOW US ON TWITTER
-j2memetronome
+J2memetronome
 
 CONTACT
-j2memetronome at
-gmail
+J2memetronome at
+Gmail
 
-version 2.0
+Version 2.0

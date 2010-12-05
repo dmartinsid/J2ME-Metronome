@@ -210,12 +210,12 @@ public class ViewNKLuxury implements View, NKLuxury {
 
         // Measure
         metronome.write(g, numerator + "/" + denominator,
-                110, 131, WIDTH, 0, Component.ALIGN_TOP_LEFT);
+                110, 119, WIDTH, 0, Component.ALIGN_TOP_LEFT);
         // BPM
         metronome.write(g, String.valueOf(bpm),
-                110, 154, WIDTH, 0, Component.ALIGN_TOP_LEFT);
+                110, 142, WIDTH, 0, Component.ALIGN_TOP_LEFT);
 
-       g.drawImage(ball, Constants.BALL_BPM_INITIAL_X + (int) (bpm * 0.43), 177, Graphics.TOP | Graphics.LEFT);
+       g.drawImage(ball, Constants.BALL_BPM_INITIAL_X + (int) (bpm * 0.43), 165, Graphics.TOP | Graphics.LEFT);
 
 
     }
