@@ -13,6 +13,7 @@ import com.j2memetronome.device.GenericDevice;
 import com.j2memetronome.resource.ResourceLoader;
 import com.j2memetronome.view.View;
 import com.j2memetronome.view.ViewNKLuxury;
+import com.j2memetronome.view.ViewNKTouch;
 import com.j2memetronome.view.ViewSELuxury;
 import com.j2memetronome.view.ViewSEMidsized;
 import com.j2memetronome.view.ViewSEQVGA;
@@ -64,6 +65,8 @@ public class ContainerImpl extends Canvas implements Runnable{
 //#         view = new ViewSELuxury();
         //#elif NKLUXURY
 //#         view = new ViewNKLuxury();
+        //#elif NKTOUCH
+//#         view = new ViewNKTouch();
         //#else
         view = new ViewSEMidsized();
         //#endif
