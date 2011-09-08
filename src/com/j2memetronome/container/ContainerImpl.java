@@ -143,7 +143,7 @@ public class ContainerImpl extends Canvas implements Runnable{
             case ApplicationState.METRONOME_STARTED:
             case ApplicationState.METRONOME_STOPPED:
                 
-                view.drawMetronome(g, resourceLoader.getBgMetronome(), resourceLoader.getBall(), metronome.getNumerator(), metronome.getDenominator(),
+            view.drawMetronome(g, resourceLoader.getBgMetronome(), resourceLoader.getBall(), metronome.getNumerator(), metronome.getDenominator().intValue(),
                         metronome.getBeatsPerMinute(), metronome.getActualBeat(), metronome.getActualBeat() == 1,
                         applicationState == ApplicationState.METRONOME_STARTED);
                 metronome.process(applicationState == ApplicationState.METRONOME_STARTED);
@@ -180,7 +180,7 @@ public class ContainerImpl extends Canvas implements Runnable{
                        
                     } else {
 
-                        Thread.sleep(metronome.beatsToPeriod());
+                        Thread.sleep(metronome.sleepTime());
                     }
 
 
@@ -414,10 +414,10 @@ public class ContainerImpl extends Canvas implements Runnable{
                         }
                         break;
                     case Canvas.KEY_NUM2:
-                        metronome.setDenominator(metronome.getDenominator(), Actions.INCREMENT);
+                        metronome.setDenominator( Actions.INCREMENT);
                         break;
                     case Canvas.KEY_NUM8:
-                        metronome.setDenominator(metronome.getDenominator(), Actions.DECREMENT);
+                        metronome.setDenominator( Actions.DECREMENT);
                         break;
                     case GenericDevice.LSK:
                         applicationState = ApplicationState.METRONOME_OPTIONS;
