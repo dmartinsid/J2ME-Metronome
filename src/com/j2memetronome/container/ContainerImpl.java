@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.j2memetronome.container;
 
 import com.j2memetronome.Metronome;
@@ -23,35 +22,25 @@ import javax.microedition.lcdui.Graphics;
  *
  * @author dmartins
  */
-public class ContainerImpl extends Canvas implements Runnable{
+public class ContainerImpl extends Canvas implements Runnable {
 
     private int applicationState;
     private Thread applicationThread;
-
     private int languageId;
-
     //-----------------------------------------
     // MENU
     //-----------------------------------------
     private int menuIndex;
-
     private ResourceLoader resourceLoader;
-   
     private Metronome metronome;
-
     private int firstLineScroll;
     // Options
     private static int optionsSelectedSoundComponents = 0;
-
-
     private MetronomeMIDlet midlet;
-
     private View view;
-
     private Timer timer;
 
-    public ContainerImpl(MetronomeMIDlet midlet)
-    {
+    public ContainerImpl(MetronomeMIDlet midlet) {
         this.midlet = midlet;
         resourceLoader = new ResourceLoader();
         //#ifdef QVGA
@@ -75,11 +64,11 @@ public class ContainerImpl extends Canvas implements Runnable{
             ex.printStackTrace();
         }
 
-         // default is bpm equals 120 and measure 4/4
+        // default is bpm equals 120 and measure 4/4
         metronome = new Metronome();
         applicationState = ApplicationState.CHOOSE_LANG;
         timer = new Timer();
-        
+
         Display.getDisplay(midlet).setCurrent(this);
 
         menuIndex = 0;
@@ -89,8 +78,7 @@ public class ContainerImpl extends Canvas implements Runnable{
         repaint();
     }
 
-    public void setFonts() throws IOException
-    {
+    public void setFonts() throws IOException {
         view.setArial(resourceLoader.getArial());
         view.setContour(resourceLoader.getContour());
         view.setMetronome(resourceLoader.getMetronomeFont());
@@ -98,16 +86,11 @@ public class ContainerImpl extends Canvas implements Runnable{
         view.setMetronomeRed(resourceLoader.getMetronomeRed());
     }
 
-   
- 
-
-    protected void paint(Graphics g)
-    {
+    protected void paint(Graphics g) {
         g.setColor(0x00000000);
         g.fillRect(0, 0, view.getWidth(), view.getHeight());
 
-        switch (applicationState)
-        {
+        switch (applicationState) {
             case ApplicationState.CHOOSE_LANG:
                 view.drawChooseLanguage(g, resourceLoader.getBgMainMenu(), languageId);
                 break;
@@ -125,54 +108,52 @@ public class ContainerImpl extends Canvas implements Runnable{
                 break;
             case ApplicationState.HELP:
                 view.drawHelp(g, resourceLoader.getBgMainMenu(), resourceLoader.getOptionsGrid(), resourceLoader.getArrowUp(),
-                        resourceLoader.getArrowDown(), resourceLoader.getTextCommons()[ResourceLoader.STRING_HELP], resourceLoader.getTextHelp(), firstLineScroll );
+                        resourceLoader.getArrowDown(), resourceLoader.getTextCommons()[ResourceLoader.STRING_HELP], resourceLoader.getTextHelp(), firstLineScroll);
                 break;
             case ApplicationState.ABOUT:
                 view.drawAbout(g, resourceLoader.getBgMainMenu(), resourceLoader.getOptionsGrid(), resourceLoader.getArrowUp(),
                         resourceLoader.getArrowDown(), resourceLoader.getTextCommons()[ResourceLoader.STRING_ABOUT], resourceLoader.getTextAbout(), firstLineScroll);
                 break;
             case ApplicationState.EXIT:
-                view.drawExit(g, resourceLoader.getBgMainMenu(), 
+                view.drawExit(g, resourceLoader.getBgMainMenu(),
                         resourceLoader.getTextCommons()[ResourceLoader.STRING_EXIT], resourceLoader.getTextCommons()[ResourceLoader.STRING_EXIT_TEXT]);
                 break;
             case ApplicationState.METRONOME_STARTED:
             case ApplicationState.METRONOME_STOPPED:
-                
-            view.drawMetronome(g, resourceLoader.getBgMetronome(), resourceLoader.getBall(), metronome.getNumerator(), metronome.getDenominator().intValue(),
+
+                view.drawMetronome(g, resourceLoader.getBgMetronome(), resourceLoader.getBall(), metronome.getNumerator(), metronome.getDenominator().intValue(),
                         metronome.getBeatsPerMinute(), metronome.getActualBeat(), metronome.getActualBeat() == 1,
                         applicationState == ApplicationState.METRONOME_STARTED);
                 metronome.process(applicationState == ApplicationState.METRONOME_STARTED);
                 break;
         }
-        
+
         view.drawSoftKeys(g, applicationState, resourceLoader.getOK(), resourceLoader.getCancel());
 
     }
 
     public void run() {
-        while (applicationState != ApplicationState.KILL)
-        {
+        while (applicationState != ApplicationState.KILL) {
             repaint();
             serviceRepaints();
 
-            if (applicationState == ApplicationState.SPLASH)
+            if (applicationState == ApplicationState.SPLASH) {
                 timer.schedule(new CountDown(), 5000);
+            }
 
 
-            if (applicationState < ApplicationState.METRONOME_STARTED) {               
+            if (applicationState < ApplicationState.METRONOME_STARTED) {
 
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
-            } 
-            else if (applicationState >= ApplicationState.METRONOME_STARTED)
-            {
+            } else if (applicationState >= ApplicationState.METRONOME_STARTED) {
                 try {
                     if (applicationState != ApplicationState.METRONOME_STARTED) {
                         Thread.sleep(50);
-                       
+
                     } else {
 
                         Thread.sleep(metronome.sleepTime());
@@ -188,6 +169,7 @@ public class ContainerImpl extends Canvas implements Runnable{
     //----------------------------------------------------------------
     // EVENTS
     //----------------------------------------------------------------
+
     protected void keyPressed(int keyCode) {
         processEvents(keyCode);
 
@@ -232,7 +214,7 @@ public class ContainerImpl extends Canvas implements Runnable{
     }
 
     public void processMainMenu(int keyCode) {
-        
+
         switch (keyCode) {
             case KEY_NUM5:
             case GenericDevice.LSK:
@@ -326,7 +308,7 @@ public class ContainerImpl extends Canvas implements Runnable{
 
                         if (applicationState == ApplicationState.OPTIONS) {
                             applicationState = ApplicationState.MAIN_MENU;
-                        //resetAnimation();
+                            //resetAnimation();
                         } else {
                             applicationState = ApplicationState.METRONOME_STOPPED;
                         }
@@ -336,7 +318,7 @@ public class ContainerImpl extends Canvas implements Runnable{
                     case GenericDevice.RIGHT:
                     case Canvas.KEY_NUM6:
 
-               
+
                         if (optionsSelectedSoundComponents + 1 < view.supportedSounds()) {
                             optionsSelectedSoundComponents++;
 
@@ -384,15 +366,13 @@ public class ContainerImpl extends Canvas implements Runnable{
 
                     case GenericDevice.RIGHT:
                         applicationState = ApplicationState.METRONOME_STOPPED;
-                        if (metronome.getBeatsPerMinute() < Metronome.BPM_MAX) {
-                            metronome.setBeatsPerMinute(metronome.getBeatsPerMinute() + 1);
-                        }
+
+                        metronome.increaseBeatsPerMinute();
+
                         break;
                     case GenericDevice.LEFT:
                         applicationState = ApplicationState.METRONOME_STOPPED;
-                        if (metronome.getBeatsPerMinute() > Metronome.BPM_MIN) {
-                            metronome.setBeatsPerMinute(metronome.getBeatsPerMinute() - 1);
-                        }
+                        metronome.decreaseBeatsPerMinute();
                         break;
                     case GenericDevice.UP:
                         metronome.setNumerator(metronome.getNumerator() + 1);
@@ -409,10 +389,10 @@ public class ContainerImpl extends Canvas implements Runnable{
                         }
                         break;
                     case Canvas.KEY_NUM2:
-                        metronome.setDenominator( metronome.getDenominator().next());
+                        metronome.setDenominator(metronome.getDenominator().next());
                         break;
                     case Canvas.KEY_NUM8:
-                        metronome.setDenominator( metronome.getDenominator().previous());
+                        metronome.setDenominator(metronome.getDenominator().previous());
                         break;
                     case GenericDevice.LSK:
                         applicationState = ApplicationState.METRONOME_OPTIONS;
@@ -437,7 +417,6 @@ public class ContainerImpl extends Canvas implements Runnable{
 
         }
     }
-
 
     private void dismiss() {
         timer.cancel();

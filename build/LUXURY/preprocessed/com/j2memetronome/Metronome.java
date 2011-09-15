@@ -72,15 +72,14 @@ public class Metronome implements MetronomeConstants
         return (long) ((60000 / beatsPerMinute) *  ((double)4/denominator.intValue()));
     }
 
-    //-----------------------------------------------------------------------
-    // GETTERS AND SETTERS
-    //-----------------------------------------------------------------------
     public int getBeatsPerMinute() {
         return beatsPerMinute;
     }
 
-    public void setBeatsPerMinute(int beatsPerMinute) {
-        this.beatsPerMinute = beatsPerMinute;
+
+    public void increaseBeatsPerMinute()
+    {
+         this.beatsPerMinute = beatsPerMinute - 1;
     }
 
     public int getActualBeat()
@@ -171,7 +170,5 @@ public class Metronome implements MetronomeConstants
             playMetronomeClick();
     }
 
-    public void setDenominator(int Action) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
+  
 }

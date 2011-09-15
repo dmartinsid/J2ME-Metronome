@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.j2memetronome;
 
 /**
@@ -11,19 +6,8 @@ package com.j2memetronome;
  */
 public interface MetronomeConstants {
 
-    //-----------------------------------------------------------------------
-    // MEASURES
-    //-----------------------------------------------------------------------
-    int VALID_DENOMINATORS[] = {2,4,8,16,32,64};
 
-    // Notes
-    int NOTE_WHOLE = 1;
-    int NOTE_HALF = 2;
-    int NOTE_QUARTER = 4;
-    int NOTE_EIGHTH = 8;
-    int NOTE_SIXTEENTH = 16;
-    int NOTE_THIRTY_SECOND = 32;
-    int NOTE_SIXTY_FOURTH = 64;
+ 
 
     //---------------------------------------------------------------
     // METRONOME LIMITS
