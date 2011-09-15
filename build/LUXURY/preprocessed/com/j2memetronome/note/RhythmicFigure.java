@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.j2memetronome.note;
 
 /**
@@ -20,6 +17,7 @@ public class RhythmicFigure {
     public static final RhythmicFigure THIRTY_SECOND = new RhythmicFigure(32);
     public static final RhythmicFigure SIXTY_FOURTH = new RhythmicFigure(64);
 
+    public static int WHOLE_TIME = 1;
     private RhythmicFigure(int denominator) {
         this.denominator = denominator;
     }
@@ -27,5 +25,60 @@ public class RhythmicFigure {
     public int intValue()
     {
         return denominator;
+    }
+
+    public RhythmicFigure next()
+    {
+       if(this.equals(WHOLE))
+           return HALF;
+       else if(this.equals(HALF))
+           return QUARTER;
+       else if(this.equals(QUARTER))
+           return EIGHTH;
+       else if(this.equals(EIGHTH))
+           return SIXTEENTH;
+       else if(this.equals(SIXTEENTH))
+           return THIRTY_SECOND;
+       else
+           return SIXTY_FOURTH;
+
+    }
+    public RhythmicFigure previous()
+    {
+       if(this.equals(SIXTY_FOURTH))
+           return THIRTY_SECOND;
+       else if(this.equals(THIRTY_SECOND))
+           return SIXTEENTH;
+       else if(this.equals(SIXTEENTH))
+           return EIGHTH;
+       else if(this.equals(EIGHTH))
+           return QUARTER;
+       else if(this.equals(QUARTER))
+           return HALF;
+       else
+           return WHOLE;
+
+    }
+
+    public boolean equals(Object object) {
+        if (object == null) {
+            return false;
+        }
+        if (getClass() != object.getClass()) {
+            return false;
+        }
+        final RhythmicFigure other = (RhythmicFigure) object;
+        if (this.denominator != other.denominator) {
+            return false;
+        }
+        return true;
+    }
+
+
+
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.denominator;
+        return hash;
     }
 }

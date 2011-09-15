@@ -90,37 +90,7 @@ public class Metronome implements MetronomeConstants
     public RhythmicFigure getDenominator() {
         return denominator;
     }
-    public void setDenominator(RhythmicFigure denominator, int action)
-    {
 
-                if(this.denominator == RhythmicFigure.WHOLE)
-                {
-
-                    setDenominator(action == Actions.INCREMENT ? RhythmicFigure.HALF : RhythmicFigure.WHOLE);
-                }
-           
-                /*case NOTE_HALF :
-                    setDenominator(action == Actions.INCREMENT ? NOTE_QUARTER : NOTE_WHOLE);
-                    break;
-                case NOTE_QUARTER :
-                    setDenominator(action == Actions.INCREMENT ? NOTE_EIGHTH : NOTE_HALF);
-                    break;
-                case NOTE_EIGHTH :
-                    setDenominator(action == Actions.INCREMENT ? NOTE_SIXTEENTH : NOTE_QUARTER );
-                    break;
-                case NOTE_SIXTEENTH :
-                    setDenominator(action == Actions.INCREMENT ? NOTE_THIRTY_SECOND : NOTE_EIGHTH);
-                    break;
-                case NOTE_THIRTY_SECOND :
-                    setDenominator(action == Actions.INCREMENT ? NOTE_SIXTY_FOURTH : NOTE_SIXTEENTH  );
-                    break;
-                case NOTE_SIXTY_FOURTH:
-                    setDenominator(action == Actions.INCREMENT ? NOTE_SIXTY_FOURTH : NOTE_THIRTY_SECOND);
-                    break;
-            }*/
-
-
-    }
     public void setDenominator(RhythmicFigure denominator) {
         this.denominator = denominator;
     }
@@ -201,7 +171,5 @@ public class Metronome implements MetronomeConstants
             playMetronomeClick();
     }
 
-    public void setDenominator(int Action) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
+  
 }

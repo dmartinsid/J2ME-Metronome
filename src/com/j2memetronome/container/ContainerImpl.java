@@ -5,18 +5,13 @@
 
 package com.j2memetronome.container;
 
-import com.j2memetronome.Actions;
 import com.j2memetronome.Metronome;
 import com.j2memetronome.MetronomeMIDlet;
 import com.j2memetronome.appstate.ApplicationState;
 import com.j2memetronome.device.GenericDevice;
 import com.j2memetronome.resource.ResourceLoader;
 import com.j2memetronome.view.View;
-import com.j2memetronome.view.ViewNKLuxury;
-import com.j2memetronome.view.ViewNKTouch;
 import com.j2memetronome.view.ViewSELuxury;
-import com.j2memetronome.view.ViewSEMidsized;
-import com.j2memetronome.view.ViewSEQVGA;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -414,10 +409,10 @@ public class ContainerImpl extends Canvas implements Runnable{
                         }
                         break;
                     case Canvas.KEY_NUM2:
-                        metronome.setDenominator( Actions.INCREMENT);
+                        metronome.setDenominator( metronome.getDenominator().next());
                         break;
                     case Canvas.KEY_NUM8:
-                        metronome.setDenominator( Actions.DECREMENT);
+                        metronome.setDenominator( metronome.getDenominator().previous());
                         break;
                     case GenericDevice.LSK:
                         applicationState = ApplicationState.METRONOME_OPTIONS;
