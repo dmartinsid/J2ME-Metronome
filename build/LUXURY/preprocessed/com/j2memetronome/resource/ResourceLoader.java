@@ -93,12 +93,12 @@ public class ResourceLoader {
      * Load about and help text
      * @throws java.io.IOException
      */
-    public void loadText(int langId) throws IOException {
+    public void loadText() throws IOException {
         try {
 
             TxtReader txtReader = new TxtReader();
 
-            if (langId == Language.PORTUGUESE) {
+            if (Language.current()  == Language.PORTUGUESE) {
                 textAbout = txtReader.readFile("/" + PORTUGUESE_RES + "/about.txt");
                 textHelp = txtReader.readFile("/" + PORTUGUESE_RES + "/help.txt");
                 textCommons = txtReader.readFile("/" + PORTUGUESE_RES + "/common.txt");
@@ -113,9 +113,9 @@ public class ResourceLoader {
 
     }
 
-    public void loadImagesLang(int langId) throws IOException {
+    public void loadImagesLang() throws IOException {
 
-        if (langId == Language.PORTUGUESE) {
+        if (Language.current()  == Language.PORTUGUESE) {
             menu = Image.createImage("/images_multilang/" + PORTUGUESE_RES + "/menuitems.png");
             bgMetronome = Image.createImage("/images_multilang/" + PORTUGUESE_RES + "/metronome_canvas_bg.png");
         } else {

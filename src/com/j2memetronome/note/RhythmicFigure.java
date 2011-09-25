@@ -17,7 +17,6 @@ public class RhythmicFigure {
     public static final RhythmicFigure THIRTY_SECOND = new RhythmicFigure(32);
     public static final RhythmicFigure SIXTY_FOURTH = new RhythmicFigure(64);
 
-    public static int WHOLE_TIME = 1;
     private RhythmicFigure(int denominator) {
         this.denominator = denominator;
     }

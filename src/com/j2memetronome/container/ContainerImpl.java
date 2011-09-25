@@ -40,20 +40,11 @@ public class ContainerImpl extends Canvas implements Runnable {
     private View view;
     private Timer timer;
 
-    public ContainerImpl(MetronomeMIDlet midlet) {
+    public ContainerImpl(MetronomeMIDlet midlet, View view) {
         this.midlet = midlet;
+        this.view = view;
         resourceLoader = new ResourceLoader();
-        //#ifdef QVGA
-//#         view = new ViewSEQVGA();
-        //#elif LUXURY
-//#         view = new ViewSELuxury();
-        //#elif NKLUXURY
-//#         view = new ViewNKLuxury();
-        //#elif NKTOUCH
-//#         view = new ViewNKTouch();
-        //#else
-        view = new ViewSEMidsized();
-        //#endif
+
         setFullScreenMode(true);
 
         try {
@@ -186,8 +177,8 @@ public class ContainerImpl extends Canvas implements Runnable {
             case GenericDevice.FIRE: {
 
                 try {
-                    resourceLoader.loadImagesLang(languageId);
-                    resourceLoader.loadText(languageId);
+                    resourceLoader.loadImagesLang();
+                    resourceLoader.loadText();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

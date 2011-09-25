@@ -3,37 +3,33 @@ package com.j2memetronome;
 import com.j2memetronome.midi.Drummer;
 import com.j2memetronome.note.RhythmicFigure;
 
-
 /**
  *
  * @author dmartins
  */
-public class Metronome implements MetronomeConstants
-{
+public class Metronome implements MetronomeLimits {
+
     private int beatsPerMinute;
     private int numerator;
     private RhythmicFigure denominator;
     private int actualBeat;
-    private int kitID;
-
     private Drummer drummer;
 
-    public Metronome()
-    {
-        this.beatsPerMinute = DEFAULT_BPM;
+    public Metronome() {
+        this.beatsPerMinute = 120;
         this.denominator = RhythmicFigure.QUARTER;
-        this.numerator = DEFAULT_NUMERATOR;
+        this.numerator = 4;
         actualBeat = 1;
         drummer = new Drummer();
     }
+
     /**
      * Constructor
      * @param beatsPerMinute
      * @param numerator
      * @param denominator
      */
-    public Metronome(int beatsPerMinute, int numerator, RhythmicFigure denominator)
-    {
+    public Metronome(int beatsPerMinute, int numerator, RhythmicFigure denominator) {
         this.beatsPerMinute = beatsPerMinute;
         this.denominator = denominator;
         this.numerator = numerator;
@@ -42,50 +38,51 @@ public class Metronome implements MetronomeConstants
         actualBeat = 1;
     }
 
-    public void process(boolean isStarted)
-    {
-        if(!isStarted)
-        {
+    public void process(boolean isStarted) {
+        if (!isStarted) {
             actualBeat = 1;
-        }
-        else if(actualBeat == numerator)
-        {
+        } else if (actualBeat == numerator) {
             playOthers();
             actualBeat = 1;
-        }
-        else
-        {
-            if(actualBeat == 1)
+        } else {
+            if (actualBeat == 1) {
                 playFirst();
-            else
+            } else {
                 playOthers();
-            
+            }
+
             actualBeat++;
         }
     }
+
     /**
      * 
      * @return time in milliseconds
      */
-    public long sleepTime()
-    {
-        return (long) ((60000 / beatsPerMinute) *  ((double)4/denominator.intValue()));
+    public long sleepTime() {
+        return (long) ((60000 / beatsPerMinute) * ((double) 4 / denominator.intValue()));
     }
 
     public int getBeatsPerMinute() {
         return beatsPerMinute;
     }
 
-
-    public void increaseBeatsPerMinute()
-    {
-         this.beatsPerMinute = beatsPerMinute - 1;
+    public void increaseBeatsPerMinute() {
+        if (BPM_MAX > beatsPerMinute) {
+            beatsPerMinute = beatsPerMinute + 1;
+        }
     }
 
-    public int getActualBeat()
-    {
+    public void decreaseBeatsPerMinute() {
+        if (BPM_MIN < beatsPerMinute) {
+            beatsPerMinute = beatsPerMinute - 1;
+        }
+    }
+
+    public int getActualBeat() {
         return actualBeat;
     }
+
     public RhythmicFigure getDenominator() {
         return denominator;
     }
@@ -102,73 +99,15 @@ public class Metronome implements MetronomeConstants
         this.numerator = numerator;
     }
 
-    public void playTomsHigh() {
-        drummer.playDrum(Drummer.HI_MID_TOM);
-        drummer.playDrum(Drummer.HIGH_TOM);
-    }
-    public void playTomsLow() {
-        drummer.playDrum(Drummer.LOW_FLOOR_TOM);
-        drummer.playDrum(Drummer.HIGH_FLOOR_TOM);
-    }
-    public void playTomsMid() {
-        drummer.playDrum(Drummer.LOW_TOM);
-        drummer.playDrum(Drummer.LOW_MID_TOM);
-    }
-    public void playBassDrum() {
-        drummer.playDrum(Drummer.ACOUSTIC_BASS_DRUM);
+    public void setKit(int kitID) {
+        drummer.setKit(kitID);
     }
 
-    public void playBassDrumAndCrash() {
-        drummer.playDrum(Drummer.ACOUSTIC_BASS_DRUM);
-        drummer.playDrum(Drummer.CRASH_CYMBAL_1);
+    public void playFirst() {
+        drummer.playFirst();
     }
 
-    public void playBassDrumAndHiHat() {
-        drummer.playDrum(Drummer.ACOUSTIC_BASS_DRUM);
-        drummer.playDrum(Drummer.CLOSED_HI_HAT);
+    public void playOthers() {
+        drummer.playOthers();
     }
-
-    public void playSnare() {
-        drummer.playDrum(Drummer.ACOUSTIC_SNARE);
-    }
-
-    public void playMetronomeClick()
-    {
-        drummer.playDrum(Drummer.METRONOME_CLICK);
-    }
-
-    public void playMetronomeBell()
-    {
-        drummer.playDrum(Drummer.METRONOME_BELL);
-    }
-
-    public void setKit(int kitID)
-    {
-        this.kitID = kitID;
-    }
-
-    public void playFirst()
-    {
-        if (kitID == 0)
-            playSnare();
-        else if (kitID == 1)
-            playBassDrumAndCrash();
-        else if (kitID == 2)
-            playTomsLow();
-        else
-            playMetronomeBell();
-    }
-    public void playOthers()
-    {
-        if (kitID == 0)
-            playBassDrum();
-        else if (kitID == 1)
-            playBassDrumAndHiHat();
-        else if(kitID == 2)
-            playTomsMid();
-        else
-            playMetronomeClick();
-    }
-
-  
 }

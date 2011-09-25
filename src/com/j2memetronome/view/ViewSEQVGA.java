@@ -6,7 +6,7 @@
 package com.j2memetronome.view;
 
 import com.j2memetronome.appstate.ApplicationState;
-import com.j2memetronome.device.SEQVGA;
+import com.j2memetronome.device.SonyEricssonQVGA;
 import com.j2memetronome.i18n.Language;
 import com.j2memetronome.resource.ResourceLoader;
 
@@ -19,7 +19,7 @@ import mwt.Font;
  *
  * @author Deivid Martins
  */
-public class ViewSEQVGA implements View, SEQVGA {
+public class ViewSEQVGA implements View, SonyEricssonQVGA {
 
 
     private Font arial;
@@ -162,7 +162,7 @@ public class ViewSEQVGA implements View, SEQVGA {
         g.setColor(0xFFFFFF);
         g.drawRect(10, 105, WIDTH - 20, 30);
 
-        if(languageId == Language.ENGLISH)
+        if(Language.current()  == Language.ENGLISH)
         {
             g.setColor(0x555555);
             g.fillRect(10, 75, WIDTH - 20, 15);
@@ -174,7 +174,7 @@ public class ViewSEQVGA implements View, SEQVGA {
             contour.write(g, "YOUR", 0, 25, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
             contour.write(g, "LANGUAGE", 0, 45, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
         }
-        else if(languageId == Language.PORTUGUESE)
+        else if(Language.current()  == Language.PORTUGUESE)
         {
             g.setColor(0x555555);
             g.fillRect(10, 105, WIDTH - 20, 15);

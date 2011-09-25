@@ -28,4 +28,21 @@ public final class ApplicationState {
     public static final int METRONOME_OPTIONS = 10;
     public static final int KILL = 11;
 
+    private int state;
+
+    public ApplicationState(int state) {
+        this.state = state;
+    }
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public void next()
+    {
+        state++;
+    }
 }
