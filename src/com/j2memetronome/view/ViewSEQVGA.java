@@ -232,7 +232,7 @@ public class ViewSEQVGA implements View, SonyEricssonQVGA {
         
         g.drawImage(bgTitle, animX, animY, Graphics.TOP | Graphics.LEFT);
 
-        for (int i = 0; i < MAIN_MENU_LENGHT; i++)
+        for (int i = 0; i < MAIN_MENU_LENGTH; i++)
         {
             cy = 100 + (i * 49);
             g.setClip(50, cy, 155, 37);

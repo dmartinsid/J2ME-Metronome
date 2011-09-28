@@ -9,6 +9,7 @@ import com.j2memetronome.MetronomeMIDlet;
 import com.j2memetronome.appstate.ApplicationState;
 import com.j2memetronome.device.GenericDevice;
 import com.j2memetronome.resource.ResourceLoader;
+import com.j2memetronome.view.Menu;
 import com.j2memetronome.view.View;
 import com.j2memetronome.view.ViewSELuxury;
 import java.io.IOException;
@@ -24,13 +25,12 @@ import javax.microedition.lcdui.Graphics;
  */
 public class ContainerImpl extends Canvas implements Runnable {
 
-    private int applicationState;
+    private ApplicationState applicationState;
     private Thread applicationThread;
     private int languageId;
     //-----------------------------------------
     // MENU
     //-----------------------------------------
-    private int menuIndex;
     private ResourceLoader resourceLoader;
     private Metronome metronome;
     private int firstLineScroll;
@@ -39,6 +39,7 @@ public class ContainerImpl extends Canvas implements Runnable {
     private MetronomeMIDlet midlet;
     private View view;
     private Timer timer;
+    private Menu menu;
 
     public ContainerImpl(MetronomeMIDlet midlet, View view) {
         this.midlet = midlet;
@@ -55,15 +56,14 @@ public class ContainerImpl extends Canvas implements Runnable {
             ex.printStackTrace();
         }
 
-        // default is bpm equals 120 and measure 4/4
         metronome = new Metronome();
-        applicationState = ApplicationState.CHOOSE_LANG;
+        applicationState = new ApplicationState(ApplicationState.CHOOSE_LANG);
         timer = new Timer();
 
         Display.getDisplay(midlet).setCurrent(this);
 
-        menuIndex = 0;
-        // Create Thread and Start
+        menu = new Menu();
+
         applicationThread = new Thread(this);
         applicationThread.start();
         repaint();
@@ -81,7 +81,7 @@ public class ContainerImpl extends Canvas implements Runnable {
         g.setColor(0x00000000);
         g.fillRect(0, 0, view.getWidth(), view.getHeight());
 
-        switch (applicationState) {
+        switch (applicationState.getState()) {
             case ApplicationState.CHOOSE_LANG:
                 view.drawChooseLanguage(g, resourceLoader.getBgMainMenu(), languageId);
                 break;
@@ -89,7 +89,7 @@ public class ContainerImpl extends Canvas implements Runnable {
                 view.drawSplash(g, resourceLoader.getSplash());
                 break;
             case ApplicationState.MAIN_MENU:
-                view.drawMenu(g, resourceLoader.getBgMainMenu(), resourceLoader.getBgTitle(), resourceLoader.getMenu(), menuIndex, UP, UP);
+                view.drawMenu(g, resourceLoader.getBgMainMenu(), resourceLoader.getBgTitle(), resourceLoader.getMenu(), menu.getIndex(), UP, UP);
                 break;
             case ApplicationState.OPTIONS:
             case ApplicationState.METRONOME_OPTIONS:
@@ -114,35 +114,35 @@ public class ContainerImpl extends Canvas implements Runnable {
 
                 view.drawMetronome(g, resourceLoader.getBgMetronome(), resourceLoader.getBall(), metronome.getNumerator(), metronome.getDenominator().intValue(),
                         metronome.getBeatsPerMinute(), metronome.getActualBeat(), metronome.getActualBeat() == 1,
-                        applicationState == ApplicationState.METRONOME_STARTED);
-                metronome.process(applicationState == ApplicationState.METRONOME_STARTED);
+                        applicationState.getState() == ApplicationState.METRONOME_STARTED);
+                metronome.process(applicationState.getState() == ApplicationState.METRONOME_STARTED);
                 break;
         }
 
-        view.drawSoftKeys(g, applicationState, resourceLoader.getOK(), resourceLoader.getCancel());
+        view.drawSoftKeys(g, applicationState.getState(), resourceLoader.getOK(), resourceLoader.getCancel());
 
     }
 
     public void run() {
-        while (applicationState != ApplicationState.KILL) {
+        while (applicationState.getState() != ApplicationState.KILL) {
             repaint();
             serviceRepaints();
 
-            if (applicationState == ApplicationState.SPLASH) {
+            if (applicationState.getState() == ApplicationState.SPLASH) {
                 timer.schedule(new CountDown(), 5000);
             }
 
 
-            if (applicationState < ApplicationState.METRONOME_STARTED) {
+            if (applicationState.getState() < ApplicationState.METRONOME_STARTED) {
 
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
-            } else if (applicationState >= ApplicationState.METRONOME_STARTED) {
+            } else if (applicationState.getState() >= ApplicationState.METRONOME_STARTED) {
                 try {
-                    if (applicationState != ApplicationState.METRONOME_STARTED) {
+                    if (applicationState.getState() != ApplicationState.METRONOME_STARTED) {
                         Thread.sleep(50);
 
                     } else {
@@ -182,7 +182,7 @@ public class ContainerImpl extends Canvas implements Runnable {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                applicationState = ApplicationState.SPLASH;
+                applicationState.setState(ApplicationState.SPLASH);
                 break;
 
             }
@@ -210,53 +210,44 @@ public class ContainerImpl extends Canvas implements Runnable {
             case KEY_NUM5:
             case GenericDevice.LSK:
             case GenericDevice.FIRE: {
-                switch (menuIndex) {
+                switch ( menu.getIndex()) {
                     case 0:
-                        applicationState = ApplicationState.START;
-                        applicationState = ApplicationState.METRONOME_STOPPED;
-
+                        applicationState.setState(ApplicationState.METRONOME_STOPPED);
                         break;
 
                     case 1:
-                        applicationState = ApplicationState.OPTIONS;
+                        applicationState.setState(ApplicationState.OPTIONS);
                         break;
                     case 2:
-                        applicationState = ApplicationState.HELP;
+                        applicationState.setState(ApplicationState.HELP);
                         break;
                     case 3:
-                        applicationState = ApplicationState.ABOUT;
+                        applicationState.setState(ApplicationState.ABOUT);
                         break;
 
                 }
+
                 break;
             }
             case GenericDevice.RSK:
             case GenericDevice.CLEAR:
-                applicationState = ApplicationState.EXIT;
+                applicationState.setState(ApplicationState.EXIT);
                 break;
             case GenericDevice.UP:
-                if (menuIndex == 0) {
-                    menuIndex = 3;
-                } else if (menuIndex - 1 >= 0) {
-                    menuIndex--;
-                }
+                menu.previousIndex();
                 break;
             case GenericDevice.DOWN:
-                if (menuIndex + 1 < view.MAIN_MENU_LENGHT) {
-                    menuIndex++;
-                } else {
-                    menuIndex = 0;
-                }
+                menu.nextIndex();
 
                 break;
         }
 
     }
 
-    //public void processHelp(int )
+
     public void processEvents(int keyCode) {
 
-        switch (applicationState) {
+        switch (menu.getIndex()) {
 
             case ApplicationState.CHOOSE_LANG:
                 processChooseLanguage(keyCode);
@@ -269,8 +260,8 @@ public class ContainerImpl extends Canvas implements Runnable {
                 switch (keyCode) {
                     case GenericDevice.RSK:
                     case GenericDevice.CLEAR:
-                        applicationState = ApplicationState.MAIN_MENU;
-                        //resetAnimation();
+                        applicationState.setState(ApplicationState.MAIN_MENU);
+
                         firstLineScroll = 0;
                         break;
                     case GenericDevice.UP:
@@ -280,9 +271,9 @@ public class ContainerImpl extends Canvas implements Runnable {
                         break;
                     case GenericDevice.DOWN:
 
-                        if (firstLineScroll < resourceLoader.getTextHelp().length - view.maxLines() && applicationState == ApplicationState.HELP) {
+                        if (firstLineScroll < resourceLoader.getTextHelp().length - view.maxLines() && applicationState.getState() == ApplicationState.HELP) {
                             firstLineScroll++;
-                        } else if (firstLineScroll < resourceLoader.getTextAbout().length - view.maxLines() && applicationState == ApplicationState.ABOUT) {
+                        } else if (firstLineScroll < resourceLoader.getTextAbout().length - view.maxLines() && applicationState.getState() == ApplicationState.ABOUT) {
                             firstLineScroll++;
                         }
 
@@ -297,11 +288,11 @@ public class ContainerImpl extends Canvas implements Runnable {
                     case GenericDevice.LSK:
                     case GenericDevice.CLEAR:
 
-                        if (applicationState == ApplicationState.OPTIONS) {
-                            applicationState = ApplicationState.MAIN_MENU;
-                            //resetAnimation();
+                        if (applicationState.getState() == ApplicationState.OPTIONS) {
+                            applicationState.setState(ApplicationState.MAIN_MENU);
+
                         } else {
-                            applicationState = ApplicationState.METRONOME_STOPPED;
+                            applicationState.setState(ApplicationState.METRONOME_STOPPED);
                         }
                         break;
                     case UP:
@@ -338,8 +329,8 @@ public class ContainerImpl extends Canvas implements Runnable {
                 switch (keyCode) {
                     case GenericDevice.RSK:
                     case GenericDevice.CLEAR:
-                        applicationState = ApplicationState.MAIN_MENU;
-                        //resetAnimation();
+                        applicationState.setState(ApplicationState.MAIN_MENU);
+
                         break;
                     case Canvas.KEY_NUM5:
                     case GenericDevice.FIRE:
@@ -356,13 +347,13 @@ public class ContainerImpl extends Canvas implements Runnable {
                 switch (keyCode) {
 
                     case GenericDevice.RIGHT:
-                        applicationState = ApplicationState.METRONOME_STOPPED;
+                        applicationState.setState(ApplicationState.METRONOME_STOPPED);
 
                         metronome.increaseBeatsPerMinute();
 
                         break;
                     case GenericDevice.LEFT:
-                        applicationState = ApplicationState.METRONOME_STOPPED;
+                        applicationState.setState(ApplicationState.METRONOME_STOPPED);
                         metronome.decreaseBeatsPerMinute();
                         break;
                     case GenericDevice.UP:
@@ -373,10 +364,10 @@ public class ContainerImpl extends Canvas implements Runnable {
                         break;
                     case GenericDevice.FIRE:
                     case Canvas.KEY_NUM5:
-                        if (applicationState == ApplicationState.METRONOME_STARTED) {
-                            applicationState = ApplicationState.METRONOME_STOPPED;
-                        } else if (applicationState == ApplicationState.METRONOME_STOPPED) {
-                            applicationState = ApplicationState.METRONOME_STARTED;
+                        if (applicationState.getState() == ApplicationState.METRONOME_STARTED) {
+                            applicationState.setState(ApplicationState.METRONOME_STOPPED);
+                        } else if (applicationState.getState() == ApplicationState.METRONOME_STOPPED) {
+                            applicationState.setState( ApplicationState.METRONOME_STARTED);
                         }
                         break;
                     case Canvas.KEY_NUM2:
@@ -386,12 +377,12 @@ public class ContainerImpl extends Canvas implements Runnable {
                         metronome.setDenominator(metronome.getDenominator().previous());
                         break;
                     case GenericDevice.LSK:
-                        applicationState = ApplicationState.METRONOME_OPTIONS;
+                        applicationState.setState(ApplicationState.METRONOME_OPTIONS);
                         break;
                     case GenericDevice.RSK:
-                        applicationState = ApplicationState.MAIN_MENU;
+                        applicationState.setState(ApplicationState.MAIN_MENU);
                         Display.getDisplay(midlet).setCurrent(this);
-                        applicationState = ApplicationState.MAIN_MENU;
+                   
                         break;
                     case Canvas.KEY_POUND:
                         if (optionsSelectedSoundComponents < view.supportedSounds() - 1) {
@@ -411,7 +402,7 @@ public class ContainerImpl extends Canvas implements Runnable {
 
     private void dismiss() {
         timer.cancel();
-        applicationState = ApplicationState.MAIN_MENU;
+        applicationState.setState(ApplicationState.MAIN_MENU);
     }
 
     private class CountDown extends TimerTask {

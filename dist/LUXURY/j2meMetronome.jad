@@ -1,7 +1,7 @@
 MIDlet-1: J2ME Metronome,/con.png,com.j2memetronome.MetronomeMIDlet
 MIDlet-2: TestSuite,,com.j2memetronome.test.MetronomeTest
 MIDlet-Icon: icon.png
-MIDlet-Jar-Size: 163531
+MIDlet-Jar-Size: 211528
 MIDlet-Jar-URL: j2meMetronome.jar
 MIDlet-Name: J2ME Metronome
 MIDlet-Vendor: Deivid Cunha Martins

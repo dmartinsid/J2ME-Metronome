@@ -228,7 +228,7 @@ public class ViewSEMidsized implements View, SonyEricssonMidsized {
 
         g.drawImage(bgTitle, animX, animY, Graphics.TOP | Graphics.LEFT);
 
-        for (int i = 0; i < MAIN_MENU_LENGHT; i++)
+        for (int i = 0; i < MAIN_MENU_LENGTH; i++)
         {
            cy = 45 + (i * 22);
 

@@ -229,7 +229,7 @@ public class ViewNKLuxury implements View, NokiaLuxury {
 
         g.drawImage(bgTitle, animX, animY, Graphics.TOP | Graphics.LEFT);
 
-        for (int i = 0; i < MAIN_MENU_LENGHT; i++) {
+        for (int i = 0; i < MAIN_MENU_LENGTH; i++) {
             cy = 67 + (i * 33);
 
             g.setClip(34, cy, 113, 27);

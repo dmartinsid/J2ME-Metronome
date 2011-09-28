@@ -7,8 +7,11 @@ package com.j2memetronome.event;
 
 import com.j2memetronome.appstate.ApplicationState;
 import com.j2memetronome.container.ContainerImpl;
+import com.j2memetronome.device.GenericDevice;
 import com.j2memetronome.resource.ResourceLoader;
+import com.j2memetronome.view.Menu;
 import com.j2memetronome.view.View;
+import javax.microedition.lcdui.Canvas;
 
 /**
  *
@@ -22,6 +25,58 @@ public class EventManager
         eventProcessor = new ChooseLanguageEventProcessor();
 
     }
+
+    public void processMainMenu(int eventCode, ApplicationState applicationState, Menu menu) {
+
+        switch (eventCode) {
+            case Canvas.KEY_NUM5:
+            case GenericDevice.LSK:
+            case GenericDevice.FIRE:
+            {
+
+
+                switch ( menu.getIndex()) {
+                    case 0:
+                        applicationState.setState(ApplicationState.METRONOME_STOPPED);
+                        break;
+
+                    case 1:
+                        applicationState.setState(ApplicationState.OPTIONS);
+                        break;
+                    case 2:
+                        applicationState.setState(ApplicationState.HELP);
+                        break;
+                    case 3:
+                        applicationState.setState(ApplicationState.ABOUT);
+                        break;
+
+                }
+                break;
+            }
+            case GenericDevice.RSK:
+            case GenericDevice.CLEAR:
+                applicationState.setState(ApplicationState.EXIT);
+                break;
+            case GenericDevice.UP:
+                if (menu.getIndex()== 0) {
+                    menu.setIndex(3);
+                } else if (menu.getIndex() - 1 >= 0) {
+                    menu.setIndex(menu.getIndex() - 1);
+
+                }
+                break;
+            case GenericDevice.DOWN:
+                if (menu.getIndex() + 1 < menu.maxLength()) {
+                    menu.setIndex(menu.getIndex() + 1);
+                  
+                } else {
+                    menu.setIndex(0);
+                }
+
+                break;
+        }
+
+    }
     public void processEvents(int eventCode , ContainerImpl containerImpl, ApplicationState applicationState, View view, ResourceLoader resourceLoader) {
 
      switch (applicationState.getState()) {
@@ -30,10 +85,10 @@ public class EventManager
                 eventProcessor.processEvent(eventCode, applicationState, resourceLoader);
                 
                 break;
-           /* case ApplicationState.MAIN_MENU:
-                processMainMenu(keyCode);
+            case ApplicationState.MAIN_MENU:
+                processMainMenu(eventCode, applicationState, new Menu());
                 break;
-            case ApplicationState.HELP:
+            /*case ApplicationState.HELP:
             case ApplicationState.ABOUT:
                 switch (keyCode) {
                     case GenericDevice.RSK:
