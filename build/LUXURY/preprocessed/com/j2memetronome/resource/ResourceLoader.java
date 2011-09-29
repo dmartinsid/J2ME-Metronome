@@ -7,7 +7,7 @@ package com.j2memetronome.resource;
 
 import com.j2memetronome.font.FontConstants;
 import com.j2memetronome.i18n.Language;
-import com.j2memetronome.text.TxtReader;
+import com.j2memetronome.text.TextReader;
 import java.io.IOException;
 import javax.microedition.lcdui.Image;
 import mwt.Font;
@@ -96,7 +96,7 @@ public class ResourceLoader {
     public void loadText() throws IOException {
         try {
 
-            TxtReader txtReader = new TxtReader();
+            TextReader txtReader = new TextReader();
 
             if (Language.current()  == Language.PORTUGUESE) {
                 textAbout = txtReader.readFile("/" + PORTUGUESE_RES + "/about.txt");
