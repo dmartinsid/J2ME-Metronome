@@ -16,18 +16,13 @@ import javax.microedition.lcdui.Canvas;
  */
 public class ChooseLanguageEventProcessor implements EventProcessor {
 
-    public void processEvent(int eventCode, ApplicationState applicationState, ResourceLoader resourceLoader) {
+    public void processEvent(int eventCode, ApplicationState applicationState) {
         switch (eventCode) {
             case Canvas.KEY_NUM5:
             case GenericDevice.LSK:
             case GenericDevice.FIRE: {
 
-                try {
-                    resourceLoader.loadImagesLang();
-                    resourceLoader.loadText();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                
                 applicationState.next();
                 break;
 

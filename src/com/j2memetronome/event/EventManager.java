@@ -77,12 +77,12 @@ public class EventManager
         }
 
     }
-    public void processEvents(int eventCode , ContainerImpl containerImpl, ApplicationState applicationState, View view, ResourceLoader resourceLoader) {
+    public void processEvents(int eventCode , ApplicationState applicationState, View view, ResourceLoader resourceLoader) {
 
      switch (applicationState.getState()) {
 
             case ApplicationState.CHOOSE_LANG:
-                eventProcessor.processEvent(eventCode, applicationState, resourceLoader);
+                eventProcessor.processEvent(eventCode, applicationState);
                 
                 break;
             case ApplicationState.MAIN_MENU:
