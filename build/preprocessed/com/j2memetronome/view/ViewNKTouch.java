@@ -6,7 +6,10 @@
 package com.j2memetronome.view;
 
 import com.j2memetronome.appstate.ApplicationState;
-import com.j2memetronome.device.NKTouch;
+import com.j2memetronome.dao.FontDAO;
+import com.j2memetronome.dao.ImageDAO;
+import com.j2memetronome.dao.TextDAO;
+import com.j2memetronome.device.NokiaTouch;
 import com.j2memetronome.i18n.Language;
 import com.j2memetronome.resource.ResourceLoader;
 
@@ -19,7 +22,7 @@ import mwt.Font;
  *
  * @author Deivid Martins
  */
-public class ViewNKTouch implements View, NKTouch {
+public class ViewNKTouch implements View, NokiaTouch {
 
 
     private Font arial;
@@ -162,7 +165,7 @@ public class ViewNKTouch implements View, NKTouch {
         g.setColor(0xFFFFFF);
         g.drawRect(10, 105, WIDTH - 20, 30);
 
-        if(languageId == Language.ENGLISH)
+        if(Language.current()  == Language.ENGLISH)
         {
             g.setColor(0x555555);
             g.fillRect(10, 75, WIDTH - 20, 15);
@@ -174,7 +177,7 @@ public class ViewNKTouch implements View, NKTouch {
             contour.write(g, "YOUR", 0, 25, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
             contour.write(g, "LANGUAGE", 0, 45, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
         }
-        else if(languageId == Language.PORTUGUESE)
+        else if(Language.current()  == Language.PORTUGUESE)
         {
             g.setColor(0x555555);
             g.fillRect(10, 105, WIDTH - 20, 15);
@@ -284,6 +287,10 @@ public class ViewNKTouch implements View, NKTouch {
     public int supportedSounds()
     {
         return SUPPORTED_SOUNDS;
+    }
+
+    public void draw(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 

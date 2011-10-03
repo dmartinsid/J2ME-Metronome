@@ -27,7 +27,7 @@ public class ContainerImpl extends Canvas implements Runnable {
 
     private ApplicationState applicationState;
     private Thread applicationThread;
-    private int languageId;
+    private int languageId = 0;
     //-----------------------------------------
     // MENU
     //-----------------------------------------
@@ -122,14 +122,19 @@ public class ContainerImpl extends Canvas implements Runnable {
         view.drawSoftKeys(g, applicationState.getState(), resourceLoader.getOK(), resourceLoader.getCancel());
 
     }
-
+    CountDown countDown ;
     public void run() {
         while (applicationState.getState() != ApplicationState.KILL) {
             repaint();
             serviceRepaints();
 
             if (applicationState.getState() == ApplicationState.SPLASH) {
-                timer.schedule(new CountDown(), 5000);
+               
+                if(countDown == null)
+                {
+                    countDown = new CountDown();
+                    timer.schedule(countDown, 5000);
+                }
             }
 
 
@@ -247,7 +252,7 @@ public class ContainerImpl extends Canvas implements Runnable {
 
     public void processEvents(int keyCode) {
 
-        switch (menu.getIndex()) {
+        switch (applicationState.getState()) {
 
             case ApplicationState.CHOOSE_LANG:
                 processChooseLanguage(keyCode);
@@ -400,9 +405,15 @@ public class ContainerImpl extends Canvas implements Runnable {
         }
     }
 
+    boolean alreadyCancelled = false;
     private void dismiss() {
-        timer.cancel();
-        applicationState.setState(ApplicationState.MAIN_MENU);
+
+        if(!alreadyCancelled)
+        {
+            timer.cancel();
+            applicationState.setState(ApplicationState.MAIN_MENU);
+            alreadyCancelled = true;
+        }
     }
 
     private class CountDown extends TimerTask {

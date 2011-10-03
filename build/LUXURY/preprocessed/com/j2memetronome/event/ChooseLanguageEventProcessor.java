@@ -7,7 +7,6 @@ package com.j2memetronome.event;
 import com.j2memetronome.appstate.ApplicationState;
 import com.j2memetronome.device.GenericDevice;
 import com.j2memetronome.i18n.Language;
-import com.j2memetronome.resource.ResourceLoader;
 import javax.microedition.lcdui.Canvas;
 
 /**

@@ -5,6 +5,9 @@
 
 package com.j2memetronome.view;
 
+import com.j2memetronome.dao.FontDAO;
+import com.j2memetronome.dao.ImageDAO;
+import com.j2memetronome.dao.TextDAO;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import mwt.Font;
@@ -15,7 +18,8 @@ import mwt.Font;
  */
 public interface View {
 
-    
+
+    void draw(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO);
 
     void drawSoftKeys(Graphics g, int state, Image ok, Image cancel);
     void drawAbout(Graphics g, Image bgMenu, Image optionsGrid, Image arrowUp, Image arrowDown, String titleAbout, String textAbout[], int firstLineScroll);
@@ -40,7 +44,7 @@ public interface View {
    
     int supportedSounds();
 
-    int MAIN_MENU_LENGHT = 4;
+    int MAIN_MENU_LENGTH = 4;
     int ABOUT_AND_HELP_TEXT_INITIAL_Y = 30;
     int BALL_BPM_INITIAL_X = 8;
 }

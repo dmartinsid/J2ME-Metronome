@@ -6,6 +6,9 @@
 package com.j2memetronome.view;
 
 import com.j2memetronome.appstate.ApplicationState;
+import com.j2memetronome.dao.FontDAO;
+import com.j2memetronome.dao.ImageDAO;
+import com.j2memetronome.dao.TextDAO;
 import com.j2memetronome.device.SonyEricssonQVGA;
 import com.j2memetronome.i18n.Language;
 import com.j2memetronome.resource.ResourceLoader;
@@ -302,6 +305,10 @@ public class ViewSEQVGA implements View, SonyEricssonQVGA {
     public int supportedSounds()
     {
         return SUPPORTED_SOUNDS;
+    }
+
+    public void draw(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 

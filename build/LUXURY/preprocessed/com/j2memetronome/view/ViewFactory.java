@@ -15,7 +15,7 @@ public class ViewFactory
     public View getView()
     {
         //#ifdef QVGA
-//#     view = new ViewSEQVGA();
+//#     return new ViewSEQVGA();
         //#elif LUXURY
         return new ViewSELuxury();
         //#elif NKLUXURY
@@ -23,7 +23,7 @@ public class ViewFactory
         //#elif NKTOUCH
 //#     view = new ViewNKTouch();View
         //#else
-//#     view = new ViewSEMidsized();
+//#     return new ViewSEMidsized();
         //#endif
 
     }

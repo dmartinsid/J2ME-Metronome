@@ -6,7 +6,10 @@
 package com.j2memetronome.view;
 
 import com.j2memetronome.appstate.ApplicationState;
-import com.j2memetronome.device.SEMidsized;
+import com.j2memetronome.dao.FontDAO;
+import com.j2memetronome.dao.ImageDAO;
+import com.j2memetronome.dao.TextDAO;
+import com.j2memetronome.device.SonyEricssonMidsized;
 import com.j2memetronome.i18n.Language;
 import com.j2memetronome.resource.ResourceLoader;
 import javax.microedition.lcdui.Graphics;
@@ -18,7 +21,7 @@ import mwt.Font;
  *
  * @author dmartins
  */
-public class ViewSEMidsized implements View, SEMidsized {
+public class ViewSEMidsized implements View, SonyEricssonMidsized {
 
 
     private Font arial;
@@ -161,7 +164,7 @@ public class ViewSEMidsized implements View, SEMidsized {
         g.setColor(0xFFFFFF);
         g.drawRect(10, 95, WIDTH - 20, 20);
 
-        if (languageId == Language.ENGLISH) {
+        if (Language.current()  == Language.ENGLISH) {
             g.setColor(0x555555);
             g.fillRect(10, 75, WIDTH - 20, 10);
             g.setColor(0x777777);
@@ -171,7 +174,7 @@ public class ViewSEMidsized implements View, SEMidsized {
             contour.write(g, "CHOOSE", 0, 5, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
             contour.write(g, "YOUR", 0, 25, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
             contour.write(g, "LANGUAGE", 0, 45, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-        } else if (languageId == Language.PORTUGUESE) {
+        } else if (Language.current()  == Language.PORTUGUESE) {
             g.setColor(0x555555);
             g.fillRect(10, 95, WIDTH - 20, 10);
             g.setColor(0x777777);
@@ -228,7 +231,7 @@ public class ViewSEMidsized implements View, SEMidsized {
 
         g.drawImage(bgTitle, animX, animY, Graphics.TOP | Graphics.LEFT);
 
-        for (int i = 0; i < MAIN_MENU_LENGHT; i++)
+        for (int i = 0; i < MAIN_MENU_LENGTH; i++)
         {
            cy = 45 + (i * 22);
 
@@ -300,6 +303,10 @@ public class ViewSEMidsized implements View, SEMidsized {
     public int supportedSounds()
     {
         return SUPPORTED_SOUNDS;
+    }
+
+    public void draw(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 

@@ -6,14 +6,20 @@
 package com.j2memetronome.view;
 
 import com.j2memetronome.appstate.ApplicationState;
+import com.j2memetronome.dao.FontDAO;
+import com.j2memetronome.dao.ImageDAO;
+import com.j2memetronome.dao.ImageDAOFileSystem;
+import com.j2memetronome.dao.TextDAO;
 import com.j2memetronome.device.SonyEricssonLuxury;
 import com.j2memetronome.i18n.Language;
 import com.j2memetronome.resource.ResourceLoader;
+import java.io.IOException;
 
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import mwt.Component;
 import mwt.Font;
+import org.eclipse.swt.graphics.Color;
 /**
  *
  * @author dmartins
@@ -31,24 +37,35 @@ public class ViewSELuxury implements View, SonyEricssonLuxury {
 
     public void drawSoftKeys(Graphics g, int state, Image ok, Image cancel)
     {
-        switch (state)
-        {
-            case ApplicationState.MAIN_MENU:
-            case ApplicationState.EXIT:
-                g.setClip(0, 0, WIDTH, HEIGHT);
-                g.drawImage(ok, 0, HEIGHT - ok.getHeight(), Graphics.TOP | Graphics.LEFT);
-                g.drawImage(cancel, WIDTH - cancel.getWidth(), HEIGHT - cancel.getHeight(), Graphics.TOP | Graphics.LEFT);
-                break;
-            case ApplicationState.OPTIONS:
-            case ApplicationState.METRONOME_OPTIONS:
-                g.drawImage(ok, 0, HEIGHT - ok.getHeight(), Graphics.TOP | Graphics.LEFT);
-                break;
-            case ApplicationState.ABOUT:
-            case ApplicationState.HELP:
-                g.drawImage(cancel, WIDTH - cancel.getWidth(), HEIGHT - cancel.getHeight(), Graphics.TOP | Graphics.LEFT);
-                break;
+      SoftkeyPainter softkeyPainter = new SoftkeyPainter();
+        ImageDAO imageDAO = new ImageDAOFileSystem();
 
+        try{
+
+
+            // TODO refactoring in future, inject softtype, and call only a softkeyPainter.paint
+            switch (state) {
+                case ApplicationState.MAIN_MENU:
+                case ApplicationState.EXIT:
+                    softkeyPainter.paint(g, imageDAO, this, SoftKeyType.BOTH);
+
+                    break;
+                case ApplicationState.OPTIONS:
+                case ApplicationState.METRONOME_OPTIONS:
+                    softkeyPainter.paint(g, imageDAO, this, SoftKeyType.LEFT);
+                    break;
+                case ApplicationState.ABOUT:
+                case ApplicationState.HELP:
+                    softkeyPainter.paint(g, imageDAO, this, SoftKeyType.RIGHT);
+                    break;
+
+            }
         }
+        catch(IOException iOException)
+        {
+            iOException.printStackTrace();
+        }
+
     }
 
     public void drawAbout(Graphics g, Image bgMenu, Image optionsGrid, Image arrowUp, Image arrowDown, String titleAbout, String textAbout[], int firstLineScroll)
@@ -152,38 +169,35 @@ public class ViewSELuxury implements View, SonyEricssonLuxury {
     {
         g.drawImage(bgMenu, 0, 0, Graphics.TOP | Graphics.LEFT);
         g.setColor(0x111111);
-        g.fillRect(10, 75, WIDTH - 20, 20);
-        g.setColor(0xFFFFFF);
-        g.drawRect(10, 75, WIDTH - 20, 20);
-
-        g.setColor(0x111111);
-        g.fillRect(10, 95, WIDTH - 20, 20);
-        g.setColor(0xFFFFFF);
-        g.drawRect(10, 95, WIDTH - 20, 20);
-
-        if (Language.current()  == Language.ENGLISH) {
-            g.setColor(0x555555);
-            g.fillRect(10, 75, WIDTH - 20, 10);
-            g.setColor(0x777777);
-            g.fillRect(10, 85, WIDTH - 20, 10);
-            g.setColor(0xFFFFFF);
-            g.drawRect(10, 75, WIDTH - 20, 20);
-            contour.write(g, "CHOOSE", 0, 5, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-            contour.write(g, "YOUR", 0, 25, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-            contour.write(g, "LANGUAGE", 0, 45, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-        } else if (Language.current()  == Language.PORTUGUESE) {
-            g.setColor(0x555555);
-            g.fillRect(10, 95, WIDTH - 20, 10);
-            g.setColor(0x777777);
-            g.fillRect(10, 105, WIDTH - 20, 10);
-            g.setColor(0xFFFFFF);
-            g.drawRect(10, 95, WIDTH - 20, 20);
-            contour.write(g, "ESCOLHA", 0, 5, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-            contour.write(g, "SEU", 0, 25, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-            contour.write(g, "IDIOMA", 0, 45, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
+        
+        Rectangle rectangleOne = new Rectangle(10, 75, WIDTH - 20, 20);
+        Rectangle rectangleTwo = new Rectangle(10, 95, WIDTH - 20, 20);
+        RectanglePainter rectanglePainter = new  RectanglePainter();
+        
+        rectanglePainter.paint(g, rectangleOne, 0x111111, 0xFFFFFF);
+        rectanglePainter.paint(g, rectangleTwo, 0x111111, 0xFFFFFF);
+         
+       String text [] = new String[3];
+       if (Language.current()  == Language.PORTUGUESE) {
+            rectanglePainter.paint(g, rectangleTwo, 0x555555, 0x777777, 0xFFFFFF);
+            text[0] = "ESCOLHA";
+            text[1] = "SEU";
+            text[2] = "IDIOMA";
+                       
+            
         }
+        else {
+           
+           rectanglePainter.paint(g, rectangleOne, 0x555555, 0x777777, 0xFFFFFF);
+            text[0] = "CHOOSE";
+            text[1] = "YOUR";
+            text[2] = "LANGUAGE";
+        } 
 
-
+       
+       contour.write(g, text[0], 0, 5, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
+            contour.write(g, text[1], 0, 25, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
+            contour.write(g, text[2], 0, 45, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
         arial.write(g, "ENGLISH", 0, 80, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
         arial.write(g, "PORTUGUÊS", 0, 100, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
 
@@ -300,6 +314,10 @@ public class ViewSELuxury implements View, SonyEricssonLuxury {
     public int supportedSounds()
     {
         return SUPPORTED_SOUNDS;
+    }
+
+    public void draw(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) {
+        
     }
 
 
