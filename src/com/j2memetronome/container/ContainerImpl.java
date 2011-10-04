@@ -7,6 +7,12 @@ package com.j2memetronome.container;
 import com.j2memetronome.Metronome;
 import com.j2memetronome.MetronomeMIDlet;
 import com.j2memetronome.appstate.ApplicationState;
+import com.j2memetronome.dao.FontDAO;
+import com.j2memetronome.dao.FontDAOFileSystem;
+import com.j2memetronome.dao.ImageDAO;
+import com.j2memetronome.dao.ImageDAOFileSystem;
+import com.j2memetronome.dao.TextDAO;
+import com.j2memetronome.dao.TextDAOFileSystem;
 import com.j2memetronome.device.GenericDevice;
 import com.j2memetronome.resource.ResourceLoader;
 import com.j2memetronome.view.Menu;
@@ -41,9 +47,22 @@ public class ContainerImpl extends Canvas implements Runnable {
     private Timer timer;
     private Menu menu;
 
+    
+    // Persistence
+    private FontDAO fontDAO;
+    private ImageDAO imageDAO;
+    private TextDAO textDAO;
+    
     public ContainerImpl(MetronomeMIDlet midlet, View view) {
         this.midlet = midlet;
         this.view = view;
+        
+        fontDAO = new FontDAOFileSystem();
+        imageDAO = new ImageDAOFileSystem();
+        textDAO = new TextDAOFileSystem();
+        
+        
+        
         resourceLoader = new ResourceLoader();
 
         setFullScreenMode(true);
@@ -77,49 +96,48 @@ public class ContainerImpl extends Canvas implements Runnable {
         view.setMetronomeRed(resourceLoader.getMetronomeRed());
     }
 
-    protected void paint(Graphics g) {
-        g.setColor(0x00000000);
-        g.fillRect(0, 0, view.getWidth(), view.getHeight());
+    protected void paint(Graphics graphics) {
+        graphics.setColor(0x00000000);
+        graphics.fillRect(0, 0, view.getWidth(), view.getHeight());
+        try {
+            view.draw(graphics, fontDAO, imageDAO, textDAO, applicationState);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
 
         switch (applicationState.getState()) {
-            case ApplicationState.CHOOSE_LANG:
-                view.drawChooseLanguage(g, resourceLoader.getBgMainMenu(), languageId);
-                break;
-            case ApplicationState.SPLASH:
-                view.drawSplash(g, resourceLoader.getSplash());
-                break;
-            case ApplicationState.MAIN_MENU:
-                view.drawMenu(g, resourceLoader.getBgMainMenu(), resourceLoader.getBgTitle(), resourceLoader.getMenu(), menu.getIndex(), UP, UP);
-                break;
+       
+      
             case ApplicationState.OPTIONS:
             case ApplicationState.METRONOME_OPTIONS:
-                view.drawOptions(g, resourceLoader.getBgMainMenu(), resourceLoader.getOptionsBar(),
+                view.drawOptions(graphics, resourceLoader.getBgMainMenu(), resourceLoader.getOptionsBar(),
                         resourceLoader.getArrowLeft(), resourceLoader.getArrowRight(), resourceLoader.getTextCommons()[ResourceLoader.STRING_OPTIONS],
                         resourceLoader.getTextCommons(), optionsSelectedSoundComponents);
                 break;
             case ApplicationState.HELP:
-                view.drawHelp(g, resourceLoader.getBgMainMenu(), resourceLoader.getOptionsGrid(), resourceLoader.getArrowUp(),
+                view.drawHelp(graphics, resourceLoader.getBgMainMenu(), resourceLoader.getOptionsGrid(), resourceLoader.getArrowUp(),
                         resourceLoader.getArrowDown(), resourceLoader.getTextCommons()[ResourceLoader.STRING_HELP], resourceLoader.getTextHelp(), firstLineScroll);
                 break;
             case ApplicationState.ABOUT:
-                view.drawAbout(g, resourceLoader.getBgMainMenu(), resourceLoader.getOptionsGrid(), resourceLoader.getArrowUp(),
+                view.drawAbout(graphics, resourceLoader.getBgMainMenu(), resourceLoader.getOptionsGrid(), resourceLoader.getArrowUp(),
                         resourceLoader.getArrowDown(), resourceLoader.getTextCommons()[ResourceLoader.STRING_ABOUT], resourceLoader.getTextAbout(), firstLineScroll);
                 break;
             case ApplicationState.EXIT:
-                view.drawExit(g, resourceLoader.getBgMainMenu(),
+                view.drawExit(graphics, resourceLoader.getBgMainMenu(),
                         resourceLoader.getTextCommons()[ResourceLoader.STRING_EXIT], resourceLoader.getTextCommons()[ResourceLoader.STRING_EXIT_TEXT]);
                 break;
             case ApplicationState.METRONOME_STARTED:
             case ApplicationState.METRONOME_STOPPED:
 
-                view.drawMetronome(g, resourceLoader.getBgMetronome(), resourceLoader.getBall(), metronome.getNumerator(), metronome.getDenominator().intValue(),
+                view.drawMetronome(graphics, resourceLoader.getBgMetronome(), resourceLoader.getBall(), metronome.getNumerator(), metronome.getDenominator().intValue(),
                         metronome.getBeatsPerMinute(), metronome.getActualBeat(), metronome.getActualBeat() == 1,
                         applicationState.getState() == ApplicationState.METRONOME_STARTED);
                 metronome.process(applicationState.getState() == ApplicationState.METRONOME_STARTED);
                 break;
         }
 
-        view.drawSoftKeys(g, applicationState.getState(), resourceLoader.getOK(), resourceLoader.getCancel());
+        view.drawSoftKeys(graphics, applicationState.getState(), resourceLoader.getOK(), resourceLoader.getCancel());
 
     }
     CountDown countDown ;
@@ -215,7 +233,7 @@ public class ContainerImpl extends Canvas implements Runnable {
             case KEY_NUM5:
             case GenericDevice.LSK:
             case GenericDevice.FIRE: {
-                switch ( menu.getIndex()) {
+                switch ( Menu.getIndex()) {
                     case 0:
                         applicationState.setState(ApplicationState.METRONOME_STOPPED);
                         break;

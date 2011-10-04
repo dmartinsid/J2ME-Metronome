@@ -35,7 +35,7 @@ public class EventManager
             {
 
 
-                switch ( menu.getIndex()) {
+                switch ( Menu.getIndex()) {
                     case 0:
                         applicationState.setState(ApplicationState.METRONOME_STOPPED);
                         break;
@@ -58,20 +58,10 @@ public class EventManager
                 applicationState.setState(ApplicationState.EXIT);
                 break;
             case GenericDevice.UP:
-                if (menu.getIndex()== 0) {
-                    menu.setIndex(3);
-                } else if (menu.getIndex() - 1 >= 0) {
-                    menu.setIndex(menu.getIndex() - 1);
-
-                }
+                Menu.previousIndex();
                 break;
             case GenericDevice.DOWN:
-                if (menu.getIndex() + 1 < menu.maxLength()) {
-                    menu.setIndex(menu.getIndex() + 1);
-                  
-                } else {
-                    menu.setIndex(0);
-                }
+                Menu.nextIndex();
 
                 break;
         }

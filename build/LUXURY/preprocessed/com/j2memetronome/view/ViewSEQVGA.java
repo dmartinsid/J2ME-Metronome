@@ -310,6 +310,10 @@ public class ViewSEQVGA implements View, SonyEricssonQVGA {
     public void draw(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    public void draw(Graphics graphics, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, ApplicationState applicationState) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
 
 }

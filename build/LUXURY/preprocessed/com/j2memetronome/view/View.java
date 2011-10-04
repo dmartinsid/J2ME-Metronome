@@ -5,6 +5,7 @@
 
 package com.j2memetronome.view;
 
+import com.j2memetronome.appstate.ApplicationState;
 import com.j2memetronome.dao.FontDAO;
 import com.j2memetronome.dao.ImageDAO;
 import com.j2memetronome.dao.TextDAO;
@@ -19,7 +20,7 @@ import mwt.Font;
 public interface View {
 
 
-    void draw(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO);
+    void draw(Graphics graphics, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, ApplicationState applicationState) throws Exception;
 
     void drawSoftKeys(Graphics g, int state, Image ok, Image cancel);
     void drawAbout(Graphics g, Image bgMenu, Image optionsGrid, Image arrowUp, Image arrowDown, String titleAbout, String textAbout[], int firstLineScroll);
