@@ -6,7 +6,6 @@
 package com.j2memetronome.event;
 
 import com.j2memetronome.appstate.ApplicationState;
-import com.j2memetronome.container.ContainerImpl;
 import com.j2memetronome.device.GenericDevice;
 import com.j2memetronome.resource.ResourceLoader;
 import com.j2memetronome.view.Menu;
@@ -22,7 +21,7 @@ public class EventManager
     private EventProcessor eventProcessor;
     public EventManager()
     {
-        eventProcessor = new ChooseLanguageEventProcessor();
+        
 
     }
 
@@ -71,10 +70,7 @@ public class EventManager
 
      switch (applicationState.getState()) {
 
-            case ApplicationState.CHOOSE_LANG:
-                eventProcessor.processEvent(eventCode, applicationState);
-                
-                break;
+
             case ApplicationState.MAIN_MENU:
                 processMainMenu(eventCode, applicationState, new Menu());
                 break;

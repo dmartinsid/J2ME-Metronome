@@ -102,6 +102,9 @@ public class Metronome implements MetronomeLimits {
     public void setKit(int kitID) {
         drummer.setKit(kitID);
     }
+    public int getKit() {
+        return drummer.getKit();
+    }
 
     public void playFirst() {
         drummer.playFirst();

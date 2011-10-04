@@ -4,14 +4,16 @@
  */
 package com.j2memetronome.view;
 
+import com.j2memetronome.Metronome;
 import com.j2memetronome.appstate.ApplicationState;
 import com.j2memetronome.dao.FontDAO;
 import com.j2memetronome.dao.ImageDAO;
-import com.j2memetronome.dao.ImageDAOFileSystem;
 import com.j2memetronome.dao.TextDAO;
+import com.j2memetronome.dao.mapper.FontMapper;
+import com.j2memetronome.dao.mapper.TextMapper;
 import com.j2memetronome.device.SonyEricssonLuxury;
-import com.j2memetronome.i18n.Language;
-import com.j2memetronome.resource.ResourceLoader;
+
+import com.j2memetronome.font.FontAttributes;
 import java.io.IOException;
 
 import javax.microedition.lcdui.Graphics;
@@ -25,262 +27,12 @@ import mwt.Font;
  */
 public class ViewSELuxury implements View, SonyEricssonLuxury {
 
-    private Font arial;
-    private Font contour;
-    private Font metronomeRed;
-    private Font metronomeGreen;
-    private Font metronome;
-
-    public void drawSoftKeys(Graphics g, int state, Image ok, Image cancel) {
-        SoftkeyPainter softkeyPainter = new SoftkeyPainter();
-        ImageDAO imageDAO = new ImageDAOFileSystem();
-
-        try {
-
-
-            // TODO refactoring in future, inject softtype, and call only a softkeyPainter.paint
-            switch (state) {
-                case ApplicationState.MAIN_MENU:
-                case ApplicationState.EXIT:
-                    softkeyPainter.paint(g, imageDAO, this, SoftKeyType.BOTH);
-
-                    break;
-                case ApplicationState.OPTIONS:
-                case ApplicationState.METRONOME_OPTIONS:
-                    softkeyPainter.paint(g, imageDAO, this, SoftKeyType.LEFT);
-                    break;
-                case ApplicationState.ABOUT:
-                case ApplicationState.HELP:
-                    softkeyPainter.paint(g, imageDAO, this, SoftKeyType.RIGHT);
-                    break;
-
-            }
-        } catch (IOException iOException) {
-            iOException.printStackTrace();
-        }
-
-    }
-
-    public void drawAbout(Graphics g, Image bgMenu, Image optionsGrid, Image arrowUp, Image arrowDown, String titleAbout, String textAbout[], int firstLineScroll) {
-        // Background
-        g.drawImage(bgMenu, (WIDTH - bgMenu.getWidth()) / 2, (HEIGHT - bgMenu.getHeight()) / 2, 20);
-
-        // Title
-        contour.write(g, titleAbout, 5, 0, WIDTH, contour.getHeight(), Component.ALIGN_TOP_LEFT);
-
-        // Grid
-        g.drawImage(optionsGrid, 0, WIDTH / 9, Graphics.TOP | Graphics.LEFT);
-
-        // show about text
-        if (textAbout.length <= MAX_NUMBER_OF_LINES) {
-            for (int i = 0; i < textAbout.length; i++) {
-                arial.write(g, textAbout[i], 0, ABOUT_AND_HELP_TEXT_INITIAL_Y
-                        + ((int) (arial.getHeight() * i * 1.5)), WIDTH, 0, Component.ALIGN_TOP_CENTER);
-            }
-        } else {
-
-            g.drawImage(arrowUp, WIDTH - 15, HEIGHT / 6, Graphics.TOP | Graphics.LEFT);
-            g.drawImage(arrowDown, WIDTH - 15, HEIGHT - HEIGHT / 6, Graphics.TOP | Graphics.LEFT);
-
-            for (int i = firstLineScroll; i < firstLineScroll + MAX_NUMBER_OF_LINES && i < textAbout.length; i++) {
-                arial.write(g, textAbout[i], 0, ABOUT_AND_HELP_TEXT_INITIAL_Y
-                        + ((int) (arial.getHeight() * (i - firstLineScroll) * 1.5)),
-                        WIDTH, 0, Component.ALIGN_TOP_CENTER);
-            }
-        }
-    }
-
-    public void drawHelp(Graphics g, Image bgMenu, Image optionsGrid, Image arrowUp, Image arrowDown, String titleHelp, String textHelp[], int firstLineScroll) {
-        g.drawImage(bgMenu, (WIDTH - bgMenu.getWidth()) / 2, (HEIGHT - bgMenu.getHeight()) / 2, 20);
-
-        contour.write(g, titleHelp, 5, 0,
-                WIDTH, contour.getHeight(), Component.ALIGN_TOP_LEFT);
-
-        g.drawImage(optionsGrid, 0, WIDTH / 6, Graphics.TOP | Graphics.LEFT);
-
-
-        if (textHelp.length <= MAX_NUMBER_OF_LINES) {
-            for (int i = 0; i < textHelp.length; i++) {
-                arial.write(g, textHelp[i], 0,
-                        ABOUT_AND_HELP_TEXT_INITIAL_Y
-                        + ((int) (arial.getHeight() * i * 1.5)),
-                        WIDTH, 0, Component.ALIGN_TOP_CENTER);
-            }
-        } else {
-
-            g.drawImage(arrowUp, WIDTH - 15, HEIGHT / 6, Graphics.TOP | Graphics.LEFT);
-            g.drawImage(arrowDown, WIDTH - 15, HEIGHT - HEIGHT / 6, Graphics.TOP | Graphics.LEFT);
-
-            for (int i = firstLineScroll; i < firstLineScroll + MAX_NUMBER_OF_LINES && i < textHelp.length; i++) {
-
-                arial.write(g, textHelp[i], 0,
-                        ABOUT_AND_HELP_TEXT_INITIAL_Y
-                        + ((int) (arial.getHeight() * (i - firstLineScroll) * 1.5)),
-                        WIDTH, 0, Component.ALIGN_TOP_CENTER);
-            }
-
-
-        }
-    }
-
-    public void drawOptions(Graphics g, Image bgMenu, Image optionsBar, Image arrowLeft, Image arrowRight, String titleOptions, String textOptions[], int selectedSoundComponent) {
-
-        g.drawImage(bgMenu, (WIDTH - bgMenu.getWidth()) / 2, (HEIGHT - bgMenu.getHeight()) / 2, 20);
-
-        contour.write(g, titleOptions, 5, 0, WIDTH, contour.getHeight(), Component.ALIGN_TOP_LEFT);
-
-        g.drawImage(arrowLeft, 5, HEIGHT / 2 - 10, Graphics.TOP | Graphics.LEFT);
-        g.drawImage(arrowRight, WIDTH - 5 - arrowRight.getWidth(), HEIGHT / 2 - 10, Graphics.TOP | Graphics.LEFT);
-        g.drawImage(optionsBar, 0, HEIGHT / 2 - 20, Graphics.TOP | Graphics.LEFT);
-
-        arial.write(g, textOptions[ResourceLoader.STRING_KITS], 0, HEIGHT / 2 - 10,
-                WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-
-        arial.write(g, textOptions[ResourceLoader.STRING_BASS_DRUM_AND_SNARE + selectedSoundComponent], 0, HEIGHT / 2 + 10,
-                WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-    }
-
-    public void drawExit(Graphics g, Image bgMenu, String titleExit, String textExit) {
-        g.drawImage(bgMenu, (WIDTH - bgMenu.getWidth()) / 2, (HEIGHT - bgMenu.getHeight()) / 2, 20);
-
-        contour.write(g, titleExit, 5, 0,
-                WIDTH, arial.getHeight(), Component.ALIGN_TOP_LEFT);
-
-        arial.write(g, textExit, 0, HEIGHT / 2,
-                WIDTH, 0, Component.ALIGN_TOP_CENTER);
-    }
-
-    public void drawSplash(Graphics g, Image splash) {
-        g.drawImage(splash, 0, 0, Graphics.TOP | Graphics.LEFT);
-    }
-
-    public void drawChooseLanguage(Graphics g, Image bgMenu, int languageId) {
-        g.drawImage(bgMenu, 0, 0, Graphics.TOP | Graphics.LEFT);
-
-        Rectangle rectangleOne = new Rectangle(10, 75, WIDTH - 20, 20);
-        Rectangle rectangleTwo = new Rectangle(10, 95, WIDTH - 20, 20);
-        RectanglePainter rectanglePainter = new RectanglePainter();
-
-        rectanglePainter.paint(g, rectangleOne, 0x111111, 0xFFFFFF);
-        rectanglePainter.paint(g, rectangleTwo, 0x111111, 0xFFFFFF);
-
-        String text[] = new String[3];
-        if (Language.current() == Language.PORTUGUESE) {
-            rectanglePainter.paint(g, rectangleTwo, 0x555555, 0x777777, 0xFFFFFF);
-            text[0] = "ESCOLHA";
-            text[1] = "SEU";
-            text[2] = "IDIOMA";
-
-
-        } else {
-
-            rectanglePainter.paint(g, rectangleOne, 0x555555, 0x777777, 0xFFFFFF);
-            text[0] = "CHOOSE";
-            text[1] = "YOUR";
-            text[2] = "LANGUAGE";
-        }
-
-
-        contour.write(g, text[0], 0, 5, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-        contour.write(g, text[1], 0, 25, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-        contour.write(g, text[2], 0, 45, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-        arial.write(g, "ENGLISH", 0, 80, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-        arial.write(g, "PORTUGUÊS", 0, 100, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-
-    }
-
-    public void drawMetronome(Graphics g, Image bgMetronome, Image ball,
-            int numerator, int denominator, int bpm, int count, boolean isFirst, boolean isStarted) {
-
-        g.setColor(0x00000000);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
-
-        // background
-        g.drawImage(bgMetronome, 0, 0, Graphics.TOP | Graphics.LEFT);
-
-
-        if (isStarted) {
-            if (isFirst) {
-                metronomeRed.write(g, String.valueOf(count), 0, HEIGHT / 5, WIDTH, 0, Component.ALIGN_TOP_CENTER);
-            } else {
-                metronomeGreen.write(g, String.valueOf(count), 0, HEIGHT / 5, WIDTH, 0, Component.ALIGN_TOP_CENTER);
-            }
-        }
-
-
-
-        // Measure
-        metronome.write(g, numerator + "/" + denominator,
-                110, 131, WIDTH, 0, Component.ALIGN_TOP_LEFT);
-        // BPM
-        metronome.write(g, String.valueOf(bpm),
-                110, 154, WIDTH, 0, Component.ALIGN_TOP_LEFT);
-
-        g.drawImage(ball, BALL_BPM_INITIAL_X + (int) (bpm * 0.43), 177, Graphics.TOP | Graphics.LEFT);
-
-
-    }
-
-    public void drawMenu(Graphics g, Image bgMainMenu, Image bgTitle, Image menu, int index, int animX, int animY) {
-        int cy = 0;
-        g.drawImage(bgMainMenu, (WIDTH - bgMainMenu.getWidth()) / 2, (HEIGHT - bgMainMenu.getHeight()) / 2, 20);
-
-
-        g.drawImage(bgTitle, animX, animY, Graphics.TOP | Graphics.LEFT);
-
-        for (int i = 0; i < MAIN_MENU_LENGTH; i++) {
-            cy = 67 + (i * 33);
-
-            g.setClip(34, cy, 113, 27);
-
-
-            if (index == i) {
-                g.drawImage(menu, 34, cy - 27, Graphics.TOP | Graphics.LEFT);
-            } else {
-                g.drawImage(menu, 34, cy, Graphics.TOP | Graphics.LEFT);
-            }
-
-            //offset of the label is 6 pixels from the top of the button
-            cy += 7;
-
-            //set the clipping rectangle to where the label will be drawn
-            g.setClip(34, cy, 113, 13);
-            // draw the label so that it is inside the clipping rectangle
-            g.drawImage(menu, 34, cy - (55 + (i * 14)), Graphics.TOP | Graphics.LEFT);
-
-        }
-    }
-
-    public void setArial(Font arial) {
-        this.arial = arial;
-    }
-
-    public void setContour(Font contour) {
-        this.contour = contour;
-    }
-
-    public Font getMetronome() {
-        return metronome;
-    }
-
-    public void setMetronome(Font metronome) {
-        this.metronome = metronome;
-    }
-
-    public Font getMetronomeGreen() {
-        return metronomeGreen;
-    }
-
-    public void setMetronomeGreen(Font metronomeGreen) {
-        this.metronomeGreen = metronomeGreen;
-    }
-
-    public Font getMetronomeRed() {
-        return metronomeRed;
-    }
-
-    public void setMetronomeRed(Font metronomeRed) {
-        this.metronomeRed = metronomeRed;
+    private SoftkeyPainter softkeyPainter;
+    
+ 
+    public ViewSELuxury()
+    {
+        softkeyPainter = new SoftkeyPainter();
     }
 
     public int getWidth() {
@@ -299,18 +51,35 @@ public class ViewSELuxury implements View, SonyEricssonLuxury {
         return SUPPORTED_SOUNDS;
     }
 
-    public void draw(Graphics graphics, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, ApplicationState applicationState) throws Exception {
+    public void draw(Graphics graphics, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, ApplicationState applicationState, Metronome metronome) throws Exception {
+        graphics.setColor(0x00000000);
+        graphics.fillRect(0, 0,getWidth(), getHeight());
         switch (applicationState.getState()) {
-            case ApplicationState.CHOOSE_LANG:
-                drawChooseLanguage(graphics, fontDAO, imageDAO, textDAO);
-                break;
             case ApplicationState.SPLASH:
                 drawSplash(graphics, fontDAO, imageDAO, textDAO);
                 break;
             case ApplicationState.MAIN_MENU:
                 drawMainMenu(graphics, fontDAO, imageDAO, textDAO);
                 break;
+            case ApplicationState.OPTIONS:
+                drawOptions(graphics, fontDAO, imageDAO, textDAO, metronome);
+                break;
+            case ApplicationState.HELP:
+                drawHelp(graphics, fontDAO, imageDAO, textDAO);
+                break;
+            case ApplicationState.ABOUT:
+                drawAbout(graphics, fontDAO, imageDAO, textDAO);
+                break;
+            case ApplicationState.EXIT:
+                drawExit(graphics, fontDAO, imageDAO, textDAO);
+                break;
 
+            case ApplicationState.METRONOME_STARTED:
+                drawMetronomeStarted(graphics, fontDAO, imageDAO, textDAO, metronome);
+                break;
+            case ApplicationState.METRONOME_STOPPED:
+                drawMetronomeCore(graphics, fontDAO, imageDAO, textDAO, metronome);
+                break;
 
         }
 
@@ -319,76 +88,189 @@ public class ViewSELuxury implements View, SonyEricssonLuxury {
 
 
     }
-
-    private void drawChooseLanguage(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) throws IOException {
-        g.drawImage(imageDAO.get("/bg.png"), 0, 0, Graphics.TOP | Graphics.LEFT);
-
-        Rectangle rectangleOne = new Rectangle(10, 75, WIDTH - 20, 20);
-        Rectangle rectangleTwo = new Rectangle(10, 95, WIDTH - 20, 20);
-        RectanglePainter rectanglePainter = new RectanglePainter();
-
-        rectanglePainter.paint(g, rectangleOne, 0x111111, 0xFFFFFF);
-        rectanglePainter.paint(g, rectangleTwo, 0x111111, 0xFFFFFF);
-
-        String text[] = new String[3];
-        if (Language.current() == Language.PORTUGUESE) {
-            rectanglePainter.paint(g, rectangleTwo, 0x555555, 0x777777, 0xFFFFFF);
-            text[0] = "ESCOLHA";
-            text[1] = "SEU";
-            text[2] = "IDIOMA";
-
-
-        } else {
-
-            rectanglePainter.paint(g, rectangleOne, 0x555555, 0x777777, 0xFFFFFF);
-            text[0] = "CHOOSE";
-            text[1] = "YOUR";
-            text[2] = "LANGUAGE";
-        }
-
-
-        contour.write(g, text[0], 0, 5, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-        contour.write(g, text[1], 0, 25, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-        contour.write(g, text[2], 0, 45, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-        arial.write(g, "ENGLISH", 0, 80, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-        arial.write(g, "PORTUGUÊS", 0, 100, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
+    
+    private void drawBackground(Graphics g, ImageDAO imageDAO, String backgroundImagePath) throws IOException
+    {
+        g.drawImage(imageDAO.get(backgroundImagePath), 0, 0, Graphics.TOP | Graphics.LEFT);
     }
+
+    
 
     private void drawSplash(Graphics graphics, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) throws IOException {
-        graphics.drawImage(imageDAO.get("/Splash.png"), 0, 0, Graphics.TOP | Graphics.LEFT);
+        drawBackground(graphics, imageDAO, "/Splash.png");
 
     }
 
-    private void drawMainMenu(Graphics graphics, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) throws IOException 
-    {      
-        int cy = 0;
-        Image background = imageDAO.get("/bg.png");
+    private void drawMainMenu(Graphics graphics, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) throws IOException {
+        
+        drawBackground(graphics, imageDAO, "/bg.png");
+        
         Image title = imageDAO.get("/menu_title.png");
         Image items = imageDAO.get("/images_multilang/en/menuitems.png");
-        
-        graphics.drawImage(background, (WIDTH - background.getWidth())/2, (HEIGHT - background.getHeight())/2, 20);
+
         graphics.drawImage(title, 0, 0, Graphics.TOP | Graphics.LEFT);
 
-        for (int i = 0; i < MAIN_MENU_LENGTH; i++) 
-        {
-            cy = 67 + (i * 33);
+        int fluentY = 0;
+        
+        Double menuTileHeight = new Double(27.5);
+        int textTileHeight = 13;
+        int leftMenuItems = 34;
+        int spaceBetweenRectangles = 10;
+        int startXposition = 67;
+        int menuTitleTextXposition = 7;
+        
+        for (int i = 0; i < MAIN_MENU_LENGTH; i++) {
+            fluentY = startXposition + (i * (menuTileHeight.intValue() + spaceBetweenRectangles));
+            graphics.setClip(leftMenuItems, fluentY, items.getWidth(), menuTileHeight.intValue());
 
-            graphics.setClip(34, cy, 113, 27);
 
-
-            if (menu.getIndex() == i) {
-                graphics.drawImage(items, 34, cy - 27, Graphics.TOP | Graphics.LEFT);
+            if (Menu.getIndex() == i) {
+                graphics.drawImage(items, leftMenuItems, fluentY - menuTileHeight.intValue(), Graphics.TOP | Graphics.LEFT);
             } else {
-                graphics.drawImage(items, 34, cy, Graphics.TOP | Graphics.LEFT);
+                graphics.drawImage(items, leftMenuItems, fluentY, Graphics.TOP | Graphics.LEFT);
             }
 
-            cy += 7;
-
-            graphics.setClip(34, cy, 113, 13);
-
-            graphics.drawImage(items, 34, cy - (55 + (i * 14)), Graphics.TOP | Graphics.LEFT);
+            fluentY += menuTitleTextXposition;
+            
+            int menuTileHeightDouble = (int) (2 * menuTileHeight.doubleValue());
+          
+            graphics.setClip(leftMenuItems, fluentY, items.getWidth(), textTileHeight);
+         
+            int diff = textTileHeight;
+            
+            if(diff % 2 != 0)
+                diff++;
+            
+            graphics.drawImage(items, leftMenuItems, fluentY - (menuTileHeightDouble + (i * (diff))), Graphics.TOP | Graphics.LEFT);
+           
         }
-    }
         
-        Menu menu = new Menu();
+        softkeyPainter.paint(graphics, imageDAO, this, SoftKeyType.BOTH);
+    }
+
+    private void drawOptions(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, Metronome metronome) throws IOException 
+    {
+        drawBackground(g, imageDAO, "/bg.png");
+        
+        Image arrowLeft = imageDAO.get("/white_arrow_left.png");
+        Image arrowRight = imageDAO.get("/white_arrow_right.png"); 
+        Image optionsBar = imageDAO.get("/optionsBar.png");
+        Font contour = fontDAO.get(FontMapper.CONTOUR);
+        Font arial = fontDAO.get(FontMapper.ARIAL);
+        
+        String text[] = textDAO.get("/en/common.txt");
+   
+        
+        
+        contour.write(g, text[TextMapper.OPTIONS], 5, 0, WIDTH, contour.getHeight(), Component.ALIGN_TOP_LEFT);
+
+        g.drawImage(arrowLeft, 5, HEIGHT / 2 - 10, Graphics.TOP | Graphics.LEFT);
+        g.drawImage(arrowRight, WIDTH - 5 - arrowRight.getWidth(), HEIGHT / 2 - 10, Graphics.TOP | Graphics.LEFT);
+        g.drawImage(optionsBar, 0, HEIGHT / 2 - 20, Graphics.TOP | Graphics.LEFT);
+
+        arial.write(g, text[TextMapper.KITS], 0, HEIGHT / 2 - 10,
+                WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
+
+        arial.write(g, text[TextMapper.BASS_DRUM_AND_SNARE + metronome.getKit()], 0, HEIGHT / 2 + 10,
+                WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
+        
+        softkeyPainter.paint(g, imageDAO, this, SoftKeyType.LEFT);
+
+    }
+    int scroll = 0;
+
+    private void drawHelp(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) throws IOException {
+        drawAutoScrollPage(g, fontDAO, imageDAO, textDAO, "/en/help.txt", TextMapper.HELP);
+
+    }
+
+    private void drawAbout(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) throws IOException {
+
+        drawAutoScrollPage(g, fontDAO, imageDAO, textDAO, "/en/about.txt", TextMapper.ABOUT);
+        
+
+    }
+
+    private void drawAutoScrollPage(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, String textPath, int title) throws IOException {
+        drawBackground(g, imageDAO, "/bg.png");
+        
+        Image optionsGrid = imageDAO.get("/optionsGridMainMenu.png");
+        String textCommon[] = textDAO.get("/en/common.txt");
+        String text[] = textDAO.get(textPath);
+        Font contour = fontDAO.get(FontMapper.CONTOUR);
+        Font arial = fontDAO.get(FontMapper.ARIAL);
+
+
+        contour.write(g, textCommon[title], 5, 0, WIDTH, contour.getHeight(), Component.ALIGN_TOP_LEFT);
+
+        g.drawImage(optionsGrid, 0, WIDTH / 6, Graphics.TOP | Graphics.LEFT);
+
+        scroll++;
+        int firstLineScroll = scroll / 10;
+
+
+        for (int i = firstLineScroll; i < firstLineScroll + MAX_NUMBER_OF_LINES && i < text.length; i++) {
+
+            arial.write(g, text[i], 0,
+                    ABOUT_AND_HELP_TEXT_INITIAL_Y
+                    + ((int) (arial.getHeight() * (i - firstLineScroll) * 1.5)),
+                    WIDTH, 0, Component.ALIGN_TOP_CENTER);
+        }
+
+
+        if (firstLineScroll > text.length) {
+            scroll = 0;
+        }
+        softkeyPainter.paint(g, imageDAO, this, SoftKeyType.RIGHT);
+    }
+
+    private void drawExit(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) throws IOException {
+        drawBackground(g, imageDAO, "/bg.png");
+        
+        String textCommon[] = textDAO.get("/en/common.txt");
+        Font contour = fontDAO.get(FontMapper.CONTOUR);
+        Font arial = fontDAO.get(FontMapper.ARIAL);
+
+
+        contour.write(g, textCommon[TextMapper.EXIT], 5, 0, WIDTH, arial.getHeight(), Component.ALIGN_TOP_LEFT);
+
+        arial.write(g, textCommon[TextMapper.EXIT_TEXT], 0, HEIGHT / 2, WIDTH, 0, Component.ALIGN_TOP_CENTER);
+        
+        softkeyPainter.paint(g, imageDAO, this, SoftKeyType.BOTH);
+    }
+
+    private void drawMetronomeStarted(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, Metronome metronome) throws IOException {
+
+        drawMetronomeCore(g, fontDAO, imageDAO, textDAO, metronome);
+        
+        Font metronomeRed = fontDAO.get(FontMapper.RED);
+        Font metronomeGreen = fontDAO.get(FontMapper.GREEN);
+
+        if (metronome.getActualBeat() == 1) {
+            metronomeRed.write(g, String.valueOf(metronome.getActualBeat()), 0, HEIGHT / 5, WIDTH, 0, Component.ALIGN_TOP_CENTER);
+        } else {
+            metronomeGreen.write(g, String.valueOf(metronome.getActualBeat()), 0, HEIGHT / 5, WIDTH, 0, Component.ALIGN_TOP_CENTER);
+        }
+
+
+        metronome.process(true);
+
+
+    }
+
+    private void drawMetronomeCore(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, Metronome metronome) throws IOException {
+        drawBackground(g, imageDAO, "/images_multilang/en/metronome_canvas_bg.png");
+
+        Image ball = imageDAO.get("/ball.png");
+        
+        Font font = fontDAO.get(FontMapper.METRONOME);
+
+
+        font.write(g, metronome.getNumerator() + "/" + metronome.getDenominator().intValue(), 110, 131, WIDTH, 0, Component.ALIGN_TOP_LEFT);
+
+        font.write(g, String.valueOf(metronome.getBeatsPerMinute()), 110, 154, WIDTH, 0, Component.ALIGN_TOP_LEFT);
+
+        g.drawImage(ball, BALL_BPM_INITIAL_X + (int) (metronome.getBeatsPerMinute() * 0.43), 177, Graphics.TOP | Graphics.LEFT);
+
+    }
 }

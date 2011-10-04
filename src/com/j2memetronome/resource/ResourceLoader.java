@@ -6,7 +6,6 @@ package com.j2memetronome.resource;
 
 
 import com.j2memetronome.font.FontConstants;
-import com.j2memetronome.i18n.Language;
 import com.j2memetronome.text.TextReader;
 import java.io.IOException;
 import javax.microedition.lcdui.Image;
@@ -89,41 +88,8 @@ public class ResourceLoader {
         splash = Image.createImage("/Splash.png");
     }
 
-    /**
-     * Load about and help text
-     * @throws java.io.IOException
-     */
-    public void loadText() throws IOException {
-        try {
-
-            TextReader txtReader = new TextReader();
-
-            if (Language.current()  == Language.PORTUGUESE) {
-                textAbout = txtReader.readFile("/" + PORTUGUESE_RES + "/about.txt");
-                textHelp = txtReader.readFile("/" + PORTUGUESE_RES + "/help.txt");
-                textCommons = txtReader.readFile("/" + PORTUGUESE_RES + "/common.txt");
-            } else {
-                textAbout = txtReader.readFile("/" + ENGLISH_RES + "/about.txt");
-                textHelp = txtReader.readFile("/" + ENGLISH_RES + "/help.txt");
-                textCommons = txtReader.readFile("/" + ENGLISH_RES + "/common.txt");
-            }
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
-
-    }
-
-    public void loadImagesLang() throws IOException {
-
-        if (Language.current()  == Language.PORTUGUESE) {
-            menu = Image.createImage("/images_multilang/" + PORTUGUESE_RES + "/menuitems.png");
-            bgMetronome = Image.createImage("/images_multilang/" + PORTUGUESE_RES + "/metronome_canvas_bg.png");
-        } else {
-            menu = Image.createImage("/images_multilang/" + ENGLISH_RES + "/menuitems.png");
-            bgMetronome = Image.createImage("/images_multilang/" + ENGLISH_RES + "/metronome_canvas_bg.png");
-        }
-
-    }
+   
+    
 
     public Font getArial() {
         return arial;

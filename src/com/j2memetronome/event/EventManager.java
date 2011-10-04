@@ -21,7 +21,7 @@ public class EventManager
     private EventProcessor eventProcessor;
     public EventManager()
     {
-        eventProcessor = new ChooseLanguageEventProcessor();
+        
 
     }
 
@@ -70,10 +70,7 @@ public class EventManager
 
      switch (applicationState.getState()) {
 
-            case ApplicationState.CHOOSE_LANG:
-                eventProcessor.processEvent(eventCode, applicationState);
-                
-                break;
+
             case ApplicationState.MAIN_MENU:
                 processMainMenu(eventCode, applicationState, new Menu());
                 break;

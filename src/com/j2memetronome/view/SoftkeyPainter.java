@@ -15,22 +15,22 @@ public class SoftkeyPainter {
         g.setClip(0, 0, view.getWidth(), view.getHeight());
         if (softKeyType.equals(SoftKeyType.LEFT)) {
             drawLeft(g, imageDAO, view);
-        } else if (softKeyType.equals(softKeyType.RIGHT)) {
+        } else if (softKeyType.equals(SoftKeyType.RIGHT)) {
 
             drawRight(g, imageDAO, view);
 
-        } else if (softKeyType.equals(softKeyType.BOTH)) {
+        } else if (softKeyType.equals(SoftKeyType.BOTH)) {
             drawBoth(g, imageDAO, view);
         }
 
     }
 
-    private void drawLeft(Graphics g, ImageDAO imageDAO, View view) throws IOException {
+    private void drawRight(Graphics g, ImageDAO imageDAO, View view) throws IOException {
         Image cancel = imageDAO.get("/cancel.png");
         g.drawImage(cancel, view.getWidth() - cancel.getWidth(), view.getHeight() - cancel.getHeight(), Graphics.TOP | Graphics.LEFT);
     }
 
-    private void drawRight(Graphics g, ImageDAO imageDAO, View view) throws IOException {
+    private void drawLeft(Graphics g, ImageDAO imageDAO, View view) throws IOException {
         Image ok = imageDAO.get("/ok.png");
         g.drawImage(ok, 0, view.getHeight() - ok.getHeight(), Graphics.TOP | Graphics.LEFT);
     }
