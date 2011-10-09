@@ -11,7 +11,7 @@ import javax.microedition.lcdui.Image;
  */
 public class SoftkeyPainter {
 
-    void paint(Graphics g, ImageDAO imageDAO, View view, SoftKeyType softKeyType) throws IOException {
+    public void paint(Graphics g, ImageDAO imageDAO, View view, SoftKeyType softKeyType) throws IOException {
         g.setClip(0, 0, view.getWidth(), view.getHeight());
         if (softKeyType.equals(SoftKeyType.LEFT)) {
             drawLeft(g, imageDAO, view);

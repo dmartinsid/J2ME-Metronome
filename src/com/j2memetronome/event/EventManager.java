@@ -6,8 +6,7 @@
 package com.j2memetronome.event;
 
 import com.j2memetronome.appstate.ApplicationState;
-import com.j2memetronome.device.GenericDevice;
-import com.j2memetronome.resource.ResourceLoader;
+import com.j2memetronome.device.DeviceSpecification;
 import com.j2memetronome.view.Menu;
 import com.j2memetronome.view.View;
 import javax.microedition.lcdui.Canvas;
@@ -29,8 +28,8 @@ public class EventManager
 
         switch (eventCode) {
             case Canvas.KEY_NUM5:
-            case GenericDevice.LSK:
-            case GenericDevice.FIRE:
+            case DeviceSpecification.LSK:
+            case DeviceSpecification.FIRE:
             {
 
 
@@ -52,21 +51,21 @@ public class EventManager
                 }
                 break;
             }
-            case GenericDevice.RSK:
-            case GenericDevice.CLEAR:
+            case DeviceSpecification.RSK:
+            case DeviceSpecification.CLEAR:
                 applicationState.setState(ApplicationState.EXIT);
                 break;
-            case GenericDevice.UP:
+            case DeviceSpecification.UP:
                 Menu.previousIndex();
                 break;
-            case GenericDevice.DOWN:
+            case DeviceSpecification.DOWN:
                 Menu.nextIndex();
 
                 break;
         }
 
     }
-    public void processEvents(int eventCode , ApplicationState applicationState, View view, ResourceLoader resourceLoader) {
+    public void processEvents(int eventCode , ApplicationState applicationState, View view) {
 
      switch (applicationState.getState()) {
 

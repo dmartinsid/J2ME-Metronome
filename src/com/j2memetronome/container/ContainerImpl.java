@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.j2memetronome.container;
 
 import com.j2memetronome.Metronome;
@@ -13,11 +9,9 @@ import com.j2memetronome.dao.ImageDAO;
 import com.j2memetronome.dao.ImageDAOFileSystem;
 import com.j2memetronome.dao.TextDAO;
 import com.j2memetronome.dao.TextDAOFileSystem;
-import com.j2memetronome.device.GenericDevice;
-import com.j2memetronome.resource.ResourceLoader;
+import com.j2memetronome.device.DeviceSpecification;
 import com.j2memetronome.view.Menu;
 import com.j2memetronome.view.View;
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.microedition.lcdui.Canvas;
@@ -32,19 +26,16 @@ public class ContainerImpl extends Canvas implements Runnable {
 
     private ApplicationState applicationState;
     private Thread applicationThread;
-    //-----------------------------------------
-    // MENU
-    //-----------------------------------------
     private Metronome metronome;
-    // Options
     private MetronomeMIDlet midlet;
     private View view;
     private Timer timer;
-    private Menu menu;
+
     // Persistence
     private FontDAO fontDAO;
     private ImageDAO imageDAO;
     private TextDAO textDAO;
+    private CountDown countDown;
 
     public ContainerImpl(MetronomeMIDlet midlet, View view) {
         this.midlet = midlet;
@@ -53,21 +44,14 @@ public class ContainerImpl extends Canvas implements Runnable {
         fontDAO = new FontDAOFileSystem();
         imageDAO = new ImageDAOFileSystem();
         textDAO = new TextDAOFileSystem();
-
-
-
-        setFullScreenMode(true);
-
-
-
         metronome = new Metronome();
-        applicationState = new ApplicationState(ApplicationState.SPLASH);
+        applicationState = new ApplicationState();
         timer = new Timer();
 
+
+
         Display.getDisplay(midlet).setCurrent(this);
-
-        menu = new Menu();
-
+        setFullScreenMode(true);
         applicationThread = new Thread(this);
         applicationThread.start();
         repaint();
@@ -80,9 +64,7 @@ public class ContainerImpl extends Canvas implements Runnable {
             ex.printStackTrace();
         }
 
-
     }
-    CountDown countDown;
 
     public void run() {
         while (applicationState.getState() != ApplicationState.KILL) {
@@ -90,35 +72,21 @@ public class ContainerImpl extends Canvas implements Runnable {
             serviceRepaints();
 
             if (applicationState.getState() == ApplicationState.SPLASH) {
-
                 if (countDown == null) {
                     countDown = new CountDown();
                     timer.schedule(countDown, 5000);
                 }
             }
 
-
-            if (applicationState.getState() < ApplicationState.METRONOME_STARTED) {
-
-                try {
+            try {
+                if (applicationState.getState() != ApplicationState.METRONOME_STARTED) {
                     Thread.sleep(50);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
+                } else {
+                    Thread.sleep(metronome.sleepTime());
                 }
-            } else if (applicationState.getState() >= ApplicationState.METRONOME_STARTED) {
-                try {
-                    if (applicationState.getState() != ApplicationState.METRONOME_STARTED) {
-                        Thread.sleep(50);
 
-                    } else {
-
-                        Thread.sleep(metronome.sleepTime());
-                    }
-
-
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
             }
         }
     }
@@ -139,20 +107,20 @@ public class ContainerImpl extends Canvas implements Runnable {
 
         switch (keyCode) {
             case KEY_NUM5:
-            case GenericDevice.LSK:
-            case GenericDevice.FIRE: {
+            case DeviceSpecification.LSK:
+            case DeviceSpecification.FIRE: {
                 switch (Menu.getIndex()) {
-                    case 0:
+                    case Menu.START:
                         applicationState.setState(ApplicationState.METRONOME_STOPPED);
                         break;
 
-                    case 1:
+                    case Menu.OPTIONS:
                         applicationState.setState(ApplicationState.OPTIONS);
                         break;
-                    case 2:
+                    case Menu.HELP:
                         applicationState.setState(ApplicationState.HELP);
                         break;
-                    case 3:
+                    case Menu.ABOUT:
                         applicationState.setState(ApplicationState.ABOUT);
                         break;
 
@@ -160,16 +128,15 @@ public class ContainerImpl extends Canvas implements Runnable {
 
                 break;
             }
-            case GenericDevice.RSK:
-            case GenericDevice.CLEAR:
+            case DeviceSpecification.RSK:
+            case DeviceSpecification.CLEAR:
                 applicationState.setState(ApplicationState.EXIT);
                 break;
-            case GenericDevice.UP:
-                menu.previousIndex();
+            case DeviceSpecification.UP:
+                Menu.previousIndex();
                 break;
-            case GenericDevice.DOWN:
-                menu.nextIndex();
-
+            case DeviceSpecification.DOWN:
+                Menu.nextIndex();
                 break;
         }
 
@@ -185,8 +152,8 @@ public class ContainerImpl extends Canvas implements Runnable {
             case ApplicationState.HELP:
             case ApplicationState.ABOUT:
                 switch (keyCode) {
-                    case GenericDevice.RSK:
-                    case GenericDevice.CLEAR:
+                    case DeviceSpecification.RSK:
+                    case DeviceSpecification.CLEAR:
                         applicationState.setState(ApplicationState.MAIN_MENU);
 
                         break;
@@ -196,8 +163,8 @@ public class ContainerImpl extends Canvas implements Runnable {
                 break;
             case ApplicationState.OPTIONS:
                 switch (keyCode) {
-                    case GenericDevice.LSK:
-                    case GenericDevice.CLEAR:
+                    case DeviceSpecification.LSK:
+                    case DeviceSpecification.CLEAR:
 
                         if (applicationState.getState() == ApplicationState.OPTIONS) {
                             applicationState.setState(ApplicationState.MAIN_MENU);
@@ -206,9 +173,8 @@ public class ContainerImpl extends Canvas implements Runnable {
                             applicationState.setState(ApplicationState.METRONOME_STOPPED);
                         }
                         break;
-                    case UP:
-
-                    case GenericDevice.RIGHT:
+                    case Canvas.UP:
+                    case DeviceSpecification.RIGHT:
                     case Canvas.KEY_NUM6:
 
 
@@ -221,7 +187,7 @@ public class ContainerImpl extends Canvas implements Runnable {
                         break;
 
 
-                    case GenericDevice.LEFT:
+                    case DeviceSpecification.LEFT:
                     case Canvas.KEY_NUM4:
 
                         if (metronome.getKit() > 0) {
@@ -239,14 +205,14 @@ public class ContainerImpl extends Canvas implements Runnable {
 
             case ApplicationState.EXIT:
                 switch (keyCode) {
-                    case GenericDevice.RSK:
-                    case GenericDevice.CLEAR:
+                    case DeviceSpecification.RSK:
+                    case DeviceSpecification.CLEAR:
                         applicationState.setState(ApplicationState.MAIN_MENU);
 
                         break;
                     case Canvas.KEY_NUM5:
-                    case GenericDevice.FIRE:
-                    case GenericDevice.LSK:
+                    case DeviceSpecification.FIRE:
+                    case DeviceSpecification.LSK:
                         midlet.kill();
                         break;
 
@@ -258,23 +224,23 @@ public class ContainerImpl extends Canvas implements Runnable {
 
                 switch (keyCode) {
 
-                    case GenericDevice.RIGHT:
+                    case DeviceSpecification.RIGHT:
                         applicationState.setState(ApplicationState.METRONOME_STOPPED);
 
                         metronome.increaseBeatsPerMinute();
 
                         break;
-                    case GenericDevice.LEFT:
+                    case DeviceSpecification.LEFT:
                         applicationState.setState(ApplicationState.METRONOME_STOPPED);
                         metronome.decreaseBeatsPerMinute();
                         break;
-                    case GenericDevice.UP:
+                    case DeviceSpecification.UP:
                         metronome.setNumerator(metronome.getNumerator() + 1);
                         break;
-                    case GenericDevice.DOWN:
+                    case DeviceSpecification.DOWN:
                         metronome.setNumerator(metronome.getNumerator() == 2 ? 2 : metronome.getNumerator() - 1);
                         break;
-                    case GenericDevice.FIRE:
+                    case DeviceSpecification.FIRE:
                     case Canvas.KEY_NUM5:
                         if (applicationState.getState() == ApplicationState.METRONOME_STARTED) {
                             applicationState.setState(ApplicationState.METRONOME_STOPPED);
@@ -288,10 +254,10 @@ public class ContainerImpl extends Canvas implements Runnable {
                     case Canvas.KEY_NUM8:
                         metronome.setDenominator(metronome.getDenominator().previous());
                         break;
-                    case GenericDevice.LSK:
+                    case DeviceSpecification.LSK:
                         applicationState.setState(ApplicationState.OPTIONS);
                         break;
-                    case GenericDevice.RSK:
+                    case DeviceSpecification.RSK:
                         applicationState.setState(ApplicationState.MAIN_MENU);
                         Display.getDisplay(midlet).setCurrent(this);
 
@@ -309,17 +275,14 @@ public class ContainerImpl extends Canvas implements Runnable {
 
         }
     }
-    boolean alreadyCancelled = false;
+
 
     private void dismiss() {
 
-        if (!alreadyCancelled) {
-            timer.cancel();
-            applicationState.setState(ApplicationState.MAIN_MENU);
-            alreadyCancelled = true;
+        timer.cancel();
+        applicationState.setState(ApplicationState.MAIN_MENU);
 
 
-        }
     }
 
     private class CountDown extends TimerTask {

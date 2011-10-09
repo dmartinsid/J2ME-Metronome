@@ -5,10 +5,13 @@
 
 package com.j2memetronome.view;
 
+import com.j2memetronome.Metronome;
 import com.j2memetronome.appstate.ApplicationState;
+import com.j2memetronome.dao.FontDAO;
+import com.j2memetronome.dao.ImageDAO;
+import com.j2memetronome.dao.TextDAO;
 import com.j2memetronome.device.SonyEricssonMidsized;
-import com.j2memetronome.i18n.Language;
-import com.j2memetronome.resource.ResourceLoader;
+
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import mwt.Component;
@@ -18,8 +21,10 @@ import mwt.Font;
  *
  * @author dmartins
  */
-public class ViewSEMidsized implements View, SonyEricssonMidsized {
 
+// TODO remove in future, based on the device specification the view must be painted
+public class ViewSEMidsized /*implements View, SonyEricssonMidsized */{
+/*
 
     private Font arial;
     private Font contour;
@@ -40,7 +45,6 @@ public class ViewSEMidsized implements View, SonyEricssonMidsized {
                 g.drawImage(cancel, WIDTH - cancel.getWidth(), HEIGHT - cancel.getHeight(), Graphics.TOP | Graphics.LEFT);
                 break;
             case ApplicationState.OPTIONS:
-            case ApplicationState.METRONOME_OPTIONS:
                 g.drawImage(ok, 0, HEIGHT - ok.getHeight(), Graphics.TOP | Graphics.LEFT);
                 break;
             case ApplicationState.ABOUT:
@@ -126,12 +130,12 @@ public class ViewSEMidsized implements View, SonyEricssonMidsized {
         g.drawImage(arrowRight, WIDTH - 5 - arrowRight.getWidth(), HEIGHT/2 -10, Graphics.TOP | Graphics.LEFT);
         g.drawImage(optionsBar, 0, HEIGHT/2 -20, Graphics.TOP | Graphics.LEFT);
 
-        arial.write(g, textOptions[ResourceLoader.STRING_KITS], 0, HEIGHT/2 -10,
+      /*  arial.write(g, textOptions[ResourceLoader.STRING_KITS], 0, HEIGHT/2 -10,
                 WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-
-        arial.write(g, textOptions[ResourceLoader.STRING_BASS_DRUM_AND_SNARE + selectedSoundComponent], 0, HEIGHT/2 + 10,
+*/
+  /*      arial.write(g, textOptions[ResourceLoader.STRING_BASS_DRUM_AND_SNARE + selectedSoundComponent], 0, HEIGHT/2 + 10,
                 WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-    }
+    *//*}
 
     public void drawExit(Graphics g, Image bgMenu, String titleExit, String textExit) {
         g.drawImage(bgMenu, (WIDTH - bgMenu.getWidth()) / 2, (HEIGHT - bgMenu.getHeight()) / 2, 20);
@@ -148,47 +152,7 @@ public class ViewSEMidsized implements View, SonyEricssonMidsized {
         g.drawImage(splash, 0, 0, Graphics.TOP | Graphics.LEFT);
     }
 
-    public void drawChooseLanguage(Graphics g, Image bgMenu, int languageId)
-    {
-        g.drawImage(bgMenu, 0, 0, Graphics.TOP | Graphics.LEFT);
-        g.setColor(0x111111);
-        g.fillRect(10, 75, WIDTH - 20, 20);
-        g.setColor(0xFFFFFF);
-        g.drawRect(10, 75, WIDTH - 20, 20);
-
-        g.setColor(0x111111);
-        g.fillRect(10, 95, WIDTH - 20, 20);
-        g.setColor(0xFFFFFF);
-        g.drawRect(10, 95, WIDTH - 20, 20);
-
-        if (Language.current()  == Language.ENGLISH) {
-            g.setColor(0x555555);
-            g.fillRect(10, 75, WIDTH - 20, 10);
-            g.setColor(0x777777);
-            g.fillRect(10, 85, WIDTH - 20, 10);
-            g.setColor(0xFFFFFF);
-            g.drawRect(10, 75, WIDTH - 20, 20);
-            contour.write(g, "CHOOSE", 0, 5, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-            contour.write(g, "YOUR", 0, 25, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-            contour.write(g, "LANGUAGE", 0, 45, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-        } else if (Language.current()  == Language.PORTUGUESE) {
-            g.setColor(0x555555);
-            g.fillRect(10, 95, WIDTH - 20, 10);
-            g.setColor(0x777777);
-            g.fillRect(10, 105, WIDTH - 20, 10);
-            g.setColor(0xFFFFFF);
-            g.drawRect(10, 95, WIDTH - 20, 20);
-            contour.write(g, "ESCOLHA", 0, 5, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-            contour.write(g, "SEU", 0, 25, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-            contour.write(g, "IDIOMA", 0, 45, WIDTH, contour.getHeight(), Component.ALIGN_TOP_CENTER);
-        }
-
-
-        arial.write(g, "ENGLISH", 0, 80, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-        arial.write(g, "PORTUGUÊS", 0, 100, WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-
-    }
-
+  
     public void drawMetronome(Graphics g, Image bgMetronome, Image ball,
             int numerator, int denominator, int bpm, int count, boolean isFirst, boolean isStarted) {
 
@@ -302,7 +266,15 @@ public class ViewSEMidsized implements View, SonyEricssonMidsized {
         return SUPPORTED_SOUNDS;
     }
 
+    public void draw(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
+    public void draw(Graphics graphics, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, ApplicationState applicationState, Metronome metronome) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+*/
 
 
 }

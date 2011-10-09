@@ -9,7 +9,7 @@ package com.j2memetronome.device;
  *
  * @author dmartins
  */
-public interface SonyEricssonMidsized extends GenericDevice{
+public interface SonyEricssonMidsized extends DeviceSpecification{
     int WIDTH = 128;
     int HEIGHT = 160;
     int MAX_NUMBER_OF_LINES = 6;

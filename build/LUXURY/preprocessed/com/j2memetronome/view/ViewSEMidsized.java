@@ -12,7 +12,6 @@ import com.j2memetronome.dao.ImageDAO;
 import com.j2memetronome.dao.TextDAO;
 import com.j2memetronome.device.SonyEricssonMidsized;
 
-import com.j2memetronome.resource.ResourceLoader;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import mwt.Component;
@@ -22,8 +21,10 @@ import mwt.Font;
  *
  * @author dmartins
  */
-public class ViewSEMidsized implements View, SonyEricssonMidsized {
 
+// TODO remove in future, based on the device specification the view must be painted
+public class ViewSEMidsized /*implements View, SonyEricssonMidsized */{
+/*
 
     private Font arial;
     private Font contour;
@@ -129,12 +130,12 @@ public class ViewSEMidsized implements View, SonyEricssonMidsized {
         g.drawImage(arrowRight, WIDTH - 5 - arrowRight.getWidth(), HEIGHT/2 -10, Graphics.TOP | Graphics.LEFT);
         g.drawImage(optionsBar, 0, HEIGHT/2 -20, Graphics.TOP | Graphics.LEFT);
 
-        arial.write(g, textOptions[ResourceLoader.STRING_KITS], 0, HEIGHT/2 -10,
+      /*  arial.write(g, textOptions[ResourceLoader.STRING_KITS], 0, HEIGHT/2 -10,
                 WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-
-        arial.write(g, textOptions[ResourceLoader.STRING_BASS_DRUM_AND_SNARE + selectedSoundComponent], 0, HEIGHT/2 + 10,
+*/
+  /*      arial.write(g, textOptions[ResourceLoader.STRING_BASS_DRUM_AND_SNARE + selectedSoundComponent], 0, HEIGHT/2 + 10,
                 WIDTH, arial.getHeight(), Component.ALIGN_TOP_CENTER);
-    }
+    *//*}
 
     public void drawExit(Graphics g, Image bgMenu, String titleExit, String textExit) {
         g.drawImage(bgMenu, (WIDTH - bgMenu.getWidth()) / 2, (HEIGHT - bgMenu.getHeight()) / 2, 20);
@@ -273,7 +274,7 @@ public class ViewSEMidsized implements View, SonyEricssonMidsized {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-
+*/
 
 
 }

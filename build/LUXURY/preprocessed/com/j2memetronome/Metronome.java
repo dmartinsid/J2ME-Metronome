@@ -23,12 +23,6 @@ public class Metronome implements MetronomeLimits {
         drummer = new Drummer();
     }
 
-    /**
-     * Constructor
-     * @param beatsPerMinute
-     * @param numerator
-     * @param denominator
-     */
     public Metronome(int beatsPerMinute, int numerator, RhythmicFigure denominator) {
         this.beatsPerMinute = beatsPerMinute;
         this.denominator = denominator;

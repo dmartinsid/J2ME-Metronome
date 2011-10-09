@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.j2memetronome.appstate;
 
 /**
@@ -28,8 +23,8 @@ public final class ApplicationState {
 
     private int state;
 
-    public ApplicationState(int state) {
-        this.state = state;
+    public ApplicationState() {
+        this.state = SPLASH;
     }
     public int getState() {
         return state;

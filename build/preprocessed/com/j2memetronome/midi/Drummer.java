@@ -118,4 +118,9 @@ public class Drummer implements DrumKit {
     {
         this.kit = kit;
     }
+    
+    public int getKit()
+    {
+        return kit;
+    }
 }

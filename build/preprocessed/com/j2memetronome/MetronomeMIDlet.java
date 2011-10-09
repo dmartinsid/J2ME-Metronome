@@ -3,7 +3,6 @@ package com.j2memetronome;
 import com.j2memetronome.container.ContainerImpl;
 import com.j2memetronome.view.View;
 import com.j2memetronome.view.ViewFactory;
-import com.j2memetronome.view.ViewSELuxury;
 
 import javax.microedition.midlet.*;
 
