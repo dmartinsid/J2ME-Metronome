@@ -12,6 +12,7 @@ import com.j2memetronome.dao.TextDAOFileSystem;
 import com.j2memetronome.device.DeviceSpecification;
 import com.j2memetronome.view.Menu;
 import com.j2memetronome.view.View;
+import com.vodafone.system.DeviceControl;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.microedition.lcdui.Canvas;
@@ -48,8 +49,7 @@ public class ContainerImpl extends Canvas implements Runnable {
         applicationState = new ApplicationState();
         timer = new Timer();
 
-
-
+        System.out.println("FLASH" + Display.getDisplay(midlet).flashBacklight(100000));
         Display.getDisplay(midlet).setCurrent(this);
         setFullScreenMode(true);
         applicationThread = new Thread(this);

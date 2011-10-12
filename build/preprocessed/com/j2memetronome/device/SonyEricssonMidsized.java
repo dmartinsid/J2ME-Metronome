@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.j2memetronome.device;
 
 import com.j2memetronome.view.MainMenuConfiguration;
+import com.j2memetronome.view.MetronomeScreenConfiguration;
 
 /**
  *
@@ -14,10 +10,13 @@ import com.j2memetronome.view.MainMenuConfiguration;
 public class SonyEricssonMidsized implements DeviceSpecification{
 
     private MainMenuConfiguration mainMenuConfiguration;
-
+    private MetronomeScreenConfiguration metronomeScreenConfiguration;
+    
+    
     public SonyEricssonMidsized()
     {
-        mainMenuConfiguration = new MainMenuConfiguration(new Double(27.5), 13, 34, 10, 67, 7);
+        mainMenuConfiguration = new MainMenuConfiguration(new Double(20.0), 10, 23, 5, 45, 7);
+        metronomeScreenConfiguration = new MetronomeScreenConfiguration(80, 93, 80, 110, 0.3, 130);
     }
     public int getWidth() {
         return 128;
@@ -37,6 +36,10 @@ public class SonyEricssonMidsized implements DeviceSpecification{
 
     public MainMenuConfiguration getMainMenuConfiguration() {
         return mainMenuConfiguration;
+    }
+    
+    public MetronomeScreenConfiguration getMetronomeScreenConfiguration() {
+        return metronomeScreenConfiguration;
     }
 
 }

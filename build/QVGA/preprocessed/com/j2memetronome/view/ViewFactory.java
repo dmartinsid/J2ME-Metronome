@@ -6,6 +6,7 @@
 package com.j2memetronome.view;
 
 import com.j2memetronome.device.SonyEricssonLuxury;
+import com.j2memetronome.device.SonyEricssonMidsized;
 import com.j2memetronome.device.SonyEricssonQVGA;
 
 /**
@@ -26,7 +27,7 @@ public class ViewFactory
         //#elif NKTOUCH
 //#     view = new ViewNKTouch();View
         //#else
-//#     return new ViewSEMidsized();
+//#         return new ViewImpl(new SonyEricssonMidsized());
         //#endif
 
     }

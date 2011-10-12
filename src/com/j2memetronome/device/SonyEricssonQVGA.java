@@ -1,6 +1,7 @@
 package com.j2memetronome.device;
 
 import com.j2memetronome.view.MainMenuConfiguration;
+import com.j2memetronome.view.MetronomeScreenConfiguration;
 
 /**
  *
@@ -9,10 +10,12 @@ import com.j2memetronome.view.MainMenuConfiguration;
 public class SonyEricssonQVGA implements  DeviceSpecification{
 
     private MainMenuConfiguration mainMenuConfiguration;
+    private MetronomeScreenConfiguration metronomeScreenConfiguration;
 
     public SonyEricssonQVGA()
     {
         mainMenuConfiguration = new MainMenuConfiguration(new Double(37.5), 17, 50, 20, 80, 10);
+        metronomeScreenConfiguration = new MetronomeScreenConfiguration(120, 178, 120, 210, 0.61, 241);
     }
     public int getWidth() {
         return 240;
@@ -32,5 +35,9 @@ public class SonyEricssonQVGA implements  DeviceSpecification{
 
     public MainMenuConfiguration getMainMenuConfiguration() {
         return mainMenuConfiguration;
+    }
+    
+    public MetronomeScreenConfiguration getMetronomeScreenConfiguration() {
+        return metronomeScreenConfiguration;
     }
 }

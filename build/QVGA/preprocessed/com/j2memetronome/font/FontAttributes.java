@@ -28,6 +28,32 @@ public class FontAttributes {
         return widths;
     }
 
+    public int hashCode() {
+        int hash = 5;
+        hash = 89 * hash + (this.path != null ? this.path.hashCode() : 0);
+
+        return hash;
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final FontAttributes other = (FontAttributes) obj;
+        if ((this.path == null) ? (other.path != null) : !this.path.equals(other.path)) {
+            return false;
+        }
+
+        return true;
+    }
+
+
+    
+    
+
 
 
 }

@@ -106,7 +106,7 @@ public class ViewImpl implements View{
         
         // TODO put in constructor
         MainMenuPainter mainMenuPainter = new MainMenuPainter(imageDAO, deviceSpecification.getMainMenuConfiguration());
-        
+ 
         mainMenuPainter.paint(graphics);
         softkeyPainter.paint(graphics, imageDAO, this, SoftKeyType.BOTH);
     }
@@ -227,12 +227,19 @@ public class ViewImpl implements View{
         
         Font font = fontDAO.get(FontMapper.METRONOME);
 
+        
+        font.write(g, metronome.getNumerator() + "/" + metronome.getDenominator().intValue(), 
+                deviceSpecification.getMetronomeScreenConfiguration().getMeasureX(), 
+                deviceSpecification.getMetronomeScreenConfiguration().getMeasureY(), 
+                deviceSpecification.getWidth(), 0, Component.ALIGN_TOP_LEFT);
 
-        font.write(g, metronome.getNumerator() + "/" + metronome.getDenominator().intValue(), 110, 131, deviceSpecification.getWidth(), 0, Component.ALIGN_TOP_LEFT);
+        font.write(g, String.valueOf(metronome.getBeatsPerMinute()), 
+                deviceSpecification.getMetronomeScreenConfiguration().getBpmX(),
+                deviceSpecification.getMetronomeScreenConfiguration().getBpmY(), 
+                deviceSpecification.getWidth(), 0, Component.ALIGN_TOP_LEFT);
 
-        font.write(g, String.valueOf(metronome.getBeatsPerMinute()), 110, 154, deviceSpecification.getWidth(), 0, Component.ALIGN_TOP_LEFT);
-
-        g.drawImage(ball, BALL_BPM_INITIAL_X + (int) (metronome.getBeatsPerMinute() * 0.43), 177, Graphics.TOP | Graphics.LEFT);
+        g.drawImage(ball, BALL_BPM_INITIAL_X + (int) (metronome.getBeatsPerMinute() * deviceSpecification.getMetronomeScreenConfiguration().getBallCoefficientX()), 
+                deviceSpecification.getMetronomeScreenConfiguration().getBallY(), Graphics.TOP | Graphics.LEFT);
 
     }
 }

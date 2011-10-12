@@ -2,6 +2,7 @@ package com.j2memetronome.dao;
 
 import com.j2memetronome.font.FontAttributes;
 import java.io.IOException;
+import java.util.Vector;
 import javax.microedition.lcdui.Image;
 import mwt.Font;
 
@@ -11,9 +12,22 @@ import mwt.Font;
  */
 public class FontDAOFileSystem implements FontDAO {
 
-    public Font get(FontAttributes fontAttributes) throws IOException
-    {
-        return new Font(Image.createImage(fontAttributes.getPath()), fontAttributes.getCharset(),fontAttributes.getWidths(), 0);
+    public static java.util.Vector fonts;
+
+    public FontDAOFileSystem() {
+        fonts = new Vector();
     }
 
+    public Font get(FontAttributes fontAttributes) throws IOException {
+
+        FontResource fontResource = new FontResource(fontAttributes);
+        if (!fonts.contains(fontResource)) {
+            Font font = new Font(Image.createImage(fontAttributes.getPath()), fontAttributes.getCharset(), fontAttributes.getWidths(), 0);
+            fontResource.setFont(font);
+            fonts.addElement(fontResource);
+        }
+
+        return ((FontResource) fonts.elementAt(fonts.indexOf(fontResource))).getFont();
+      
+    }
 }

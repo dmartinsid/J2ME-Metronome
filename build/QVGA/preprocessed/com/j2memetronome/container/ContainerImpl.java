@@ -49,7 +49,7 @@ public class ContainerImpl extends Canvas implements Runnable {
         timer = new Timer();
 
 
-
+        System.out.println("FLASH" + Display.getDisplay(midlet).flashBacklight(100000));
         Display.getDisplay(midlet).setCurrent(this);
         setFullScreenMode(true);
         applicationThread = new Thread(this);

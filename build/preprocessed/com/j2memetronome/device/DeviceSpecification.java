@@ -1,6 +1,7 @@
 package com.j2memetronome.device;
 
 import com.j2memetronome.view.MainMenuConfiguration;
+import com.j2memetronome.view.MetronomeScreenConfiguration;
 
 /**
  *
@@ -14,6 +15,7 @@ public interface DeviceSpecification
     int maxLines(); 
     int supportedSounds();
     MainMenuConfiguration getMainMenuConfiguration();
+    MetronomeScreenConfiguration getMetronomeScreenConfiguration();
             
     // Device Keys
     int LEFT = -3;
