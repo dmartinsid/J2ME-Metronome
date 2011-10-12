@@ -1,8 +1,0 @@
-MIDlet-2: TestSuite,,com.j2memetronome.test.MetronomeTest
-MIDlet-1: J2ME Metronome,/con.png,com.j2memetronome.MetronomeMIDlet
-MIDlet-Vendor: Deivid Cunha Martins
-MIDlet-Name: J2ME Metronome
-MIDlet-Icon: icon.png
-MIDlet-Version: 0.5
-MicroEdition-Configuration: CLDC-1.1
-MicroEdition-Profile: MIDP-2.0
