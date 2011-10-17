@@ -1,6 +1,7 @@
 package com.j2memetronome;
 
 import com.j2memetronome.midi.Drummer;
+import com.j2memetronome.note.Measure;
 import com.j2memetronome.note.RhythmicFigure;
 
 /**
@@ -10,43 +11,36 @@ import com.j2memetronome.note.RhythmicFigure;
 public class Metronome implements MetronomeLimits {
 
     private int beatsPerMinute;
-    private int numerator;
-    private RhythmicFigure denominator;
     private int actualBeat;
     private Drummer drummer;
+    private Measure measure;
 
     public Metronome() {
+        commonSetup();
         this.beatsPerMinute = 120;
-        this.denominator = RhythmicFigure.QUARTER;
-        this.numerator = 4;
-        actualBeat = 1;
-        drummer = new Drummer();
+        this.measure = new Measure(4, RhythmicFigure.QUARTER);
+        
+        
     }
 
-    public Metronome(int beatsPerMinute, int numerator, RhythmicFigure denominator) {
+    public Metronome(int beatsPerMinute, int numerator, RhythmicFigure denominator) 
+    {
+        commonSetup();
         this.beatsPerMinute = beatsPerMinute;
-        this.denominator = denominator;
-        this.numerator = numerator;
+        this.measure = new Measure(numerator, denominator);
 
-        drummer = new Drummer();
-        actualBeat = 1;
     }
+    
+    
 
-    public void process(boolean isStarted) {
-        if (!isStarted) {
-            actualBeat = 1;
-        } else if (actualBeat == numerator) {
+    public void play() 
+    {
+        if (actualBeat == 1)
+            playFirst();
+        else
             playOthers();
-            actualBeat = 1;
-        } else {
-            if (actualBeat == 1) {
-                playFirst();
-            } else {
-                playOthers();
-            }
-
-            actualBeat++;
-        }
+        
+        checkBeat();
     }
 
     /**
@@ -54,7 +48,7 @@ public class Metronome implements MetronomeLimits {
      * @return time in milliseconds
      */
     public long sleepTime() {
-        return (long) ((60000 / beatsPerMinute) * ((double) 4 / denominator.intValue()));
+        return (long) ((60000 / beatsPerMinute) * ((double) 4 / measure.getDenominator().intValue()));
     }
 
     public int getBeatsPerMinute() {
@@ -77,21 +71,11 @@ public class Metronome implements MetronomeLimits {
         return actualBeat;
     }
 
-    public RhythmicFigure getDenominator() {
-        return denominator;
+    public Measure getMeasure() {
+        return measure;
     }
 
-    public void setDenominator(RhythmicFigure denominator) {
-        this.denominator = denominator;
-    }
-
-    public int getNumerator() {
-        return numerator;
-    }
-
-    public void setNumerator(int numerator) {
-        this.numerator = numerator;
-    }
+      
 
     public void setKit(int kitID) {
         drummer.setKit(kitID);
@@ -100,11 +84,25 @@ public class Metronome implements MetronomeLimits {
         return drummer.getKit();
     }
 
-    public void playFirst() {
+    private void playFirst() {
         drummer.playFirst();
     }
 
-    public void playOthers() {
+    private void playOthers() {
         drummer.playOthers();
+
+    }
+
+    private void checkBeat() {
+        if(actualBeat == measure.getNumerator())
+            actualBeat = 1;
+        else 
+            actualBeat++;
+    }
+    
+    private void commonSetup()
+    {
+        this.drummer = new Drummer();
+        this.actualBeat = 1;
     }
 }

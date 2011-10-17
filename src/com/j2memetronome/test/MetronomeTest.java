@@ -1,12 +1,12 @@
 /*
- * NewEmptyJMUnitTest.java
- * JMUnit based test
+ * No JUnit for J2ME
  *
  * Created on 07/09/2011, 23:55:01
  */
 package com.j2memetronome.test;
 
 import com.j2memetronome.Metronome;
+import com.j2memetronome.note.Measure;
 import com.j2memetronome.note.RhythmicFigure;
 import jmunit.framework.cldc10.*;
 
@@ -16,7 +16,7 @@ import jmunit.framework.cldc10.*;
 public class MetronomeTest extends TestCase {
 
     public MetronomeTest() {
-        super(2, "MetronomeTest");
+        super(3, "MetronomeTest");
     }
 
     public void test(int testNumber) throws Throwable {
@@ -28,6 +28,10 @@ public class MetronomeTest extends TestCase {
             case 1:
                 sleepTimeMustBe600To100BPMFor4By4();
                 break;
+            case 2:
+                shouldNotDecreaseNumeratorWhenNumeratorEquals1();
+                break;
+
         }
 
 
@@ -42,5 +46,11 @@ public class MetronomeTest extends TestCase {
     private void sleepTimeMustBe600To100BPMFor4By4() throws Exception {
         Metronome metronome = new Metronome(100, 4, RhythmicFigure.QUARTER);
         assertEquals(metronome.sleepTime(), 600);
+    }
+
+    private void shouldNotDecreaseNumeratorWhenNumeratorEquals1() {
+        Measure measure = new Measure(1, RhythmicFigure.WHOLE);
+        measure.decreaseNumerator();
+        assertEquals(measure.getNumerator(), 1);
     }
 }

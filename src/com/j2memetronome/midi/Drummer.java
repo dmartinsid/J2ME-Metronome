@@ -5,14 +5,14 @@ import javax.microedition.media.Player;
 import javax.microedition.media.control.MIDIControl;
 
 /**
- *  This class acts as a this
+ *  
  * 
  * @author Deivid Cunha Martins
  */
 public class Drummer implements DrumKit {
 
-    private MIDIControl mc;
-    private Player mp;
+    private MIDIControl midiControl;
+    private Player player;
     private int kit;
 
     /**
@@ -20,33 +20,34 @@ public class Drummer implements DrumKit {
      */
     public Drummer() {
         try {
-            mc = this.getMIDIControl();
+            midiControl = this.getMIDIControl();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
+    
 
     /**
      * Plays a drum component
      * @param num
      */
     private void playDrum(int num) {
-        if (mc == null) {
+        if (midiControl == null) {
             return;
         }
 
-        mc.shortMidiEvent(0x99, DRUM_NUMBERS[num], 127);
+        midiControl.shortMidiEvent(0x99, DRUM_NUMBERS[num], 127);
 
 
     }
 
     private MIDIControl getMIDIControl() throws Exception {
-        if (mp == null) {
-            mp = Manager.createPlayer(Manager.MIDI_DEVICE_LOCATOR);
-            mp.prefetch();
+        if (player == null) {
+            player = Manager.createPlayer(Manager.MIDI_DEVICE_LOCATOR);
+            player.prefetch();
 
         }
-        return (MIDIControl) mp.getControl("javax.microedition.media.control.MIDIControl");
+        return (MIDIControl) player.getControl("javax.microedition.media.control.MIDIControl");
     }
 
     private void playTomsHigh() {

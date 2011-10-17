@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.j2memetronome.view;
 
 import com.j2memetronome.Metronome;
@@ -215,7 +211,7 @@ public class ViewImpl implements View{
         }
 
 
-        metronome.process(true);
+        metronome.play();
 
 
     }
@@ -228,7 +224,7 @@ public class ViewImpl implements View{
         Font font = fontDAO.get(FontMapper.METRONOME);
 
         
-        font.write(g, metronome.getNumerator() + "/" + metronome.getDenominator().intValue(), 
+        font.write(g, metronome.getMeasure().toString(), 
                 deviceSpecification.getMetronomeScreenConfiguration().getMeasureX(), 
                 deviceSpecification.getMetronomeScreenConfiguration().getMeasureY(), 
                 deviceSpecification.getWidth(), 0, Component.ALIGN_TOP_LEFT);
