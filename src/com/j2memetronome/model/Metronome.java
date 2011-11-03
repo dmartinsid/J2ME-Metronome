@@ -1,8 +1,8 @@
-package com.j2memetronome;
+package com.j2memetronome.model;
 
 import com.j2memetronome.midi.Drummer;
-import com.j2memetronome.note.Measure;
-import com.j2memetronome.note.RhythmicFigure;
+import com.j2memetronome.musictheory.Measure;
+import com.j2memetronome.musictheory.RhythmicFigure;
 
 /**
  *
@@ -16,7 +16,7 @@ public class Metronome implements MetronomeLimits {
     private Measure measure;
 
     public Metronome() {
-        commonSetup();
+        setup();
         this.beatsPerMinute = 120;
         this.measure = new Measure(4, RhythmicFigure.QUARTER);
         
@@ -25,7 +25,7 @@ public class Metronome implements MetronomeLimits {
 
     public Metronome(int beatsPerMinute, int numerator, RhythmicFigure denominator) 
     {
-        commonSetup();
+        setup();
         this.beatsPerMinute = beatsPerMinute;
         this.measure = new Measure(numerator, denominator);
 
@@ -100,7 +100,7 @@ public class Metronome implements MetronomeLimits {
             actualBeat++;
     }
     
-    private void commonSetup()
+    private void setup()
     {
         this.drummer = new Drummer();
         this.actualBeat = 1;

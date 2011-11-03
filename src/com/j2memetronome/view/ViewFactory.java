@@ -22,10 +22,6 @@ public class ViewFactory
 //#         return new ViewImpl(new SonyEricssonQVGA());
         //#elif LUXURY
 //#         return new ViewImpl(new SonyEricssonLuxury());
-        //#elif NKLUXURY
-//#     view = new ViewNKLuxury();
-        //#elif NKTOUCH
-//#     view = new ViewNKTouch();View
         //#else
         return new ViewImpl(new SonyEricssonMidsized());
         //#endif

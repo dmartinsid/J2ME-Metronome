@@ -1,4 +1,4 @@
-package com.j2memetronome.note;
+package com.j2memetronome.musictheory;
 
 /**
  *

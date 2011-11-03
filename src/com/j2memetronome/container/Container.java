@@ -1,6 +1,6 @@
 package com.j2memetronome.container;
 
-import com.j2memetronome.Metronome;
+import com.j2memetronome.model.Metronome;
 import com.j2memetronome.MetronomeMIDlet;
 import com.j2memetronome.appstate.ApplicationState;
 import com.j2memetronome.dao.FontDAO;
@@ -22,7 +22,7 @@ import javax.microedition.lcdui.Graphics;
  *
  * @author dmartins
  */
-public class ContainerImpl extends Canvas implements Runnable {
+public class Container extends Canvas implements Runnable {
 
     private ApplicationState applicationState;
     private Thread applicationThread;
@@ -38,7 +38,7 @@ public class ContainerImpl extends Canvas implements Runnable {
     private CountDown countDown;
     private EventHandler eventHandler;
 
-    public ContainerImpl(MetronomeMIDlet midlet, View view) {
+    public Container(MetronomeMIDlet midlet, View view) {
         this.midlet = midlet;
         this.view = view;
 
@@ -61,7 +61,12 @@ public class ContainerImpl extends Canvas implements Runnable {
         try {
             view.draw(graphics, fontDAO, imageDAO, textDAO, applicationState, metronome);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            try {
+                applicationState.setState(ApplicationState.EXCEPTION);
+                view.draw(graphics, fontDAO, imageDAO, textDAO, applicationState, metronome);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
         }
 
     }
@@ -118,7 +123,31 @@ public class ContainerImpl extends Canvas implements Runnable {
         public void onKey(int keyCode) {
             processEvents(keyCode);
         }
+        private void processEvents(int keyCode) {
 
+            switch (applicationState.getState()) {
+
+                case ApplicationState.MAIN_MENU:
+                    processMainMenu(keyCode);
+                    break;
+                case ApplicationState.HELP:
+                case ApplicationState.ABOUT:
+                    processHelpAndAbout(keyCode);
+                    break;
+                case ApplicationState.OPTIONS:
+                    processOptions(keyCode);
+                    break;
+                case ApplicationState.EXIT:
+                    processExit(keyCode);
+                    break;
+                case ApplicationState.METRONOME_STARTED:
+                case ApplicationState.METRONOME_STOPPED:
+                    processMetronome(keyCode);
+                    break;
+
+            }
+        }
+    }
         private void processMainMenu(int keyCode) {
 
             switch (keyCode) {
@@ -158,7 +187,6 @@ public class ContainerImpl extends Canvas implements Runnable {
         private void processHelpAndAbout(int keyCode) {
             switch (keyCode) {
                 case DeviceSpecification.RSK:
-                case DeviceSpecification.CLEAR:
                     applicationState.setState(ApplicationState.MAIN_MENU);
                     break;
             }
@@ -169,7 +197,7 @@ public class ContainerImpl extends Canvas implements Runnable {
             switch (keyCode) {
                 case DeviceSpecification.LSK:
                 case DeviceSpecification.CLEAR:
-                    if (applicationState.getState() == ApplicationState.OPTIONS) {
+                    if (applicationState.lastState() == ApplicationState.MAIN_MENU) {
                         applicationState.setState(ApplicationState.MAIN_MENU);
 
                     } else {
@@ -267,29 +295,5 @@ public class ContainerImpl extends Canvas implements Runnable {
             }
         }
 
-        private void processEvents(int keyCode) {
-
-            switch (applicationState.getState()) {
-
-                case ApplicationState.MAIN_MENU:
-                    processMainMenu(keyCode);
-                    break;
-                case ApplicationState.HELP:
-                case ApplicationState.ABOUT:
-                    processHelpAndAbout(keyCode);
-                    break;
-                case ApplicationState.OPTIONS:
-                    processOptions(keyCode);
-                    break;
-                case ApplicationState.EXIT:
-                    processExit(keyCode);
-                    break;
-                case ApplicationState.METRONOME_STARTED:
-                case ApplicationState.METRONOME_STOPPED:
-                    processMetronome(keyCode);
-                    break;
-
-            }
-        }
-    }
+        
 }

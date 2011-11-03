@@ -1,6 +1,6 @@
 package com.j2memetronome.view;
 
-import com.j2memetronome.Metronome;
+import com.j2memetronome.model.Metronome;
 import com.j2memetronome.appstate.ApplicationState;
 import com.j2memetronome.dao.FontDAO;
 import com.j2memetronome.dao.ImageDAO;
@@ -76,6 +76,9 @@ public class ViewImpl implements View{
             case ApplicationState.METRONOME_STOPPED:
                 drawMetronomeCore(graphics, fontDAO, imageDAO, textDAO, metronome);
                 break;
+            case ApplicationState.EXCEPTION:
+                drawException(graphics, fontDAO, imageDAO, textDAO);
+                break;    
 
         }
 
@@ -236,6 +239,13 @@ public class ViewImpl implements View{
 
         g.drawImage(ball, BALL_BPM_INITIAL_X + (int) (metronome.getBeatsPerMinute() * deviceSpecification.getMetronomeScreenConfiguration().getBallCoefficientX()), 
                 deviceSpecification.getMetronomeScreenConfiguration().getBallY(), Graphics.TOP | Graphics.LEFT);
+
+    }
+    
+    private void drawException(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) throws IOException {
+
+        drawAutoScrollPage(g, fontDAO, imageDAO, textDAO, "/en/exception.txt", TextMapper.EXCEPTION);
+        
 
     }
 }

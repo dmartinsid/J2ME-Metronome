@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.j2memetronome.midi;
 
 /**
@@ -11,6 +6,8 @@ package com.j2memetronome.midi;
  */
 public interface DrumKit {
 
+    // TODO must use the enum pattern to be more readable
+    
     byte[] DRUM_NUMBERS = {
         0x23, // Acoustic Bass Drum
         0x24, // Bass Drum

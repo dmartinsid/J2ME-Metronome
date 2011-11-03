@@ -1,6 +1,6 @@
 package com.j2memetronome;
 
-import com.j2memetronome.container.ContainerImpl;
+import com.j2memetronome.container.Container;
 import com.j2memetronome.view.View;
 import com.j2memetronome.view.ViewFactory;
 
@@ -14,14 +14,14 @@ import javax.microedition.midlet.*;
 public class MetronomeMIDlet extends MIDlet {
 
 
-    private ContainerImpl containerImpl;
+    private Container containerImpl;
     private View view;
     public void startApp()
     {
         if (containerImpl == null) 
         {
             view = new ViewFactory().getView();
-            containerImpl = new ContainerImpl(this, view);
+            containerImpl = new Container(this, view);
         }
     }
 

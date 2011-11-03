@@ -5,9 +5,9 @@
  */
 package com.j2memetronome.test;
 
-import com.j2memetronome.Metronome;
-import com.j2memetronome.note.Measure;
-import com.j2memetronome.note.RhythmicFigure;
+import com.j2memetronome.model.Metronome;
+import com.j2memetronome.musictheory.Measure;
+import com.j2memetronome.musictheory.RhythmicFigure;
 import jmunit.framework.cldc10.*;
 
 /**

@@ -1,4 +1,4 @@
-package com.j2memetronome;
+package com.j2memetronome.model;
 
 /**
  *
