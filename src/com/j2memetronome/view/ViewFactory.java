@@ -5,9 +5,9 @@
 
 package com.j2memetronome.view;
 
-import com.j2memetronome.device.SonyEricssonLuxury;
-import com.j2memetronome.device.SonyEricssonMidsized;
-import com.j2memetronome.device.SonyEricssonQVGA;
+import com.j2memetronome.device.sony.SonyEricssonLuxury;
+import com.j2memetronome.device.sony.SonyEricssonMidsized;
+import com.j2memetronome.device.sony.SonyEricssonQVGA;
 
 /**
  *

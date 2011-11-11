@@ -9,7 +9,7 @@ import javax.microedition.media.control.MIDIControl;
  * 
  * @author Deivid Cunha Martins
  */
-public class Drummer implements DrumKit {
+public class Drummer {
 
     private MIDIControl midiControl;
     private Player player;
@@ -31,12 +31,12 @@ public class Drummer implements DrumKit {
      * Plays a drum component
      * @param num
      */
-    private void playDrum(int num) {
+    private void playDrum(DrumKit drumKit) {
         if (midiControl == null) {
             return;
         }
 
-        midiControl.shortMidiEvent(0x99, DRUM_NUMBERS[num], 127);
+        midiControl.shortMidiEvent(0x99, drumKit.midiMapping(), 127);
 
 
     }
@@ -51,44 +51,44 @@ public class Drummer implements DrumKit {
     }
 
     private void playTomsHigh() {
-        this.playDrum(Drummer.HI_MID_TOM);
-        this.playDrum(Drummer.HIGH_TOM);
+        this.playDrum(DrumKit.HI_MID_TOM);
+        this.playDrum(DrumKit.HIGH_TOM);
     }
 
     private void playTomsLow() {
-        this.playDrum(Drummer.LOW_FLOOR_TOM);
-        this.playDrum(Drummer.HIGH_FLOOR_TOM);
+        this.playDrum(DrumKit.LOW_FLOOR_TOM);
+        this.playDrum(DrumKit.HIGH_FLOOR_TOM);
     }
 
     private void playTomsMid() {
-        this.playDrum(Drummer.LOW_TOM);
-        this.playDrum(Drummer.LOW_MID_TOM);
+        this.playDrum(DrumKit.LOW_TOM);
+        this.playDrum(DrumKit.LOW_MID_TOM);
     }
 
     private void playBassDrum() {
-        this.playDrum(Drummer.ACOUSTIC_BASS_DRUM);
+        this.playDrum(DrumKit.ACOUSTIC_BASS_DRUM);
     }
 
     private void playBassDrumAndCrash() {
-        this.playDrum(Drummer.ACOUSTIC_BASS_DRUM);
-        this.playDrum(Drummer.CRASH_CYMBAL_1);
+        this.playDrum(DrumKit.ACOUSTIC_BASS_DRUM);
+        this.playDrum(DrumKit.CRASH_CYMBAL_1);
     }
 
     private void playBassDrumAndHiHat() {
-        this.playDrum(Drummer.ACOUSTIC_BASS_DRUM);
-        this.playDrum(Drummer.CLOSED_HI_HAT);
+        this.playDrum(DrumKit.ACOUSTIC_BASS_DRUM);
+        this.playDrum(DrumKit.CLOSED_HI_HAT);
     }
 
     private void playSnare() {
-        this.playDrum(Drummer.ACOUSTIC_SNARE);
+        this.playDrum(DrumKit.ACOUSTIC_SNARE);
     }
 
     private void playMetronomeClick() {
-        this.playDrum(Drummer.METRONOME_CLICK);
+        this.playDrum(DrumKit.METRONOME_CLICK);
     }
 
     private void playMetronomeBell() {
-        this.playDrum(Drummer.METRONOME_BELL);
+        this.playDrum(DrumKit.METRONOME_BELL);
     }
 
     public void playFirst() {

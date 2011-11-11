@@ -2,67 +2,48 @@ package com.j2memetronome.midi;
 
 /**
  *
- * @author dmartins
+ * @author Deivid Martins
  */
-public interface DrumKit {
+public class DrumKit {
 
-    // TODO must use the enum pattern to be more readable
+    private final int midiMapping;
     
-    byte[] DRUM_NUMBERS = {
-        0x23, // Acoustic Bass Drum
-        0x24, // Bass Drum
-        0x25, // Side Stick
-        0x26, // Acoustic Snare
-        0x27, // Hand Clap
-        0x28, // Electric Snare
-        0x29, // Low Floor Tom
-        0x2A, // Closed Hi-Hat
-        0x2B, // High Floor Tom
-        0x2C, // Pedal Hi-Hat
-        0x2D, // Low Tom
-        0x2E, // Open Hi-Hat
-        0x2F, // Low-Mid Tom
-        0x30, // Hi-Mid Tom
-        0x31, // Crash Cymbal 1
-        0x32, // High Tom
-        0x33, // Ride Cymbal 1
-        0x34, // Chinese Cymbal
-        0x35, // Ride Bell
-        0x36, // Tambourine
-        0x37, // Splash Cymbal
-        0x38, // Cowbell
-        0x39, // Crash Cymbal 2
-        0x3A, // Vibraslap
-        0x3B, // Ride Cymbal 2
-        0x22, // Metronome Bell
-        0x21  // Metronome Click
-    };
+    public static final DrumKit METRONOME_BELL = new DrumKit(34);
+    public static final DrumKit METRONOME_CLICK = new DrumKit(35);
+    public static final DrumKit ACOUSTIC_BASS_DRUM = new DrumKit(35);
+    public static final DrumKit BASS_DRUM = new DrumKit(36);
+    public static final DrumKit SIDE_STICK = new DrumKit(37);
+    public static final DrumKit ACOUSTIC_SNARE = new DrumKit(38);
+    public static final DrumKit HAND_CLAP = new DrumKit(39);
+    public static final DrumKit ELECTRIC_SNARE = new DrumKit(40);
+    public static final DrumKit LOW_FLOOR_TOM = new DrumKit(41);
+    public static final DrumKit CLOSED_HI_HAT = new DrumKit(42);
+    public static final DrumKit HIGH_FLOOR_TOM = new DrumKit(43);
+    public static final DrumKit PEDAL_HI_HAT = new DrumKit(44);
+    public static final DrumKit LOW_TOM = new DrumKit(45);
+    public static final DrumKit OPEN_HI_HAT = new DrumKit(46);
+    public static final DrumKit LOW_MID_TOM = new DrumKit(47);
+    public static final DrumKit HI_MID_TOM = new DrumKit(48);
+    public static final DrumKit CRASH_CYMBAL_1 = new DrumKit(49);
+    public static final DrumKit HIGH_TOM = new DrumKit(50);
+    public static final DrumKit RIDE_CYMBAL_1 = new DrumKit(51);
+    public static final DrumKit CHINESE_CYMBAL = new DrumKit(52);
+    public static final DrumKit RIDE_BELL = new DrumKit(53);
+    public static final DrumKit TAMBOURINE = new DrumKit(54);
+    public static final DrumKit SPLASH_CYMBAL = new DrumKit(55);
+    public static final DrumKit COWBELL = new DrumKit(56);
+    public static final DrumKit CRASH_CYMBAL_2 = new DrumKit(57);
+    public static final DrumKit VIBRASLAP = new DrumKit(58);
+    public static final DrumKit RIDE_CYMBAL2 = new DrumKit(59);
+    
 
-     int ACOUSTIC_BASS_DRUM = 0;
-     int BASS_DRUM = 1;
-     int SIDE_STICK = 2;
-     int ACOUSTIC_SNARE = 3;
-     int HAND_CLAP = 4;
-     int ELECTRIC_SNARE = 5;
-     int LOW_FLOOR_TOM = 6;
-     int CLOSED_HI_HAT = 7;
-     int HIGH_FLOOR_TOM = 8;
-     int PEDAL_HI_HAT = 9;
-     int LOW_TOM = 10;
-     int OPEN_HI_HAT = 11;
-     int LOW_MID_TOM = 12;
-     int HI_MID_TOM = 13;
-     int CRASH_CYMBAL_1 = 14;
-     int HIGH_TOM = 15;
-     int RIDE_CYMBAL_1 = 16;
-     int CHINESE_CYMBAL = 17;
-     int RIDE_BELL = 18;
-     int TAMBOURINE = 19;
-     int SPLASH_CYMBAL = 20;
-     int COWBELL = 21;
-     int CRASH_CYMBAL_2 = 22;
-     int VIBRASLAP = 23;
-     int RIDE_CYMBAL2 = 24;
-     int METRONOME_BELL = 25;
-     int METRONOME_CLICK = 26;
+
+    private DrumKit(int midiMapping) {
+        this.midiMapping = midiMapping;
+    }
+   
+    public int midiMapping()
+    {
+        return midiMapping;
+    }
 }

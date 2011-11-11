@@ -27,34 +27,49 @@ public class Container extends Canvas implements Runnable {
     private ApplicationState applicationState;
     private Thread applicationThread;
     private Metronome metronome;
+    
     private MetronomeMIDlet midlet;
     private View view;
-    private Timer timer;
+    
     
     // Persistence
     private FontDAO fontDAO;
     private ImageDAO imageDAO;
     private TextDAO textDAO;
-    private CountDown countDown;
+    
+    
+    // Splash
+    private SplashCountDown countDown;
+    private Timer timer;
+    
     private EventHandler eventHandler;
 
     public Container(MetronomeMIDlet midlet, View view) {
         this.midlet = midlet;
         this.view = view;
 
-        fontDAO = new FontDAOFileSystem();
-        imageDAO = new ImageDAOFileSystem();
-        textDAO = new TextDAOFileSystem();
+        initPersistenceLayer();
+        
         metronome = new Metronome();
+        
         applicationState = new ApplicationState();
         timer = new Timer();
+        
         eventHandler = new EventHandler();
 
         Display.getDisplay(midlet).setCurrent(this);
         setFullScreenMode(true);
+        
         applicationThread = new Thread(this);
         applicationThread.start();
-        repaint();
+  
+    }
+    
+    private void initPersistenceLayer()
+    {
+        fontDAO = new FontDAOFileSystem();
+        imageDAO = new ImageDAOFileSystem();
+        textDAO = new TextDAOFileSystem();
     }
 
     protected void paint(Graphics graphics) {
@@ -62,7 +77,9 @@ public class Container extends Canvas implements Runnable {
             view.draw(graphics, fontDAO, imageDAO, textDAO, applicationState, metronome);
         } catch (Exception ex) {
             try {
+                // TODO create a method to show the exception to the user.
                 applicationState.setState(ApplicationState.EXCEPTION);
+
                 view.draw(graphics, fontDAO, imageDAO, textDAO, applicationState, metronome);
             } catch (Exception exception) {
                 exception.printStackTrace();
@@ -78,21 +95,26 @@ public class Container extends Canvas implements Runnable {
 
             if (applicationState.getState() == ApplicationState.SPLASH) {
                 if (countDown == null) {
-                    countDown = new CountDown();
+                    countDown = new SplashCountDown();
                     timer.schedule(countDown, 5000);
                 }
             }
 
             try {
-                if (applicationState.getState() != ApplicationState.METRONOME_STARTED) {
-                    Thread.sleep(50);
-                } else {
-                    Thread.sleep(metronome.sleepTime());
-                }
-
+                sleepTime();
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
+        }
+    }
+    
+    
+    
+    private void sleepTime() throws InterruptedException {
+        if (applicationState.getState() != ApplicationState.METRONOME_STARTED) {
+            Thread.sleep(50);
+        } else {
+            Thread.sleep(metronome.sleepTime());
         }
     }
 
@@ -105,15 +127,16 @@ public class Container extends Canvas implements Runnable {
         eventHandler.onKey(keyCode);
     }
 
-    private void dismiss() {
-        timer.cancel();
-        applicationState.next();
-    }
+    
 
-    private class CountDown extends TimerTask {
+    private class SplashCountDown extends TimerTask {
 
         public void run() {
             dismiss();
+        }
+        private void dismiss() {
+            timer.cancel();
+            applicationState.next();
         }
     }
 
@@ -123,6 +146,7 @@ public class Container extends Canvas implements Runnable {
         public void onKey(int keyCode) {
             processEvents(keyCode);
         }
+
         private void processEvents(int keyCode) {
 
             switch (applicationState.getState()) {
@@ -147,7 +171,7 @@ public class Container extends Canvas implements Runnable {
 
             }
         }
-    }
+
         private void processMainMenu(int keyCode) {
 
             switch (keyCode) {
@@ -294,6 +318,6 @@ public class Container extends Canvas implements Runnable {
 
             }
         }
-
+    }
         
 }

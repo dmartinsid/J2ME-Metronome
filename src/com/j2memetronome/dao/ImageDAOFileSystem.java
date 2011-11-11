@@ -18,6 +18,12 @@ public class ImageDAOFileSystem implements ImageDAO {
 
     public Image get(String path) throws IOException 
     {
+        int index = add(path);
+        return ((ImageResource) images.elementAt(index)).getImage();
+    }
+    
+    private int add(String path) throws IOException
+    {
         ImageResource imageResource = new ImageResource(path);
 
         if (!images.contains(imageResource)) {
@@ -25,8 +31,7 @@ public class ImageDAOFileSystem implements ImageDAO {
             imageResource.setImage(image);
             images.addElement(imageResource);
         }
-        return ((ImageResource) images.elementAt(images.indexOf(imageResource))).getImage();
-
-
+        
+        return images.indexOf(imageResource);
     }
 }

@@ -17,6 +17,13 @@ public class TextDAOFileSystem implements TextDAO {
     }
     public String[] get(String path) throws IOException 
     {
+        int index = add(path);
+        return ((TextResource) texts.elementAt(index)).getText();
+
+    }
+    
+    private int add(String path) throws IOException
+    {
         TextResource textResource = new TextResource(path);
         
         if(!texts.contains(textResource))
@@ -24,8 +31,8 @@ public class TextDAOFileSystem implements TextDAO {
             textResource.setText(new TextReader(path).readFile());
             texts.addElement(textResource);
         }
-        return ((TextResource) texts.elementAt(texts.indexOf(textResource))).getText();
-
+        
+        return texts.indexOf(textResource);
     }
 
 }

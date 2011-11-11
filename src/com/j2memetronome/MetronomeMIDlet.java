@@ -14,14 +14,14 @@ import javax.microedition.midlet.*;
 public class MetronomeMIDlet extends MIDlet {
 
 
-    private Container containerImpl;
+    private Container container;
     private View view;
     public void startApp()
     {
-        if (containerImpl == null) 
+        if (container == null) 
         {
             view = new ViewFactory().getView();
-            containerImpl = new Container(this, view);
+            container = new Container(this, view);
         }
     }
 

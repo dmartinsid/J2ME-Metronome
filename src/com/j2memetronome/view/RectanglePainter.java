@@ -17,16 +17,16 @@ public class RectanglePainter {
     /*
      * Two colors
      */
-    void paint(Graphics g, Rectangle rectangle, int color1, int color2, int borderColor)
-    {
-          g.setColor(color1);
-            //g.fillRect(10, 95, WIDTH - 20, 10);
-            g.fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight()/2);
-            g.setColor(color2);
-            //g.fillRect(10, 105, WIDTH - 20, 10);
-            g.fillRect(rectangle.getX(), rectangle.getY() + rectangle.getHeight()/2, rectangle.getWidth(), rectangle.getHeight()/2);
-            g.setColor(borderColor);
-            g.drawRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
-        
+
+    void paint(Graphics g, Rectangle rectangle, int color1, int color2, int borderColor) {
+        g.setColor(color1);
+
+        g.fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight() / 2);
+        g.setColor(color2);
+
+        g.fillRect(rectangle.getX(), rectangle.getY() + rectangle.getHeight() / 2, rectangle.getWidth(), rectangle.getHeight() / 2);
+        g.setColor(borderColor);
+        g.drawRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+
     }
 }

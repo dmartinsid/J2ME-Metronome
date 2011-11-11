@@ -1,5 +1,6 @@
-package com.j2memetronome.device;
+package com.j2memetronome.device.sony;
 
+import com.j2memetronome.device.DeviceSpecification;
 import com.j2memetronome.view.MainMenuConfiguration;
 import com.j2memetronome.view.MetronomeScreenConfiguration;
 
@@ -7,26 +8,27 @@ import com.j2memetronome.view.MetronomeScreenConfiguration;
  *
  * @author dmartins
  */
-public class SonyEricssonLuxury implements DeviceSpecification{
-    
+public class SonyEricssonMidsized implements DeviceSpecification{
+
     private MainMenuConfiguration mainMenuConfiguration;
     private MetronomeScreenConfiguration metronomeScreenConfiguration;
-
-    public SonyEricssonLuxury()
+    
+    
+    public SonyEricssonMidsized()
     {
-        mainMenuConfiguration = new MainMenuConfiguration(new Double(27.5), 13, 34, 10, 67, 7);
-        metronomeScreenConfiguration = new MetronomeScreenConfiguration(110, 131, 110, 154, 0.43, 177);
+        mainMenuConfiguration = new MainMenuConfiguration(new Double(20.0), 10, 23, 5, 45, 7);
+        metronomeScreenConfiguration = new MetronomeScreenConfiguration(80, 93, 80, 110, 0.3, 130);
     }
     public int getWidth() {
-        return 176;
+        return 128;
     }
 
     public int getHeight() {
-        return 220;
+        return 160;
     }
 
     public int maxLines() {
-        return 9;
+        return 6;
     }
 
     public int supportedSounds() {
@@ -36,10 +38,9 @@ public class SonyEricssonLuxury implements DeviceSpecification{
     public MainMenuConfiguration getMainMenuConfiguration() {
         return mainMenuConfiguration;
     }
-
+    
     public MetronomeScreenConfiguration getMetronomeScreenConfiguration() {
         return metronomeScreenConfiguration;
     }
-    
-    
+
 }

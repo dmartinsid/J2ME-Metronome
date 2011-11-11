@@ -19,15 +19,21 @@ public class FontDAOFileSystem implements FontDAO {
     }
 
     public Font get(FontAttributes fontAttributes) throws IOException {
-
+        int index = add(fontAttributes);
+        return ((FontResource) fonts.elementAt(index)).getFont();
+      
+    }
+    
+    private int add(FontAttributes fontAttributes) throws IOException
+    {
         FontResource fontResource = new FontResource(fontAttributes);
+        
         if (!fonts.contains(fontResource)) {
             Font font = new Font(Image.createImage(fontAttributes.getPath()), fontAttributes.getCharset(), fontAttributes.getWidths(), 0);
             fontResource.setFont(font);
             fonts.addElement(fontResource);
         }
-
-        return ((FontResource) fonts.elementAt(fonts.indexOf(fontResource))).getFont();
-      
+        
+        return fonts.indexOf(fontResource);
     }
 }
