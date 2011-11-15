@@ -15,9 +15,6 @@ public class Drummer {
     private Player player;
     private int kit;
 
-    /**
-     * Constructor
-     */
     public Drummer() {
         try {
             midiControl = this.getMIDIControl();
@@ -25,7 +22,6 @@ public class Drummer {
             ex.printStackTrace();
         }
     }
-    
 
     /**
      * Plays a drum component
@@ -115,13 +111,11 @@ public class Drummer {
         }
     }
 
-    public void setKit(int kit)
-    {
+    public void setKit(int kit) {
         this.kit = kit;
     }
-    
-    public int getKit()
-    {
+
+    public int getKit() {
         return kit;
     }
 }

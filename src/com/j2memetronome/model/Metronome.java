@@ -19,27 +19,24 @@ public class Metronome implements MetronomeLimits {
         setup();
         this.beatsPerMinute = 120;
         this.measure = new Measure(4, RhythmicFigure.QUARTER);
-        
-        
+
+
     }
 
-    public Metronome(int beatsPerMinute, int numerator, RhythmicFigure denominator) 
-    {
+    public Metronome(int beatsPerMinute, int numerator, RhythmicFigure denominator) {
         setup();
         this.beatsPerMinute = beatsPerMinute;
         this.measure = new Measure(numerator, denominator);
 
     }
-    
-    
 
-    public void play() 
-    {
-        if (actualBeat == 1)
+    public void play() {
+        if (actualBeat == 1) {
             playFirst();
-        else
+        } else {
             playOthers();
-        
+        }
+
         checkBeat();
     }
 
@@ -75,13 +72,31 @@ public class Metronome implements MetronomeLimits {
         return measure;
     }
 
-      
-
     public void setKit(int kitID) {
+
         drummer.setKit(kitID);
     }
+
     public int getKit() {
         return drummer.getKit();
+    }
+
+    public void nextKit(int supportedSounds) {
+        if (getKit() + 1 < supportedSounds) {
+            setKit(getKit() + 1);
+
+        } else {
+            setKit(0);
+        }
+    }
+
+    public void previousKit(int supportedSounds) {
+
+        if (getKit() > 0) {
+            setKit(getKit() - 1);
+        } else {
+            setKit(supportedSounds - 1);
+        }
     }
 
     private void playFirst() {
@@ -94,14 +109,14 @@ public class Metronome implements MetronomeLimits {
     }
 
     private void checkBeat() {
-        if(actualBeat == measure.getNumerator())
+        if (actualBeat == measure.getNumerator()) {
             actualBeat = 1;
-        else 
+        } else {
             actualBeat++;
+        }
     }
-    
-    private void setup()
-    {
+
+    private void setup() {
         this.drummer = new Drummer();
         this.actualBeat = 1;
     }

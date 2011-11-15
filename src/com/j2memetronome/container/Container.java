@@ -27,16 +27,13 @@ public class Container extends Canvas implements Runnable {
     private ApplicationState applicationState;
     private Thread applicationThread;
     private Metronome metronome;
-    
     private MetronomeMIDlet midlet;
     private View view;
-    
     
     // Persistence
     private FontDAO fontDAO;
     private ImageDAO imageDAO;
     private TextDAO textDAO;
-    
     
     // Splash
     private SplashCountDown countDown;
@@ -49,24 +46,21 @@ public class Container extends Canvas implements Runnable {
         this.view = view;
 
         initPersistenceLayer();
-        
+
         metronome = new Metronome();
-        
         applicationState = new ApplicationState();
         timer = new Timer();
-        
         eventHandler = new EventHandler();
 
         Display.getDisplay(midlet).setCurrent(this);
         setFullScreenMode(true);
-        
+
         applicationThread = new Thread(this);
         applicationThread.start();
-  
+
     }
-    
-    private void initPersistenceLayer()
-    {
+
+    private void initPersistenceLayer() {
         fontDAO = new FontDAOFileSystem();
         imageDAO = new ImageDAOFileSystem();
         textDAO = new TextDAOFileSystem();
@@ -75,15 +69,9 @@ public class Container extends Canvas implements Runnable {
     protected void paint(Graphics graphics) {
         try {
             view.draw(graphics, fontDAO, imageDAO, textDAO, applicationState, metronome);
-        } catch (Exception ex) {
-            try {
-                // TODO create a method to show the exception to the user.
-                applicationState.setState(ApplicationState.EXCEPTION);
+        } catch (Exception exception) {
+            exception.printStackTrace();
 
-                view.draw(graphics, fontDAO, imageDAO, textDAO, applicationState, metronome);
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
         }
 
     }
@@ -101,23 +89,20 @@ public class Container extends Canvas implements Runnable {
             }
 
             try {
-                sleepTime();
+                sleep();
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
         }
     }
-    
-    
-    
-    private void sleepTime() throws InterruptedException {
+
+    private void sleep() throws InterruptedException {
         if (applicationState.getState() != ApplicationState.METRONOME_STARTED) {
             Thread.sleep(50);
         } else {
             Thread.sleep(metronome.sleepTime());
         }
     }
-
 
     protected void keyPressed(int keyCode) {
         eventHandler.onKey(keyCode);
@@ -127,58 +112,56 @@ public class Container extends Canvas implements Runnable {
         eventHandler.onKey(keyCode);
     }
 
-    
-
     private class SplashCountDown extends TimerTask {
 
         public void run() {
             dismiss();
         }
+
         private void dismiss() {
             timer.cancel();
-            applicationState.next();
+            applicationState.setState(ApplicationState.MAIN_MENU);
         }
     }
 
-    
     private class EventHandler {
 
         public void onKey(int keyCode) {
-            processEvents(keyCode);
+            handleEvents(keyCode);
         }
 
-        private void processEvents(int keyCode) {
+        private void handleEvents(int keyCode) {
 
             switch (applicationState.getState()) {
 
                 case ApplicationState.MAIN_MENU:
-                    processMainMenu(keyCode);
+                    handleMainMenu(keyCode);
                     break;
                 case ApplicationState.HELP:
                 case ApplicationState.ABOUT:
-                    processHelpAndAbout(keyCode);
+                    handleHelpAndAbout(keyCode);
                     break;
                 case ApplicationState.OPTIONS:
-                    processOptions(keyCode);
+                    handleOptions(keyCode);
                     break;
                 case ApplicationState.EXIT:
-                    processExit(keyCode);
+                    handleExit(keyCode);
                     break;
                 case ApplicationState.METRONOME_STARTED:
                 case ApplicationState.METRONOME_STOPPED:
-                    processMetronome(keyCode);
+                    handleMetronome(keyCode);
                     break;
 
             }
         }
 
-        private void processMainMenu(int keyCode) {
+        private void handleMainMenu(int keyCode) {
 
             switch (keyCode) {
                 case KEY_NUM5:
                 case DeviceSpecification.LSK:
                 case DeviceSpecification.FIRE: {
-                    switch (Menu.getIndex()) {
+                    switch (view.menu().getIndex()) {
                         case Menu.START:
                             applicationState.setState(ApplicationState.METRONOME_STOPPED);
                             break;
@@ -199,16 +182,16 @@ public class Container extends Canvas implements Runnable {
                     applicationState.setState(ApplicationState.EXIT);
                     break;
                 case DeviceSpecification.UP:
-                    Menu.previousIndex();
+                    view.menu().previousIndex();
                     break;
                 case DeviceSpecification.DOWN:
-                    Menu.nextIndex();
+                    view.menu().nextIndex();
                     break;
             }
 
         }
 
-        private void processHelpAndAbout(int keyCode) {
+        private void handleHelpAndAbout(int keyCode) {
             switch (keyCode) {
                 case DeviceSpecification.RSK:
                     applicationState.setState(ApplicationState.MAIN_MENU);
@@ -217,7 +200,7 @@ public class Container extends Canvas implements Runnable {
 
         }
 
-        private void processOptions(int keyCode) {
+        private void handleOptions(int keyCode) {
             switch (keyCode) {
                 case DeviceSpecification.LSK:
                 case DeviceSpecification.CLEAR:
@@ -228,25 +211,15 @@ public class Container extends Canvas implements Runnable {
                         applicationState.setState(ApplicationState.METRONOME_STOPPED);
                     }
                     break;
-                case Canvas.UP:
                 case DeviceSpecification.RIGHT:
                 case Canvas.KEY_NUM6:
-                    if (metronome.getKit() + 1 < view.supportedSounds()) {
-                        metronome.setKit(metronome.getKit() + 1);
-
-                    } else {
-                        metronome.setKit(0);
-                    }
+                    metronome.nextKit(view.supportedSounds());
                     break;
 
                 case DeviceSpecification.LEFT:
                 case Canvas.KEY_NUM4:
 
-                    if (metronome.getKit() > 0) {
-                        metronome.setKit(metronome.getKit() - 1);
-                    } else {
-                        metronome.setKit(view.supportedSounds() - 1);
-                    }
+                    metronome.previousKit(view.supportedSounds());
                     break;
 
 
@@ -254,7 +227,7 @@ public class Container extends Canvas implements Runnable {
             }
         }
 
-        private void processExit(int keyCode) {
+        private void handleExit(int keyCode) {
             switch (keyCode) {
                 case DeviceSpecification.RSK:
                 case DeviceSpecification.CLEAR:
@@ -269,7 +242,7 @@ public class Container extends Canvas implements Runnable {
             }
         }
 
-        private void processMetronome(int keyCode) {
+        private void handleMetronome(int keyCode) {
             switch (keyCode) {
 
                 case DeviceSpecification.RIGHT:
@@ -291,7 +264,7 @@ public class Container extends Canvas implements Runnable {
                 case Canvas.KEY_NUM5:
                     if (applicationState.getState() == ApplicationState.METRONOME_STARTED) {
                         applicationState.setState(ApplicationState.METRONOME_STOPPED);
-                    } else if (applicationState.getState() == ApplicationState.METRONOME_STOPPED) {
+                    } else{
                         applicationState.setState(ApplicationState.METRONOME_STARTED);
                     }
                     break;
@@ -309,15 +282,10 @@ public class Container extends Canvas implements Runnable {
 
                     break;
                 case Canvas.KEY_POUND:
-                    if (metronome.getKit() < view.supportedSounds() - 1) {
-                        metronome.setKit(metronome.getKit() + 1);
-                    } else {
-                        metronome.setKit(0);
-                    }
+                    metronome.nextKit(view.supportedSounds());
                     break;
 
             }
         }
     }
-        
 }

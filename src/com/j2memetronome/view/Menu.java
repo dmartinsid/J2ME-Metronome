@@ -6,20 +6,20 @@ package com.j2memetronome.view;
  */
 public class Menu {
 
-    private static int index;
+    private int index;
     
     public static final int START = 0;
     public static final int OPTIONS = START + 1;
     public static final int HELP = OPTIONS + 1;
     public static final int ABOUT = HELP + 1;
-    private static int MAIN_MENU_LENGHT = 4;
+    public static int LENGHT = 4;
 
     public Menu() {
         index = 0;
     }
 
 
-    public static int getIndex() {
+    public int getIndex() {
         return index;
     }
 
@@ -27,23 +27,23 @@ public class Menu {
         this.index = index;
     }
 
-    public static int maxLength()
+    public int maxLength()
     {
-        return MAIN_MENU_LENGHT;
+        return LENGHT;
     }
 
-    public static void nextIndex()
+    public void nextIndex()
     {
-        if(index == MAIN_MENU_LENGHT - 1)
+        if(index == LENGHT - 1)
             index = 0;
         else
             index++;
     }
 
-    public static void previousIndex()
+    public void previousIndex()
     {
         if(index == 0)
-            index = MAIN_MENU_LENGHT - 1;
+            index = LENGHT - 1;
         else
             index--;
     }

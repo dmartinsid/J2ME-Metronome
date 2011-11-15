@@ -6,12 +6,12 @@ package com.j2memetronome.view;
  */
 public class MetronomeScreenConfiguration {
 
-    private int measureX = 110;
-    private int measureY = 131;
-    private int bpmX = 110;
-    private int bpmY = 154;
-    private double ballCoefficientX = 0.43;
-    private int ballY = 177;
+    private int measureX;
+    private int measureY;
+    private int bpmX;
+    private int bpmY;
+    private double ballCoefficientX;
+    private int ballY;
 
     public MetronomeScreenConfiguration(int measureX, int measureY, int bpmX, int bpmY, double ballCoefficientX, int ballY) 
     {

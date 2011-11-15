@@ -26,7 +26,7 @@ public class TextReader {
 
     public String[] readFile() throws IOException {
         int count = 1, c;
-        String result[];
+        String text[];
 
         inputStream = this.getClass().getResourceAsStream(file);
         stringBuffer = new StringBuffer();
@@ -44,11 +44,11 @@ public class TextReader {
         temp.addElement(stringBuffer.toString());
         inputStream.close();
 
-        result = new String[count];
+        text = new String[count];
         for (int i = 0; i < temp.size(); i++) {
-            result[i] = new String(temp.elementAt(i).toString());
+            text[i] = new String(temp.elementAt(i).toString());
         }
-        return result;
+        return text;
     }
 
     public String[] readFile(String file) throws IOException {

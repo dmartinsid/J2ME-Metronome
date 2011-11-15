@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.j2memetronome.view;
 
 import com.j2memetronome.model.Metronome;
@@ -21,13 +16,11 @@ public interface View {
 
     void draw(Graphics graphics, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, ApplicationState applicationState, Metronome metronome) throws Exception;
 
-    int getWidth();
-    int getHeight();
+    int width();
+    int height();
     int maxLines();
-   
+    Menu menu();
     int supportedSounds();
-
-    int MAIN_MENU_LENGTH = 4;
-    int ABOUT_AND_HELP_TEXT_INITIAL_Y = 30;
-    int BALL_BPM_INITIAL_X = 8;
+    
+    
 }

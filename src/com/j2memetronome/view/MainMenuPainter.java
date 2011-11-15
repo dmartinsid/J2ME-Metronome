@@ -1,6 +1,7 @@
 package com.j2memetronome.view;
 
 import com.j2memetronome.dao.ImageDAO;
+import com.j2memetronome.dao.mapper.ImageMapper;
 import java.io.IOException;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -18,8 +19,8 @@ public class MainMenuPainter {
     private MainMenuConfiguration mainMenuConfiguration;
 
     public MainMenuPainter(ImageDAO imageDAO, MainMenuConfiguration mainMenuConfiguration) throws IOException {
-        title = imageDAO.get("/menu_title.png");
-        items = imageDAO.get("/images_multilang/en/menuitems.png");
+        title = imageDAO.get(ImageMapper.MENU_TITLE);
+        items = imageDAO.get(ImageMapper.MENU_ITEMS);
         this.mainMenuConfiguration = mainMenuConfiguration;
     }
 
@@ -27,13 +28,13 @@ public class MainMenuPainter {
         graphics.drawImage(title, 0, 0, Graphics.TOP | Graphics.LEFT);
     }
 
-    public void paint(Graphics graphics) 
+    public void paint(Graphics graphics, Menu menu) 
     {
         drawTitle(graphics);
 
-        for (int i = 0; i < Menu.maxLength(); i++) 
+        for (int i = 0; i < Menu.LENGHT; i++) 
         {
-            drawRectangle(graphics, i);
+            drawRectangle(graphics, i, menu);
             drawText(graphics, i);
         }
 
@@ -49,14 +50,14 @@ public class MainMenuPainter {
                 (i * (mainMenuConfiguration.getDiff()))), Graphics.TOP | Graphics.LEFT);
     }
 
-    private void drawRectangle(Graphics graphics, int i) 
+    private void drawRectangle(Graphics graphics, int i, Menu menu) 
     {
         fluentY = mainMenuConfiguration.getStartYposition() + (i * (mainMenuConfiguration.getRectangleHeight().intValue() + 
                 mainMenuConfiguration.getSpaceBetweenRectangles()));
         
         graphics.setClip(mainMenuConfiguration.getLeftAlignment(), fluentY, items.getWidth(), mainMenuConfiguration.getRectangleHeight().intValue());
 
-        if (Menu.getIndex() == i) 
+        if (menu.getIndex() == i) 
         {
            drawChosenRectangle(graphics);
         } 

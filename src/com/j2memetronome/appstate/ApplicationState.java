@@ -6,7 +6,6 @@ package com.j2memetronome.appstate;
  */
 public final class ApplicationState {
     // No enums in Java ME =(
-    // Ugly, sad, but is this
     //-----------------------------------------------------------------
     // APPLICATION STATES
     //-----------------------------------------------------------------
@@ -20,11 +19,10 @@ public final class ApplicationState {
     public static final int METRONOME_STARTED = EXIT + 1;
     public static final int METRONOME_STOPPED = METRONOME_STARTED + 1;
     public static final int KILL = METRONOME_STOPPED + 1;
-    public static final int EXCEPTION = KILL + 1;
 
     private int state;
-
     private int lastState;
+    
     public ApplicationState() {
         this.state = SPLASH;
     }
@@ -42,9 +40,6 @@ public final class ApplicationState {
         return lastState;
     }
 
-    public void next()
-    {
-        state++;
-    }
+  
     
 }
