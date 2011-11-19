@@ -7,6 +7,7 @@
 ##Supported devices
 
 J2ME Metronome have three different versions:
+
 * Midsized (128X160)
 * Luxury (176X220)
 * QVGA (240X320) 
@@ -137,6 +138,7 @@ Download the version to these devices [here] (http://j2memetronome.googlecode.co
 ##How to collaborate!
 
 You need:
+
 * Netbeans IDE with J2ME support
 * Sony Ericsson SDK for the Java ME platform, you can download [here](http://developer.sonyericsson.com/wportal/devworld/downloads/download/dw-99962-semcjavamecldcsdk2506?cc=gb&lc=en)
 
