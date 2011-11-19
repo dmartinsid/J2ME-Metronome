@@ -10,7 +10,7 @@ import java.util.Vector;
  */
 public class TextDAOFileSystem implements TextDAO {
 
-    public static java.util.Vector texts;
+    private java.util.Vector texts;
 
     public TextDAOFileSystem() {
         texts = new Vector();

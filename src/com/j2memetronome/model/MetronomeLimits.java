@@ -2,7 +2,7 @@ package com.j2memetronome.model;
 
 /**
  *
- * @author dmartins
+ * @author Deivid Martins
  */
 public interface MetronomeLimits {
 

@@ -6,13 +6,12 @@ import com.j2memetronome.view.MetronomeScreenConfiguration;
 
 /**
  *
- * @author dmartins
+ * @author Deivid Martins
  */
 public class SonyEricssonMidsized implements DeviceSpecification{
 
     private MainMenuConfiguration mainMenuConfiguration;
     private MetronomeScreenConfiguration metronomeScreenConfiguration;
-    
     
     public SonyEricssonMidsized()
     {
@@ -42,5 +41,6 @@ public class SonyEricssonMidsized implements DeviceSpecification{
     public MetronomeScreenConfiguration getMetronomeScreenConfiguration() {
         return metronomeScreenConfiguration;
     }
+    
 
 }

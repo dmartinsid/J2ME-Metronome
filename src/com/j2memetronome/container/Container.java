@@ -20,7 +20,7 @@ import javax.microedition.lcdui.Graphics;
 
 /**
  *
- * @author dmartins
+ * @author Deivid Martins
  */
 public class Container extends Canvas implements Runnable {
 
@@ -41,7 +41,8 @@ public class Container extends Canvas implements Runnable {
     
     private EventHandler eventHandler;
 
-    public Container(MetronomeMIDlet midlet, View view) {
+    public Container(MetronomeMIDlet midlet, View view) 
+    {
         this.midlet = midlet;
         this.view = view;
 
@@ -76,19 +77,18 @@ public class Container extends Canvas implements Runnable {
 
     }
 
-    public void run() {
-        while (applicationState.getState() != ApplicationState.KILL) {
+    public void run() 
+    {
+        while (applicationState.getState() != ApplicationState.KILL) 
+        {
             repaint();
             serviceRepaints();
 
-            if (applicationState.getState() == ApplicationState.SPLASH) {
-                if (countDown == null) {
-                    countDown = new SplashCountDown();
-                    timer.schedule(countDown, 5000);
-                }
-            }
+            if (applicationState.getState() == ApplicationState.SPLASH) 
+                splashSetup();
 
-            try {
+            try
+            {
                 sleep();
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
@@ -96,12 +96,12 @@ public class Container extends Canvas implements Runnable {
         }
     }
 
-    private void sleep() throws InterruptedException {
-        if (applicationState.getState() != ApplicationState.METRONOME_STARTED) {
-            Thread.sleep(50);
-        } else {
+    private void sleep() throws InterruptedException 
+    {
+        if (applicationState.getState() == ApplicationState.METRONOME_STARTED) 
             Thread.sleep(metronome.sleepTime());
-        }
+         else            
+            Thread.sleep(50);
     }
 
     protected void keyPressed(int keyCode) {
@@ -110,6 +110,13 @@ public class Container extends Canvas implements Runnable {
 
     protected void keyRepeated(int keyCode) {
         eventHandler.onKey(keyCode);
+    }
+    
+    private void splashSetup() {
+        if (countDown == null) {
+            countDown = new SplashCountDown();
+            timer.schedule(countDown, 5000);
+        }
     }
 
     private class SplashCountDown extends TimerTask {

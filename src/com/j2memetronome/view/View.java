@@ -5,6 +5,7 @@ import com.j2memetronome.appstate.ApplicationState;
 import com.j2memetronome.dao.FontDAO;
 import com.j2memetronome.dao.ImageDAO;
 import com.j2memetronome.dao.TextDAO;
+import com.j2memetronome.device.DeviceSpecification;
 import javax.microedition.lcdui.Graphics;
 
 /**
@@ -21,6 +22,7 @@ public interface View {
     int maxLines();
     Menu menu();
     int supportedSounds();
+    DeviceSpecification deviceSpecification();
     
     
 }

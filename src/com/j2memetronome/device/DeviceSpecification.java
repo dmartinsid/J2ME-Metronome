@@ -6,7 +6,7 @@ import com.j2memetronome.view.MetronomeScreenConfiguration;
 /**
  *
  * Based on the device specification the View must render the screens
- * @author dmartins
+ * @author Deivid Martins
  */
 public interface DeviceSpecification
 {

@@ -6,7 +6,7 @@ import com.j2memetronome.musictheory.RhythmicFigure;
 
 /**
  *
- * @author dmartins
+ * @author Deivid Martins
  */
 public class Metronome implements MetronomeLimits {
 

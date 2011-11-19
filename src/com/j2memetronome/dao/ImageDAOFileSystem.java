@@ -10,7 +10,7 @@ import javax.microedition.lcdui.Image;
  */
 public class ImageDAOFileSystem implements ImageDAO {
 
-    public static java.util.Vector images;
+    private Vector images;
 
     public ImageDAOFileSystem() {
         images = new Vector();

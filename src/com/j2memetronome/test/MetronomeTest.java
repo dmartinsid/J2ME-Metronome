@@ -1,7 +1,7 @@
 /*
- * No JUnit for J2ME
+ * No JUnit for J2ME =(
  *
- * Created on 07/09/2011, 23:55:01
+ * 
  */
 package com.j2memetronome.test;
 
@@ -16,7 +16,7 @@ import jmunit.framework.cldc10.*;
 public class MetronomeTest extends TestCase {
 
     public MetronomeTest() {
-        super(3, "MetronomeTest");
+        super(4, "MetronomeTest");
     }
 
     public void test(int testNumber) throws Throwable {
@@ -30,6 +30,9 @@ public class MetronomeTest extends TestCase {
                 break;
             case 2:
                 shouldNotDecreaseNumeratorWhenNumeratorEquals1();
+                break;
+            case 3:
+                shouldNoIncreaseNumeratorWhenNumeratorEquals350();
                 break;
 
         }
@@ -49,8 +52,14 @@ public class MetronomeTest extends TestCase {
     }
 
     private void shouldNotDecreaseNumeratorWhenNumeratorEquals1() {
-        Measure measure = new Measure(1, RhythmicFigure.WHOLE);
-        measure.decreaseNumerator();
-        assertEquals(measure.getNumerator(), 1);
+        Metronome metronome = new Metronome(1, 4, RhythmicFigure.WHOLE);
+        metronome.decreaseBeatsPerMinute();
+        assertEquals(metronome.getBeatsPerMinute(), 1);
+    }
+
+    private void shouldNoIncreaseNumeratorWhenNumeratorEquals350() {
+        Metronome metronome = new Metronome(350, 4, RhythmicFigure.WHOLE);
+        metronome.increaseBeatsPerMinute();
+        assertEquals(metronome.getBeatsPerMinute(), 350);
     }
 }

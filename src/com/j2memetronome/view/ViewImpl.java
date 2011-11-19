@@ -20,7 +20,7 @@ import mwt.Font;
 
 /**
  *
- * @author dmartins
+ * @author Deivid Martins
  */
 public class ViewImpl implements View{
 
@@ -39,6 +39,8 @@ public class ViewImpl implements View{
         this.menu = new Menu();
 
     }
+    
+    
 
     public int width() {
         return deviceSpecification.getWidth();
@@ -56,9 +58,15 @@ public class ViewImpl implements View{
         return deviceSpecification.supportedSounds();
     }
 
+    private void clearScreen(Graphics graphics)
+    {
+        graphics.setColor(0x00000000);
+        graphics.fillRect(0, 0,width(), height());
+    }
     public void draw(Graphics graphics, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, ApplicationState applicationState, Metronome metronome) throws Exception {
         graphics.setColor(0x00000000);
         graphics.fillRect(0, 0,width(), height());
+        
         switch (applicationState.getState()) {
             case ApplicationState.SPLASH:
                 drawSplash(graphics, fontDAO, imageDAO, textDAO);
@@ -78,7 +86,6 @@ public class ViewImpl implements View{
             case ApplicationState.EXIT:
                 drawExit(graphics, fontDAO, imageDAO, textDAO);
                 break;
-
             case ApplicationState.METRONOME_STARTED:
                 drawMetronomeStarted(graphics, fontDAO, imageDAO, textDAO, metronome);
                 break;
@@ -95,9 +102,9 @@ public class ViewImpl implements View{
 
     }
     
-    private void drawBackground(Graphics g, ImageDAO imageDAO, String backgroundImagePath) throws IOException
+    private void drawBackground(Graphics graphics, ImageDAO imageDAO, String backgroundImagePath) throws IOException
     {
-        g.drawImage(imageDAO.get(backgroundImagePath), 0, 0, Graphics.TOP | Graphics.LEFT);
+        graphics.drawImage(imageDAO.get(backgroundImagePath), 0, 0, Graphics.TOP | Graphics.LEFT);
     }
 
     
@@ -119,9 +126,9 @@ public class ViewImpl implements View{
 
     }
 
-    private void drawOptions(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, Metronome metronome) throws IOException 
+    private void drawOptions(Graphics graphics, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, Metronome metronome) throws IOException 
     {
-        drawBackground(g, imageDAO, ImageMapper.BACKGROUND);
+        drawBackground(graphics, imageDAO, ImageMapper.BACKGROUND);
         
         Image arrowLeft = imageDAO.get(ImageMapper.ARROW_LEFT);
         Image arrowRight = imageDAO.get(ImageMapper.ARROW_RIGHT); 
@@ -132,67 +139,71 @@ public class ViewImpl implements View{
         String text[] = textDAO.get(TextMapper.COMMON);
    
               
-        contour.write(g, text[TextCommonMapper.OPTIONS], 5, 0, deviceSpecification.getWidth(), contour.getHeight(), Component.ALIGN_TOP_LEFT);
+        contour.write(graphics, text[TextCommonMapper.OPTIONS], 5, 0, deviceSpecification.getWidth(), contour.getHeight(), Component.ALIGN_TOP_LEFT);
 
-        g.drawImage(arrowLeft, 5, deviceSpecification.getHeight() / 2 - 10, Graphics.TOP | Graphics.LEFT);
-        g.drawImage(arrowRight, deviceSpecification.getWidth() - 5 - arrowRight.getWidth(), deviceSpecification.getHeight() / 2 - 10, Graphics.TOP | Graphics.LEFT);
-        g.drawImage(optionsBar, 0, deviceSpecification.getHeight() / 2 - 20, Graphics.TOP | Graphics.LEFT);
+        graphics.drawImage(arrowLeft, 5, deviceSpecification.getHeight() / 2 - 10, Graphics.TOP | Graphics.LEFT);
+        graphics.drawImage(arrowRight, deviceSpecification.getWidth() - 5 - arrowRight.getWidth(), deviceSpecification.getHeight() / 2 - 10, Graphics.TOP | Graphics.LEFT);
+        graphics.drawImage(optionsBar, 0, deviceSpecification.getHeight() / 2 - 20, Graphics.TOP | Graphics.LEFT);
 
-        arial.write(g, text[TextCommonMapper.KITS], 0, deviceSpecification.getHeight() / 2 - 10,
+        arial.write(graphics, text[TextCommonMapper.KITS], 0, deviceSpecification.getHeight() / 2 - 10,
                 deviceSpecification.getWidth(), arial.getHeight(), Component.ALIGN_TOP_CENTER);
 
-        arial.write(g, text[TextCommonMapper.BASS_DRUM_AND_SNARE + metronome.getKit()], 0, deviceSpecification.getHeight() / 2 + 10,
+        arial.write(graphics, text[TextCommonMapper.BASS_DRUM_AND_SNARE + metronome.getKit()], 0, deviceSpecification.getHeight() / 2 + 10,
                 deviceSpecification.getWidth(), arial.getHeight(), Component.ALIGN_TOP_CENTER);
         
-        SoftKey.LEFT.paint(g, imageDAO, this);
+        SoftKey.LEFT.paint(graphics, imageDAO, this);
     
 
     }
    
 
-    private void drawHelp(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) throws IOException {
-        scrollablePage.draw(g, fontDAO, imageDAO, textDAO, TextMapper.HELP, TextCommonMapper.HELP);
-        SoftKey.RIGHT.paint(g, imageDAO, this);
+    private void drawHelp(Graphics graphics, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) throws IOException {
+        scrollablePage.draw(graphics, fontDAO, imageDAO, textDAO, TextMapper.HELP, TextCommonMapper.HELP);
+        SoftKey.RIGHT.paint(graphics, imageDAO, this);
 
     }
 
-    private void drawAbout(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) throws IOException {
-         scrollablePage.draw(g, fontDAO, imageDAO, textDAO, TextMapper.ABOUT, TextCommonMapper.ABOUT); 
-         SoftKey.RIGHT.paint(g, imageDAO, this);
+    private void drawAbout(Graphics graphics, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) throws IOException {
+         scrollablePage.draw(graphics, fontDAO, imageDAO, textDAO, TextMapper.ABOUT, TextCommonMapper.ABOUT); 
+         SoftKey.RIGHT.paint(graphics, imageDAO, this);
     }
  
     
 
 
-    private void drawExit(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) throws IOException {
-        drawBackground(g, imageDAO, ImageMapper.BACKGROUND);
+    private void drawExit(Graphics graphics, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO) throws IOException {
+        drawBackground(graphics, imageDAO, ImageMapper.BACKGROUND);
         
         String textCommon[] = textDAO.get(TextMapper.COMMON);
         Font contour = fontDAO.get(FontMapper.CONTOUR);
         Font arial = fontDAO.get(FontMapper.ARIAL);
 
 
-        contour.write(g, textCommon[TextCommonMapper.EXIT], 5, 0, deviceSpecification.getWidth(), arial.getHeight(), Component.ALIGN_TOP_LEFT);
-        arial.write(g, textCommon[TextCommonMapper.EXIT_TEXT], 0, deviceSpecification.getHeight() / 2, deviceSpecification.getWidth(), 0, Component.ALIGN_TOP_CENTER);
+        contour.write(graphics, textCommon[TextCommonMapper.EXIT], 5, 0, deviceSpecification.getWidth(), arial.getHeight(), Component.ALIGN_TOP_LEFT);
+        arial.write(graphics, textCommon[TextCommonMapper.EXIT_TEXT], 0, deviceSpecification.getHeight() / 2, deviceSpecification.getWidth(), 0, Component.ALIGN_TOP_CENTER);
         
-        SoftKey.BOTH.paint(g, imageDAO, this);
+        SoftKey.BOTH.paint(graphics, imageDAO, this);
     }
 
-    private void drawMetronomeStarted(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, Metronome metronome) throws IOException {
-        drawBackground(g, imageDAO, ImageMapper.METRONOME_CANVAS);
-        metronomePainter.drawStarted(g, fontDAO, imageDAO, deviceSpecification, metronome);
+    private void drawMetronomeStarted(Graphics graphics, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, Metronome metronome) throws IOException {
+        drawBackground(graphics, imageDAO, ImageMapper.METRONOME_CANVAS);
+        metronomePainter.drawStarted(graphics, fontDAO, imageDAO, deviceSpecification, metronome);
     
     }
 
-    private void drawMetronomeCore(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, Metronome metronome) throws IOException {
-        drawBackground(g, imageDAO, ImageMapper.METRONOME_CANVAS); 
-        metronomePainter.drawCore(g, fontDAO, imageDAO, deviceSpecification, metronome);
+    private void drawMetronomeCore(Graphics graphics, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, Metronome metronome) throws IOException {
+        drawBackground(graphics, imageDAO, ImageMapper.METRONOME_CANVAS); 
+        metronomePainter.drawCore(graphics, fontDAO, imageDAO, deviceSpecification, metronome);
 
 
     }
 
     public Menu menu() {
         return menu;
+    }
+
+    public DeviceSpecification deviceSpecification() {
+        return deviceSpecification;
     }
     
 

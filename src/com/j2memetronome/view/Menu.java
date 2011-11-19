@@ -12,7 +12,7 @@ public class Menu {
     public static final int OPTIONS = START + 1;
     public static final int HELP = OPTIONS + 1;
     public static final int ABOUT = HELP + 1;
-    public static int LENGHT = 4;
+    public static final int LENGHT = 4;
 
     public Menu() {
         index = 0;

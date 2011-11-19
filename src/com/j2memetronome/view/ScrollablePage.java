@@ -33,7 +33,8 @@ public class ScrollablePage {
 
     public void draw(Graphics g, FontDAO fontDAO, ImageDAO imageDAO, TextDAO textDAO, String textPath, int title) throws IOException {
         start = System.currentTimeMillis();
-
+        
+        checkIfUserCameFromAnotherScreen();
 
         Image optionsGrid = imageDAO.get(ImageMapper.AUTO_SCROLL_GRID);
         String textCommon[] = textDAO.get(TextMapper.COMMON);
@@ -46,29 +47,35 @@ public class ScrollablePage {
 
         g.drawImage(optionsGrid, 0, INITIAL_Y, Graphics.TOP | Graphics.LEFT);
 
-        if (start - end > 500) {
-            scroll = 1;
-        }
+        
 
+        int firstLine = scroll / 10;
 
-        int firstLineScroll = scroll / 10;
-
-
-        for (int i = firstLineScroll; i < firstLineScroll + deviceSpecification.maxLines() && i < text.length; i++) {
+        for (int i = firstLine; i < firstLine + deviceSpecification.maxLines() && i < text.length; i++) {
 
             arial.write(g, text[i], 0,
                     INITIAL_Y
-                    + ((int) (arial.getHeight() * (i - firstLineScroll) * 1.5)),
+                    + ((int) (arial.getHeight() * (i - firstLine) * 1.5)),
                     deviceSpecification.getWidth(), 0, Component.ALIGN_TOP_CENTER);
         }
 
+        setScroll(firstLine, text);
 
-        if (firstLineScroll > text.length) {
+        end = System.currentTimeMillis();
+    }
+    
+    private void setScroll(int firstLine, String text[])
+    {
+        if (firstLine > text.length) 
+            scroll = 1;
+        else
+            scroll++;
+    }
+    
+    private void checkIfUserCameFromAnotherScreen()
+    {
+        if (start - end > 500) {
             scroll = 1;
         }
-
-
-        scroll++;
-        end = System.currentTimeMillis();
     }
 }

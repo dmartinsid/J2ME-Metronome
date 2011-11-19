@@ -3,7 +3,7 @@ package com.j2memetronome.font;
 /**
 
  * This maping values were created by microfont-maker tool from Micro Window Toolkit http://j2me-mwt.sourceforge.net/
- * @author dmartins
+ * @author Deivid Martins
  */
 public interface FontsMwt {
 

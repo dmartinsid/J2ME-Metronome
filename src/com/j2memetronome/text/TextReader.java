@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Vector;
 
-/**
- *
- * @author dmartins
- */
+
 public class TextReader {
 
     private InputStream inputStream;

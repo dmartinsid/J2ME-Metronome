@@ -9,13 +9,14 @@ import javax.microedition.midlet.*;
 /**
  * Metronome MIDlet object
  * 
- * @author Deivid Cunha Martins
+ * @author Deivid Martins
  */
 public class MetronomeMIDlet extends MIDlet {
 
 
     private Container container;
     private View view;
+    
     public void startApp()
     {
         if (container == null) 
@@ -34,7 +35,8 @@ public class MetronomeMIDlet extends MIDlet {
     {
         destroyApp(true);
     }
-    public void destroyApp(boolean unconditional) {
+    public void destroyApp(boolean unconditional) 
+    {
         notifyDestroyed();
     }
 

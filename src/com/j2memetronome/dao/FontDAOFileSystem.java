@@ -12,7 +12,7 @@ import mwt.Font;
  */
 public class FontDAOFileSystem implements FontDAO {
 
-    public static java.util.Vector fonts;
+    private Vector fonts;
 
     public FontDAOFileSystem() {
         fonts = new Vector();
