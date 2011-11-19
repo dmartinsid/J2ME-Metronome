@@ -134,7 +134,7 @@ J2ME Metronome QVGA Edition is avaliable to the follow devices:
 Download the version to these devices [here] (http://j2memetronome.googlecode.com/files/METRONOME2_SONY_ERICSSON_240X320.zip)
 
 
-#How to collaborate!
+##How to collaborate!
 
 You need:
 * Netbeans IDE with J2ME support
