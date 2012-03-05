@@ -1,9 +1,15 @@
 J2ME METRONOME
 
+FORK ME ON GITHUB
+github.com/
+dcmdeivid/J2ME-Metronome
+or
+http://goo.gl/7gTUy
+
 FOLLOW US ON TWITTER
 J2memetronome
 
 CONTACT
 J2memetronome at Gmail
 
-Version 2.0
+Version 2.1
